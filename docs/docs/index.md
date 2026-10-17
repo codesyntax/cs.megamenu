@@ -1,25 +1,49 @@
 ---
 myst:
   html_meta:
-    "description": "A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder"
-    "property=og:description": "A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder"
-    "property=og:title": "collective.editablemenu"
-    "keywords": "collective.editablemenu, documentation, A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder"
+    "description": "An editable, JSON-backed megamenu for Plone 6 Classic UI."
+    "property=og:description": "An editable, JSON-backed megamenu for Plone 6 Classic UI."
+    "property=og:title": "collective.megamenu"
+    "keywords": "collective.megamenu, Plone, Classic UI, navigation, menu"
 ---
 
-# collective.editablemenu
+# collective.megamenu
 
-Welcome to the documentation for collective.editablemenu!
-A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder
+`collective.megamenu` adds an editable menu to Plone 6 Classic UI. The menu is
+stored as JSON on a content object, edited with a tree widget in the standard
+edit form, and rendered by a viewlet that replaces Plone’s main navigation.
 
-This scaffold provides a ready-to-use environment for creating comprehensive documentation for {term}`Plone` projects, based on {term}`Plone Sphinx Theme`.
+## Features ✨
 
-Built with Markedly Structured Text ({term}`MyST`), this environment supports rich formatting, directives, and extensions tailored for technical documentation.
+- Nested folder placeholders and leaf links.
+- Internal links stored as UIDs and permission-filtered at render time.
+- External links, per-item CSS classes, CSS-class icons, and open-in-new-tab.
+- Nearest-ancestor inheritance with an explicit empty opt-out.
+- Optional Language Root Folder support with `plone.app.multilingual`.
 
-It's structured following the [Diátaxis](https://diataxis.fr/) documentation framework.
+## Quick start 🚀
+
+Install the add-on from **Site Setup → Add-ons**.
+
+For a source checkout:
+
+```shell
+make install
+make start
+```
+
+Then edit the Plone Site root or a Folder and use the **Menu** field.
+
+```{warning}
+There is no fallback to Plone’s default main navigation. If no menu is
+configured, or the effective menu is explicitly empty, the main navigation
+renders nothing.
+```
+
+## Documentation 📚
 
 ```{toctree}
-:caption: How to guides
+:caption: How-to guides
 :maxdepth: 2
 :hidden: true
 

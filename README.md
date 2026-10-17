@@ -1,102 +1,155 @@
 <div align="center">
-    <h1 align="center">collective.editablemenu</h1>
+    <h1 align="center">collective.megamenu</h1>
 </div>
 <div align="center">
-[![PyPI](https://img.shields.io/pypi/v/collective.editablemenu)](https://pypi.org/project/collective.editablemenu/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/collective.editablemenu)](https://pypi.org/project/collective.editablemenu/)
-[![PyPI - Wheel](https://img.shields.io/pypi/wheel/collective.editablemenu)](https://pypi.org/project/collective.editablemenu/)
-[![PyPI - License](https://img.shields.io/pypi/l/collective.editablemenu)](https://pypi.org/project/collective.editablemenu/)
-[![PyPI - Status](https://img.shields.io/pypi/status/collective.editablemenu)](https://pypi.org/project/collective.editablemenu/)
+[![PyPI](https://img.shields.io/pypi/v/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
+[![PyPI - Wheel](https://img.shields.io/pypi/wheel/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
+[![PyPI - License](https://img.shields.io/pypi/l/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
+[![PyPI - Status](https://img.shields.io/pypi/status/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
 
 
-[![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/collective.editablemenu)](https://pypi.org/project/collective.editablemenu/)
+[![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
 
-[![CI](https://github.com/collective/collective.editablemenu/actions/workflows/main.yml/badge.svg)](https://github.com/collective/collective.editablemenu/actions/workflows/main.yml)
+[![CI](https://github.com/collective/collective.megamenu/actions/workflows/main.yml/badge.svg)](https://github.com/collective/collective.megamenu/actions/workflows/main.yml)
 ![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000)
 
-[![GitHub contributors](https://img.shields.io/github/contributors/collective/collective.editablemenu)](https://github.com/collective/collective.editablemenu)
-[![GitHub Repo stars](https://img.shields.io/github/stars/collective/collective.editablemenu?style=social)](https://github.com/collective/collective.editablemenu)
+[![GitHub contributors](https://img.shields.io/github/contributors/collective/collective.megamenu)](https://github.com/collective/collective.megamenu)
+[![GitHub Repo stars](https://img.shields.io/github/stars/collective/collective.megamenu?style=social)](https://github.com/collective/collective.megamenu)
 
 </div>
 
-A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder
+An editable, JSON-backed megamenu for Plone 6 Classic UI.
 
-## Features
+## Features ✨
 
-TODO: List our awesome features
+- A `menu` behavior enabled on **Plone Site**, **Folder**, and (when
+  `plone.app.multilingual` is installed) **LRF**.
+- Unlimited nesting of **folder items** (placeholders) and **link items**
+  (leaves).
+- Internal links stored as raw Plone UIDs and resolved at render time.
+- External links validated to `http`, `https`, `mailto`, and `tel`.
+- Per-item CSS class and CSS-class icon; links may open in a new tab.
+- A master-detail editor in the standard edit form, with a per-node content
+  browser for internal targets, inline validation, and a “Use inherited menu”
+  action.
+- The nearest ancestor with a configured menu wins. An unset menu inherits;
+  an explicitly saved empty menu opts out.
+- A viewlet that replaces `plone.global_sections` with the menu, preserving the
+  Barceloneta mobile navigation markup.
+- Internal links the current user cannot view are filtered out; folders whose
+  visible children are all filtered out are omitted.
+- Server-side validation with readable, path-aware messages.
 
-## Installation
+## Requirements 📋
 
-Install collective.editablemenu with `pip`:
+- Plone 6.2 Classic UI.
+- Python 3.10 or newer.
+- `plone.app.multilingual` only if you want LRF support.
+
+## Installation 🚀
+
+Install the add-on from **Site Setup → Add-ons**.
+
+For a local development site:
 
 ```shell
-pip install collective.editablemenu
-```
-
-And to create the Plone site:
-
-```shell
+make install
 make create-site
+make start
 ```
 
-## Contribute
+## Usage 🧭
 
-- [Issue tracker](https://github.com/collective/collective.editablemenu/issues)
-- [Source code](https://github.com/collective/collective.editablemenu/)
+### Configure the site menu 🛠️
 
-### Prerequisites ✅
+1. Log in as a user who can edit the Plone Site root.
+2. Open the site root edit form (`/Plone/@@edit`).
+3. Use the **Menu** field to add folders and links.
+4. Save the form.
 
--   An [operating system](https://6.docs.plone.org/install/create-project-cookieplone.html#prerequisites-for-installation) that runs all the requirements mentioned.
--   [uv](https://6.docs.plone.org/install/create-project-cookieplone.html#uv)
--   [Make](https://6.docs.plone.org/install/create-project-cookieplone.html#make)
--   [Git](https://6.docs.plone.org/install/create-project-cookieplone.html#git)
--   [Docker](https://docs.docker.com/get-started/get-docker/) (optional)
+A saved menu on the site root is used site-wide unless a descendant configures
+its own menu.
 
-### Installation 🔧
+### Configure a folder menu 📁
 
-1.  Clone this repository, then change your working directory.
+Every Folder has the behavior. Open the folder edit form and configure its
+**Menu** field. The nearest ancestor with a configured menu supplies the menu
+for its descendants.
 
-    ```shell
-    git clone git@github.com:collective/collective.editablemenu.git
-    cd collective.editablemenu
-    ```
+- Leave the field **unset** to inherit the nearest ancestor menu.
+- Use **Use inherited menu** in the editor to clear the field back to inherit.
+- Save an **empty** menu to explicitly opt out for that folder and its
+  descendants. The viewlet renders nothing there.
 
-2.  Install this code base.
+### Choose the effective menu 🧭
 
-    ```shell
-    make install
-    ```
+- The nearest ancestor with a configured menu wins.
+- `None` (unset) continues up the acquisition chain.
+- An explicitly saved empty menu stops the search and renders no navigation.
+- If no menu is configured, the viewlet renders nothing. There is **no
+  fallback** to Plone’s default main navigation; this is intentional.
 
+### Internal and external links 🔗
 
-### Add features using `plonecli` or `bobtemplates.plone`
+- **Internal** links use Plone’s content browser and store the target’s UID.
+  The UID is resolved on render with the current user’s View permission.
+  Deleted or inaccessible targets are omitted.
+- **External** links accept `http`, `https`, `mailto`, and `tel` URLs.
+- **Open in a new tab** adds `target="_blank"` and
+  `rel="noopener noreferrer"`.
+- **Icon** is a CSS class list such as `bi bi-house`; the theme supplies the
+  icon font.
 
-This package provides markers as strings (`<!-- extra stuff goes here -->`) that are compatible with [`plonecli`](https://github.com/plone/plonecli) and [`bobtemplates.plone`](https://github.com/plone/bobtemplates.plone).
-These markers act as hooks to add all kinds of subtemplates, including behaviors, control panels, upgrade steps, or other subtemplates from `plonecli`.
+### Language Root Folders 🌐
 
-To run `plonecli` with configuration to target this package, run the following command.
+When `plone.app.multilingual` is installed, the behavior is enabled on `LRF`.
+The add-on profile’s post-handler adds the behavior when the `LRF` type exists.
+If you install PAM **after** `collective.megamenu`, reapply the
+`collective.megamenu:default` profile.
+
+### Custom styling 🎨
+
+- **CSS class** is added to the menu item’s `<li>`.
+- The viewlet preserves the standard `#portal-globalnav` and Barceloneta classes,
+  so themes and the mobile offcanvas continue to work.
+
+## Development 🧑‍💻
+
+Install the test environment and run the Python tests:
 
 ```shell
-make add <template_name>
+make install
+make test
 ```
 
-For example, you can add a content type to your package with the following command.
+Run lint and formatting checks:
 
 ```shell
-make add content_type
+make check
 ```
 
-You can add a behavior with the following command.
+Build the JavaScript bundle after changing `resources/`:
 
 ```shell
-make add behavior
+npm install
+npm run build
 ```
 
-```{seealso}
-You can check the list of available subtemplates in the [`bobtemplates.plone` `README.md` file](https://github.com/plone/bobtemplates.plone/?tab=readme-ov-file#provided-subtemplates).
-See also the documentation of [Mockup and Patternslib](https://6.docs.plone.org/classic-ui/mockup.html) for how to build the UI toolkit for Classic UI.
-```
+The build writes the remote bundle and its chunks to
+`src/collective/megamenu/browser/static/bundles/`.
 
-## License
+## Limitations ⚠️
+
+- Classic UI only; there is no Volto/headless integration.
+- No drag-and-drop; use the move up/down buttons.
+- Folder items are placeholders and cannot have a target.
+- Internal links are not stored as Plone relations, so there are no
+  link-integrity backrefs. Dead targets are caught at save and render time.
+- There is no fallback to the default main navigation.
+- Menu labels are not translated per language.
+
+## License 📄
 
 The project is licensed under GPLv2.
 

@@ -1,0 +1,18 @@
+<div class="megamenu-widget"
+     tal:define="
+       value view/value;
+     "
+>
+  <textarea class="megamenu-json"
+            hidden="hidden"
+            tal:content="value"
+            tal:attributes="
+              name view/name;
+            "
+  ></textarea>
+  <script class="megamenu-options"
+          type="application/json"
+          tal:content="view/contentbrowser_options_json"
+  ></script>
+  <div class="pat-megamenu"></div>
+</div>

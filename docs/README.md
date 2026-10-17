@@ -1,6 +1,6 @@
-# collective.editablemenu
+# collective.megamenu
 
-Documentation for collective.editablemenu.
+Documentation for collective.megamenu.
 A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder
 
 This project provides a Sphinx-based documentation environment for your Plone project, powered by the [Plone Sphinx Theme](https://github.com/plone/plone-sphinx-theme).
@@ -59,7 +59,7 @@ make help
 ```
 
 
-## Customize the collective.editablemenu documentation
+## Customize the collective.megamenu documentation
 
 This section provides how-to guidance to customize your documentation.
 

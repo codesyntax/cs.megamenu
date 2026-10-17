@@ -1,57 +1,59 @@
 ---
 myst:
   html_meta:
-    "description": "Terms and definitions used throughout the Plone Sphinx Theme documentation."
-    "property=og:description": "Terms and definitions used throughout the Plone Sphinx Theme documentation."
+    "description": "Terms and definitions used by collective.megamenu."
+    "property=og:description": "Terms and definitions used by collective.megamenu."
     "property=og:title": "Glossary"
-    "keywords": "Plone, documentation, glossary, term, definition"
+    "keywords": "Plone, collective.megamenu, glossary, menu"
 ---
 
-This glossary provides example terms and definitions relevant to **collective.editablemenu**.
-A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder
-
-```{note}
-This is an example glossary demonstrating MyST Markdown’s `{glossary}` directive. You can adapt it for your project’s appendix by editing or replacing these entries with your own terms and definitions.
-```
-
-(glossary-label)=
-
-# Glossary
+# Glossary 📚
 
 ```{glossary}
 :sorted: true
 
-Plone
-    [Plone](https://plone.org/) is an open-source content management system that is used to create, edit, and manage digital content, like websites, intranets and custom solutions.
-    It comes with over 20 years of growth, optimisations, and refinements.
-    The result is a system trusted by governments, universities, businesses, and other organisations all over the world.
+Menu
+    The ordered tree of menu items configured for a Plone Site, an LRF, or a
+    Folder.
 
-add-on
-    An add-on in Plone extends its functionality.
-    It is code that is released as a package to make it easier to install.
+Menu item
+    A single node in a menu. Every menu item is either a folder item or a link
+    item.
 
-    In Volto, an add-on is a JavaScript package.
+Folder item
+    A placeholder menu item that groups other menu items. It has children and
+    no target; it is not clickable.
 
-    In Plone core, an add-on is a Python package.
+Link item
+    A leaf menu item that points to one target. It has no children.
 
-    -   [Plone core add-ons](https://github.com/collective/awesome-plone#readme)
-    -   [Volto add-ons](https://github.com/collective/awesome-volto#readme)
-    -   [Add-ons tagged with the trove classifier `Framework :: Plone` on PyPI](https://pypi.org/search/?c=Framework+%3A%3A+Plone)
+Internal link
+    A link item whose target is a Plone object, identified by the object’s UID.
 
-Plone Sphinx Theme
-plone-sphinx-theme
-    [Plone Sphinx Theme](https://plone-sphinx-theme.readthedocs.io/) is a Sphinx theme for [Plone 6 Documentation](https://6.docs.plone.org/), [Plone Conference Training](https://training.plone.org/), and documentation of various Plone packages.
-    This scaffold uses Plone Sphinx Theme.
+External link
+    A link item whose target is a URL outside the Plone site.
 
-Markedly Structured Text
-MyST
-    [Markedly Structured Text (MyST)](https://myst-parser.readthedocs.io/en/latest/) is a rich and extensible flavor of Markdown, for authoring Plone Documentation.
-    The sample documentation in this scaffold is written in MyST.
+Behavior
+    The Plone behavior that adds the menu configuration to an enabled content
+    type.
 
-Sphinx
-    [Sphinx](https://www.sphinx-doc.org/en/master/) is a tool that makes it easy to create intelligent and beautiful documentation.
-    It was originally created for Python documentation, and it has excellent facilities for the documentation of software projects in a range of languages.
-    It can generate multiple output formats, including HTML and PDF, from a single source.
-    This scaffold uses Sphinx to generate documentation in HTML format.
+Viewlet
+    The browser viewlet that renders the menu in place of Plone’s main
+    navigation.
 
+LRF
+    A Language Root Folder, the folder type used for a language branch in a
+    multilingual Plone site.
+
+Nearest ancestor
+    The closest ancestor of the current context that has the menu behavior
+    enabled. It determines which menu is in effect.
+
+Unset menu
+    A `None` menu value. It means the object does not configure a menu and
+    inherits from the nearest ancestor.
+
+Explicit opt-out
+    A nearest ancestor whose menu has been explicitly saved empty. It stops
+    inheritance and causes the viewlet to render nothing.
 ```

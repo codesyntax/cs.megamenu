@@ -1,5 +1,5 @@
 from AccessControl.SecurityManagement import newSecurityManager
-from collective.editablemenu.interfaces import IBrowserLayer
+from collective.megamenu.interfaces import IBrowserLayer
 from Products.CMFPlone.factory import _DEFAULT_PROFILE
 from Products.CMFPlone.factory import addPloneSite
 from Products.GenericSetup.tool import SetupTool
@@ -44,7 +44,7 @@ newSecurityManager(None, admin)
 
 site_id = "Plone"
 payload = {
-    "title": "collective.editablemenu",
+    "title": "collective.megamenu",
     "profile_id": _DEFAULT_PROFILE,
     "distribution_name": "classic",
     "setup_content": False,
@@ -62,5 +62,5 @@ if site_id not in app.objectIds():
     transaction.commit()
 
     portal_setup: SetupTool = site.portal_setup
-    portal_setup.runAllImportStepsFromProfile("profile-collective.editablemenu:default")
+    portal_setup.runAllImportStepsFromProfile("profile-collective.megamenu:default")
     transaction.commit()

@@ -1,0 +1,1 @@
+Add an editable JSON-backed megamenu behavior, a master-detail tree editor with a content browser, and a Classic UI main-navigation viewlet. The menu supports nested folder placeholders, internal and external links, per-item CSS classes and icons, open-in-new-tab, permission filtering, nearest-ancestor inheritance, and optional LRF support.
