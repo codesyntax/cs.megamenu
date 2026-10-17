@@ -32,7 +32,7 @@ Log in as an administrator, open `/Plone/@@edit`, and switch to the
 
 1. Select the folder, then click **Add link**.
 2. Set the title, for example `Product A`.
-3. Keep **Internal Plone content** selected and use the content browser to
+3. Keep the **Internal** tab selected and use the content browser to
    choose a page.
 4. Save the form.
 

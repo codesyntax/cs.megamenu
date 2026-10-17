@@ -37,6 +37,7 @@ class MegaMenuPattern extends BasePattern {
     this.errors = {};
     this.focusId = null;
     this.renderToken = 0;
+    this.targetTypes = {};
 
     if (this.model?.items?.length) {
       this.selectedId = this.model.items[0].id;
@@ -191,6 +192,13 @@ class MegaMenuPattern extends BasePattern {
     return this.t("noTarget", "No target");
   }
 
+  targetTypeFor(item) {
+    return (
+      this.targetTypes[item.id] ||
+      (item.external_url ? "external" : "internal")
+    );
+  }
+
   async render() {
     this.renderToken += 1;
     const token = this.renderToken;
@@ -200,9 +208,20 @@ class MegaMenuPattern extends BasePattern {
     }
 
     this.el.innerHTML = this.renderLayout();
+    this.el.addEventListener(
+      "init.autotoc.patterns",
+      () => this.initTargetTabs(),
+      { once: true }
+    );
+    registry.scan(this.el, ["autotoc"]);
+    this.initTargetTabs();
 
     const selected = this.selectedId ? this.findItem(this.selectedId) : null;
-    if (selected && selected.type === "link" && !selected.external_url) {
+    if (
+      selected &&
+      selected.type === "link" &&
+      this.targetTypeFor(selected) === "internal"
+    ) {
       await this.initPicker(selected);
     }
 
@@ -369,48 +388,55 @@ class MegaMenuPattern extends BasePattern {
   }
 
   targetEditor(item) {
-    const isExternal = !!item.external_url;
+    const targetType = this.targetTypeFor(item);
+    const isExternal = targetType === "external";
     const targetError = this.errors[`${item.id}:target`];
     return `
-      <fieldset class="megamenu-target-editor">
+      <fieldset class="megamenu-target-editor" data-node-id="${this.escapeAttr(
+        item.id
+      )}">
         <legend>${this.t("target", "Target")}</legend>
-        <label><input type="radio" name="target-${this.escapeAttr(
-          item.id
-        )}" data-id="${this.escapeAttr(
-          item.id
-        )}" data-field="target_type" value="internal" ${
-          !isExternal ? "checked" : ""
-        }> ${this.t("internalContent", "Internal Plone content")}</label>
-        <label><input type="radio" name="target-${this.escapeAttr(
-          item.id
-        )}" data-id="${this.escapeAttr(
-          item.id
-        )}" data-field="target_type" value="external" ${
-          isExternal ? "checked" : ""
-        }> ${this.t("externalUrl", "External URL")}</label>
+        <div class="linkModal">
+          <div class="pat-autotoc autotabs"
+               data-pat-autotoc="section:span.linkType;levels:span.linkLabel;IDPrefix:megamenu-autotoc-item-;">
+            <span class="linkType internal${!isExternal ? " active" : ""}"
+                  data-linktype="internal">
+              <span class="linkLabel d-none${!isExternal ? " active" : ""}">${this.t(
+                "internalTab",
+                "Internal"
+              )}</span>
+              <div class="mb-3 main">
+                <div class="megamenu-picker" data-picker-node="${this.escapeAttr(
+                  item.id
+                )}"></div>
+              </div>
+            </span>
+            <span class="linkType external${isExternal ? " active" : ""}"
+                  data-linktype="external">
+              <span class="linkLabel d-none${isExternal ? " active" : ""}">${this.t(
+                "externalTab",
+                "External"
+              )}</span>
+              <div class="mb-3 main">
+                <div class="megamenu-field${
+                  targetError && isExternal ? " has-error" : ""
+                }">
+                  <span class="megamenu-field-label">${this.t(
+                    "externalUrl",
+                    "External URL"
+                  )}</span>
+                  <input type="text" data-id="${this.escapeAttr(
+                    item.id
+                  )}" data-field="external_url" value="${this.escapeAttr(
+                    item.external_url || ""
+                  )}" placeholder="https://example.com">
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
         ${
-          !isExternal
-            ? `<div class="megamenu-picker" data-picker-node="${this.escapeAttr(
-                item.id
-              )}"></div>`
-            : `<div class="megamenu-field${targetError ? " has-error" : ""}">
-                 <span class="megamenu-field-label">${this.t("externalUrl", "External URL")}</span>
-                 <input type="text" data-id="${this.escapeAttr(
-                   item.id
-                 )}" data-field="external_url" value="${this.escapeAttr(
-                   item.external_url || ""
-                 )}" placeholder="https://example.com">
-                 ${
-                   targetError
-                     ? `<span class="megamenu-field-error">${this.escape(
-                         targetError
-                       )}</span>`
-                     : ""
-                 }
-               </div>`
-        }
-        ${
-          !isExternal && targetError
+          targetError
             ? `<span class="megamenu-field-error">${this.escape(
                 targetError
               )}</span>`
@@ -545,6 +571,7 @@ class MegaMenuPattern extends BasePattern {
       if (uid !== item.internal_uid) {
         item.internal_uid = uid;
         item.external_url = "";
+        this.targetTypes[item.id] = "internal";
         delete this.errors[`${item.id}:target`];
         this.serialize();
         this.updateTreeSummary(item.id);
@@ -564,6 +591,43 @@ class MegaMenuPattern extends BasePattern {
     });
 
     registry.scan(container, ["contentbrowser"]);
+  }
+
+  initTargetTabs() {
+    const editor = this.el.querySelector(".megamenu-target-editor");
+    if (!editor) {
+      return;
+    }
+    const nodeId = editor.dataset.nodeId;
+    const nav = editor.querySelector(".autotoc-nav");
+    if (!nav || nav.dataset.megamenuTabsBound === "1") {
+      return;
+    }
+    nav.dataset.megamenuTabsBound = "1";
+    const internal = this.t("internalTab", "Internal");
+    const external = this.t("externalTab", "External");
+    for (const link of nav.querySelectorAll("a")) {
+      link.addEventListener("click", () => {
+        const item = this.findItem(nodeId);
+        if (!item) {
+          return;
+        }
+        const text = link.textContent.trim();
+        if (text === internal) {
+          this.targetTypes[nodeId] = "internal";
+          item.external_url = "";
+        } else if (text === external) {
+          this.targetTypes[nodeId] = "external";
+          item.internal_uid = "";
+        } else {
+          return;
+        }
+        delete this.errors[`${nodeId}:target`];
+        this.serialize();
+        this.updateTreeSummary(nodeId);
+        this.render();
+      });
+    }
   }
 
   updateTreeSummary(id) {
@@ -650,6 +714,7 @@ class MegaMenuPattern extends BasePattern {
       this.selectedId = next ? next.id : null;
     }
     this.expanded.delete(id);
+    delete this.targetTypes[id];
     this.errors = {};
     this.serialize();
     this.render();
@@ -709,6 +774,7 @@ class MegaMenuPattern extends BasePattern {
     this.selectedId = null;
     this.expanded = new Set();
     this.errors = {};
+    this.targetTypes = {};
     this.serialize();
     this.render();
   }
@@ -752,6 +818,7 @@ class MegaMenuPattern extends BasePattern {
     item[field] = element.value;
     delete this.errors[`${id}:${field}`];
     if (field === "external_url") {
+      this.targetTypes[id] = "external";
       delete this.errors[`${id}:target`];
     }
     this.serialize();
@@ -766,20 +833,6 @@ class MegaMenuPattern extends BasePattern {
     const field = element.dataset.field;
     const item = this.findItem(id);
     if (!item) {
-      return;
-    }
-
-    if (field === "target_type") {
-      if (element.value === "internal") {
-        item.internal_uid = item.internal_uid || "";
-        item.external_url = "";
-      } else {
-        item.internal_uid = "";
-        item.external_url = item.external_url || "";
-      }
-      delete this.errors[`${id}:target`];
-      this.serialize();
-      this.render();
       return;
     }
 
@@ -801,6 +854,7 @@ class MegaMenuPattern extends BasePattern {
     item[field] = value;
     delete this.errors[`${id}:${field}`];
     if (field === "external_url") {
+      this.targetTypes[id] = "external";
       delete this.errors[`${id}:target`];
     }
     this.serialize();

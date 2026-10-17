@@ -71,7 +71,8 @@ class MegaMenuWidget(TextAreaWidget):
                 "This folder has no children and will not appear in the menu."
             ),
             "target": _("Target"),
-            "internalContent": _("Internal Plone content"),
+            "internalTab": _("Internal"),
+            "externalTab": _("External"),
             "externalUrl": _("External URL"),
             "openInNewTab": _("Open in a new tab"),
             "moveUp": _("Move up"),

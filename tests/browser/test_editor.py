@@ -11,6 +11,7 @@ Example:
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -80,9 +81,9 @@ def open_editor(driver):
     WebDriverWait(driver, 20).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".megamenu-editor"))
     )
-    tabs = driver.find_elements(By.LINK_TEXT, "Mega menu")
+    tabs = driver.find_elements(By.CSS_SELECTOR, "form#form > nav.autotoc-nav a")
     if tabs:
-        tabs[0].click()
+        js_click(driver, tabs[-1])
         WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".megamenu-editor"))
         )
@@ -90,7 +91,10 @@ def open_editor(driver):
 
 def reset_to_inherited(driver):
     if driver.find_elements(By.CSS_SELECTOR, '[data-action="use-inherited"]'):
-        driver.find_element(By.CSS_SELECTOR, '[data-action="use-inherited"]').click()
+        js_click(
+            driver,
+            driver.find_element(By.CSS_SELECTOR, '[data-action="use-inherited"]'),
+        )
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".megamenu-empty"))
         )
@@ -104,6 +108,10 @@ def severe_logs(driver):
     return [entry for entry in driver.get_log("browser") if entry["level"] == "SEVERE"]
 
 
+def js_click(driver, element):
+    driver.execute_script("arguments[0].click();", element)
+
+
 def test_content_browser_selection_and_cleanup(browser):
     login(browser)
     title = f"Menu Target {uuid.uuid4().hex[:8]}"
@@ -111,19 +119,26 @@ def test_content_browser_selection_and_cleanup(browser):
 
     open_editor(browser)
     reset_to_inherited(browser)
-    browser.find_element(
-        By.CSS_SELECTOR, '.megamenu-empty [data-action="add-link"]'
-    ).click()
+    js_click(
+        browser,
+        browser.find_element(
+            By.CSS_SELECTOR, '.megamenu-empty [data-action="add-link"]'
+        ),
+    )
     WebDriverWait(browser, 10).until(
         EC.presence_of_element_located((
             By.CSS_SELECTOR,
             ".megamenu-picker .content-browser-selected-items-wrapper a",
         ))
     )
-    browser.find_element(
+    select_link = browser.find_element(
         By.CSS_SELECTOR,
         ".megamenu-picker .content-browser-selected-items-wrapper a",
-    ).click()
+    )
+    browser.execute_script(
+        "arguments[0].scrollIntoView({block: 'center'});", select_link
+    )
+    select_link.click()
     WebDriverWait(browser, 15).until(
         lambda d: any(
             title in item.text
@@ -135,16 +150,14 @@ def test_content_browser_selection_and_cleanup(browser):
         for item in browser.find_elements(By.CSS_SELECTOR, ".contentItem")
         if title in item.text
     )
-    target.click()
-    WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located((
-            By.CSS_SELECTOR,
-            '.levelToolbar button[title^="select "]',
-        ))
+    js_click(browser, target)
+    select_buttons = WebDriverWait(browser, 10).until(
+        lambda d: (
+            d.find_elements(By.CSS_SELECTOR, ".levelToolbar button.btn-primary")
+            or False
+        )
     )
-    browser.find_elements(By.CSS_SELECTOR, '.levelToolbar button[title^="select "]')[
-        -1
-    ].click()
+    js_click(browser, select_buttons[-1])
     WebDriverWait(browser, 10).until(
         lambda d: not d.find_elements(By.CSS_SELECTOR, ".content-browser")
     )
@@ -156,13 +169,80 @@ def test_content_browser_selection_and_cleanup(browser):
     assert uid
     assert data["items"][0]["internal_uid"] == uid
 
-    browser.find_element(
-        By.CSS_SELECTOR, '.megamenu-tree-row.is-selected [data-action="delete"]'
-    ).click()
+    js_click(
+        browser,
+        browser.find_element(
+            By.CSS_SELECTOR, '.megamenu-tree-row.is-selected [data-action="delete"]'
+        ),
+    )
     WebDriverWait(browser, 10).until(
         lambda d: json.loads(textarea_value(d))["items"] == []
     )
     assert not browser.find_elements(By.CSS_SELECTOR, ".megamenu-picker")
+    assert severe_logs(browser) == []
+
+
+def test_external_url_tab(browser):
+    login(browser)
+    open_editor(browser)
+    reset_to_inherited(browser)
+    js_click(
+        browser,
+        browser.find_element(
+            By.CSS_SELECTOR, '.megamenu-empty [data-action="add-link"]'
+        ),
+    )
+    WebDriverWait(browser, 10).until(
+        EC.presence_of_element_located((
+            By.CSS_SELECTOR,
+            ".megamenu-target-editor .autotoc-nav",
+        ))
+    )
+
+    nav_links = WebDriverWait(browser, 10).until(
+        lambda d: (
+            d.find_elements(By.CSS_SELECTOR, ".megamenu-target-editor .autotoc-nav a")
+            or False
+        )
+    )
+    external_tab = nav_links[1]
+    js_click(browser, external_tab)
+
+    external_input = WebDriverWait(browser, 10).until(
+        EC.visibility_of_element_located((
+            By.CSS_SELECTOR,
+            '[data-field="external_url"]',
+        ))
+    )
+    external_input.send_keys("https://example.com")
+    external_input.send_keys(Keys.TAB)
+    WebDriverWait(browser, 10).until(
+        lambda d: (
+            json.loads(textarea_value(d))["items"][0].get("external_url")
+            == "https://example.com"
+        )
+    )
+
+    nav_links = WebDriverWait(browser, 10).until(
+        lambda d: (
+            d.find_elements(By.CSS_SELECTOR, ".megamenu-target-editor .autotoc-nav a")
+            or False
+        )
+    )
+    assert "active" in (nav_links[1].get_attribute("class") or "").split()
+    assert browser.find_element(
+        By.CSS_SELECTOR, '[data-field="external_url"]'
+    ).is_displayed()
+
+    js_click(
+        browser,
+        browser.find_element(
+            By.CSS_SELECTOR, '.megamenu-tree-row.is-selected [data-action="delete"]'
+        ),
+    )
+    WebDriverWait(browser, 10).until(
+        lambda d: json.loads(textarea_value(d))["items"] == []
+    )
     assert severe_logs(browser) == []
 
 
@@ -171,16 +251,22 @@ def test_use_inherited_menu(browser):
     open_editor(browser)
     reset_to_inherited(browser)
 
-    browser.find_element(
-        By.CSS_SELECTOR, '.megamenu-empty [data-action="add-link"]'
-    ).click()
+    js_click(
+        browser,
+        browser.find_element(
+            By.CSS_SELECTOR, '.megamenu-empty [data-action="add-link"]'
+        ),
+    )
     WebDriverWait(browser, 10).until(
         EC.presence_of_element_located((
             By.CSS_SELECTOR,
             '[data-action="use-inherited"]',
         ))
     )
-    browser.find_element(By.CSS_SELECTOR, '[data-action="use-inherited"]').click()
+    js_click(
+        browser,
+        browser.find_element(By.CSS_SELECTOR, '[data-action="use-inherited"]'),
+    )
     WebDriverWait(browser, 10).until(
         lambda d: (
             textarea_value(d) == ""
@@ -198,9 +284,9 @@ def test_lrf_edit_form_has_menu_widget(browser):
     WebDriverWait(browser, 20).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".megamenu-widget"))
     )
-    tabs = browser.find_elements(By.LINK_TEXT, "Mega menu")
+    tabs = browser.find_elements(By.CSS_SELECTOR, "form#form > nav.autotoc-nav a")
     if tabs:
-        tabs[0].click()
+        js_click(browser, tabs[-1])
         WebDriverWait(browser, 10).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, ".megamenu-editor"))
         )

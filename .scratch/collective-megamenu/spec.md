@@ -313,11 +313,11 @@ Do not implement drag-and-drop.
 - `title`: text input, required, trimmed, max 200.
 - `css_class`: text input, optional; added to the `li` at render time.
 - `icon`: text input for a CSS class list (for example `bi bi-house`), with a live `<i>` preview.
-- Target editor, links only:
-  - radio: internal / external;
-  - internal: selected target summary + “Choose…” + “Clear”;
-  - external: URL text input;
-  - checkbox: open in new tab.
+- Target editor, links only, reusing the `LinkWidget` tabbed markup/pattern (`pat-autotoc` + `pat-contentbrowser`) rather than embedding the z3c.form widget class:
+  - tabs: Internal / External, with per-link UI state so an empty external target still shows the External tab;
+  - internal: content browser picker in the Internal tab;
+  - external: URL text input in the External tab;
+  - checkbox: open in a new tab.
 - Folders show a help note: “Folders are placeholders and are not clickable.”
 - Empty folders show a non-blocking note: “This folder has no children and will not appear in the menu.”
 

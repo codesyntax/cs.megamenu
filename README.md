@@ -92,10 +92,10 @@ with a configured menu supplies the menu for its descendants.
 
 ### Internal and external links 🔗
 
-- **Internal** links use Plone’s content browser and store the target’s UID.
+- **Internal** links use the **Internal** tab and Plone’s content browser, and store the target’s UID.
   The UID is resolved on render with the current user’s View permission.
   Deleted or inaccessible targets are omitted.
-- **External** links accept `http`, `https`, `mailto`, and `tel` URLs.
+- **External** links use the **External** tab and accept `http`, `https`, `mailto`, and `tel` URLs.
 - **Open in a new tab** adds `target="_blank"` and
   `rel="noopener noreferrer"`.
 - **Icon** is a CSS class list such as `bi bi-house`; the theme supplies the

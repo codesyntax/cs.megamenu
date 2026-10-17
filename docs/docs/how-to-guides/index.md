@@ -40,7 +40,7 @@ deleting the last item.
 ## Add an internal link 🔗
 
 1. Add a **link** item.
-2. Choose **Internal Plone content**.
+2. Open the **Internal** tab.
 3. Click **Select** and pick an object with the content browser.
 4. Save.
 
@@ -50,7 +50,7 @@ permission at render time.
 ## Add an external link 🌐
 
 1. Add a **link** item.
-2. Choose **External URL**.
+2. Open the **External** tab.
 3. Enter an `http`, `https`, `mailto`, or `tel` URL.
 4. Save.
 
