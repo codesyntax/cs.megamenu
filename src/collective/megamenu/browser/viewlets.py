@@ -4,6 +4,7 @@ from ..menu import get_menu
 from ..utils import resolve_internal_target
 from html import escape
 from plone.app.layout.viewlets.common import GlobalSectionsViewlet
+from zope.component import getMultiAdapter
 
 
 def resolve_link(item):
@@ -35,16 +36,21 @@ def filter_items(items):
     return visible
 
 
-def render_item(item):
+def render_icon(icons, name):
+    """Return the resolved Plone icon markup for ``name``, if any."""
+    if not name or icons is None:
+        return ""
+    try:
+        return f"{icons.tag(name, tag_class='megamenu-icon', tag_alt='')} "
+    except (NotImplementedError, OSError, ValueError):
+        return ""
+
+
+def render_item(item, icons=None):
     """Render one visible item as a Barceloneta-compatible ``li``."""
     item_type = item.get("type")
     title = escape(item.get("title") or "", quote=True)
-    icon = item.get("icon") or ""
-    icon_html = (
-        f'<i class="{escape(icon, quote=True)}" aria-hidden="true"></i> '
-        if icon
-        else ""
-    )
+    icon_html = render_icon(icons, item.get("icon"))
     css_class = item.get("css_class") or ""
     classes = ["nav-item"]
     if item_type == "folder":
@@ -66,12 +72,12 @@ def render_item(item):
         )
         sub = (
             '<ul class="has_subtree dropdown">'
-            + "".join(render_item(child) for child in children)
+            + "".join(render_item(child, icons) for child in children)
             + "</ul>"
         )
         return (
             f'<li class="{class_attr}">'
-            f'<span class="nav-link">{icon_html}{title}</span>'
+            f'<a href="#" class="nav-link">{icon_html}{title}</a>'
             f"{opener}{sub}</li>"
         )
 
@@ -104,5 +110,9 @@ class MegaMenuViewlet(GlobalSectionsViewlet):
         """The core template uses this as the "show navigation" condition."""
         return self.visible_items or None
 
+    @property
+    def icons(self):
+        return getMultiAdapter((self.context, self.request), name="iconresolver")
+
     def render_globalnav(self):
-        return "".join(render_item(item) for item in self.visible_items)
+        return "".join(render_item(item, self.icons) for item in self.visible_items)

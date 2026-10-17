@@ -60,8 +60,9 @@ Enable **Open in a new tab** if needed; the viewlet adds
 ## Style an item 🎨
 
 - **CSS class** is added to the item’s `<li>`.
-- **Icon CSS class** renders an `<i>` element before the label. The theme must
-  provide the icon font.
+- **Plone icon name** is resolved through `@@iconresolver` and rendered as an
+  inline SVG before the label. Use names such as `alarm` or
+  `contenttype/document`.
 
 ## Enable LRF support 🌍
 

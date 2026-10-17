@@ -141,6 +141,37 @@
     font-size: 12px;
   }
 
+  .megamenu-action-icon {
+    display: inline-flex;
+    align-items: center;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      vertical-align: middle;
+    }
+  }
+
+  .megamenu-node-icon,
+  .megamenu-icon-slot {
+    display: inline-flex;
+    flex: 0 0 16px;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .megamenu-icon-preview .megamenu-icon-slot {
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
   .megamenu-danger {
     color: #dc3545;
   }

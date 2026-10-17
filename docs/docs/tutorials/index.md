@@ -26,7 +26,7 @@ Log in as an administrator, open `/Plone/@@edit`, and switch to the
 
 1. In the **Menu** field, click **Add folder**.
 2. Set the title, for example `Products`.
-3. Optionally set a CSS class and icon CSS class.
+3. Optionally set a CSS class and a Plone icon name (for example `alarm`).
 
 ## Add a link 🔗
 

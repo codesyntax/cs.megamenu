@@ -246,6 +246,30 @@ def test_external_url_tab(browser):
     assert severe_logs(browser) == []
 
 
+def test_folder_row_action_icons(browser):
+    login(browser)
+    open_editor(browser)
+    reset_to_inherited(browser)
+
+    js_click(
+        browser,
+        browser.find_element(
+            By.CSS_SELECTOR, '.megamenu-empty [data-action="add-folder"]'
+        ),
+    )
+    WebDriverWait(browser, 10).until(
+        lambda d: d.find_elements(By.CSS_SELECTOR, ".megamenu-add-child") or False
+    )
+    WebDriverWait(browser, 10).until(
+        lambda d: len(d.find_elements(By.CSS_SELECTOR, ".megamenu-add-child svg")) == 2
+    )
+
+    buttons = browser.find_elements(By.CSS_SELECTOR, ".megamenu-add-child")
+    assert len(buttons) == 2
+    assert all(button.get_attribute("aria-label") for button in buttons)
+    assert severe_logs(browser) == []
+
+
 def test_use_inherited_menu(browser):
     login(browser)
     open_editor(browser)

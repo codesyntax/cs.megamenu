@@ -2,16 +2,51 @@ import { BasePattern } from "@patternslib/patternslib/src/core/basepattern";
 import registry from "@patternslib/patternslib/src/core/registry";
 import { unmount } from "svelte";
 
+const ICON_CACHE = new Map();
+
+async function fetchIcon(name) {
+  const portalUrl = document.body?.getAttribute("data-portal-url");
+  if (!portalUrl) {
+    return "";
+  }
+  const path = name.split("/").map(encodeURIComponent).join("/");
+  try {
+    const response = await fetch(`${portalUrl}/@@iconresolver/${path}`);
+    if (!response.ok) {
+      return "";
+    }
+    return await response.text();
+  } catch {
+    return "";
+  }
+}
+
+function resolveIcon(name) {
+  if (!ICON_CACHE.has(name)) {
+    const promise = fetchIcon(name).then((icon) => {
+      if (!icon) {
+        ICON_CACHE.delete(name);
+      }
+      return icon;
+    });
+    ICON_CACHE.set(name, promise);
+  }
+  return ICON_CACHE.get(name);
+}
+
 const UUID_RE =
   /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 const CSS_RE =
   /^$|^[A-Za-z_-][A-Za-z0-9_-]*( [A-Za-z_-][A-Za-z0-9_-]*)*$/;
+const ICON_RE = /^$|^[A-Za-z0-9_./-]+$/;
 const HOST_RE =
   /^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?)*$/;
 const TARGET_KEYS = ["internal_uid", "external_url", "open_in_new_tab"];
 
 const CSS_ERROR =
   "Use only letters, numbers, hyphens, and underscores, separated by single spaces.";
+const ICON_ERROR =
+  "Use a valid Plone icon name, for example alarm or contenttype/document.";
 const URL_ERROR = "Use an http(s), mailto, or tel URL.";
 const INTERNAL_TARGET_ERROR =
   "The selected internal target no longer exists or is not visible to you.";
@@ -52,6 +87,23 @@ class MegaMenuPattern extends BasePattern {
     }
 
     await this.render();
+  }
+
+  async renderIcons() {
+    const token = this.renderToken;
+    const nodes = Array.from(this.el.querySelectorAll("[data-plone-icon]"));
+    await Promise.all(
+      nodes.map(async (node) => {
+        const name = node.dataset.ploneIcon;
+        if (!name) {
+          return;
+        }
+        const icon = await resolveIcon(name);
+        if (icon && token === this.renderToken && node.isConnected) {
+          node.innerHTML = icon;
+        }
+      })
+    );
   }
 
   async destroy() {
@@ -208,6 +260,7 @@ class MegaMenuPattern extends BasePattern {
     }
 
     this.el.innerHTML = this.renderLayout();
+    this.renderIcons();
     this.el.addEventListener(
       "init.autotoc.patterns",
       () => this.initTargetTabs(),
@@ -303,7 +356,7 @@ class MegaMenuPattern extends BasePattern {
     const selected = this.selectedId === item.id;
     const errorCount = this.errorCountFor(item.id);
     const title = this.escape(item.title || this.t("untitled", "(untitled)"));
-    const icon = this.escapeAttr(item.icon || "bi bi-circle");
+    const iconName = this.escapeAttr(item.icon || "");
     return `
       <li>
         <div class="megamenu-tree-row${selected ? " is-selected" : ""}${
@@ -318,7 +371,7 @@ class MegaMenuPattern extends BasePattern {
                 } ${title}">${expanded ? "▾" : "▸"}</button>`
               : '<span class="megamenu-toggle-spacer"></span>'
           }
-          <i class="${icon}" aria-hidden="true"></i>
+          <span class="megamenu-node-icon" data-plone-icon="${iconName}" aria-hidden="true"></span>
           <span class="megamenu-node-title">${title}</span>
           <span class="megamenu-badge megamenu-badge-${item.type}">${
             isFolder ? this.t("folder", "Folder") : this.t("link", "Link")
@@ -334,12 +387,24 @@ class MegaMenuPattern extends BasePattern {
           <span class="megamenu-row-actions">
             ${
               isFolder
-                ? `<button type="button" data-action="add-folder-child" data-id="${this.escapeAttr(
+                ? `<button type="button" class="megamenu-add-child" data-action="add-folder-child" data-id="${this.escapeAttr(
                     item.id
-                  )}" title="${this.t("addFolderInside", "Add folder inside")}">+F</button>
-                   <button type="button" data-action="add-link-child" data-id="${this.escapeAttr(
+                  )}" title="${this.t(
+                    "addFolderInside",
+                    "Add folder inside"
+                  )}" aria-label="${this.t(
+                    "addFolderInside",
+                    "Add folder inside"
+                  )}"><span class="megamenu-action-icon" data-plone-icon="folder" aria-hidden="true">+F</span></button>
+                   <button type="button" class="megamenu-add-child" data-action="add-link-child" data-id="${this.escapeAttr(
                      item.id
-                   )}" title="${this.t("addLinkInside", "Add link inside")}">+L</button>`
+                   )}" title="${this.t(
+                     "addLinkInside",
+                     "Add link inside"
+                   )}" aria-label="${this.t(
+                     "addLinkInside",
+                     "Add link inside"
+                   )}"><span class="megamenu-action-icon" data-plone-icon="link" aria-hidden="true">+L</span></button>`
                 : ""
             }
             <button type="button" data-action="move-up" data-id="${this.escapeAttr(
@@ -476,14 +541,14 @@ class MegaMenuPattern extends BasePattern {
       ${this.fieldText(item.id, "css_class", this.t("cssClass", "CSS class"), item.css_class, {
         placeholder: this.t("cssPlaceholder", "e.g. nav-products"),
       })}
-      ${this.fieldText(item.id, "icon", this.t("iconClass", "Icon CSS class"), item.icon, {
-        placeholder: this.t("iconPlaceholder", "e.g. bi bi-house"),
+      ${this.fieldText(item.id, "icon", this.t("iconName", "Plone icon name"), item.icon, {
+        placeholder: this.t("iconPlaceholder", "e.g. alarm or contenttype/document"),
       })}
       <div class="megamenu-icon-preview">
         ${this.t("iconPreview", "Icon preview:")}
-        <i class="${this.escapeAttr(
-          item.icon || "bi bi-circle"
-        )}" aria-hidden="true"></i>
+        <span class="megamenu-icon-slot" data-plone-icon="${this.escapeAttr(
+          item.icon || ""
+        )}" aria-hidden="true"></span>
       </div>
       ${
         isFolder
@@ -657,7 +722,7 @@ class MegaMenuPattern extends BasePattern {
             type: "folder",
             title: this.t("untitledFolder", "Untitled folder"),
             css_class: "",
-            icon: "bi bi-folder",
+            icon: "",
             children: [],
           }
         : {
@@ -665,7 +730,7 @@ class MegaMenuPattern extends BasePattern {
             type: "link",
             title: this.t("untitledLink", "Untitled link"),
             css_class: "",
-            icon: "bi bi-link-45deg",
+            icon: "",
             internal_uid: "",
             external_url: "",
             open_in_new_tab: false,
@@ -935,8 +1000,8 @@ class MegaMenuPattern extends BasePattern {
         } else if (item.css_class.length > 200) {
           errors[`${id}:css_class`] = this.t("tooLong", "Use at most 200 characters.");
         }
-        if (typeof item.icon !== "string" || !CSS_RE.test(item.icon)) {
-          errors[`${id}:icon`] = this.t("cssError", CSS_ERROR);
+        if (typeof item.icon !== "string" || !ICON_RE.test(item.icon)) {
+          errors[`${id}:icon`] = this.t("iconError", ICON_ERROR);
         } else if (item.icon.length > 200) {
           errors[`${id}:icon`] = this.t("tooLong", "Use at most 200 characters.");
         }

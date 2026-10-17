@@ -23,7 +23,7 @@ def external_link(item_id=UUID_1, title="External", url="https://example.com"):
         "type": "link",
         "title": title,
         "css_class": "",
-        "icon": "bi bi-link-45deg",
+        "icon": "link-45deg",
         "internal_uid": "",
         "external_url": url,
         "open_in_new_tab": False,
@@ -36,7 +36,7 @@ def internal_link(item_id=UUID_2, title="Internal", uid="target-uid"):
         "type": "link",
         "title": title,
         "css_class": "",
-        "icon": "bi bi-link-45deg",
+        "icon": "link-45deg",
         "internal_uid": uid,
         "external_url": "",
         "open_in_new_tab": False,
@@ -49,7 +49,7 @@ def folder(item_id=UUID_3, title="Folder", children=None):
         "type": "folder",
         "title": title,
         "css_class": "",
-        "icon": "bi bi-folder",
+        "icon": "folder",
         "children": children or [],
     }
 
@@ -127,6 +127,27 @@ def test_invalid_css_class():
         "External: Use only letters, numbers, hyphens, and underscores, "
         "separated by single spaces."
     ]
+
+
+def test_invalid_icon_name():
+    value = menu(external_link())
+    value["items"][0]["icon"] = "bi bi-house"
+
+    assert validate_menu(value) == [
+        "External: Use a valid Plone icon name, for example alarm or "
+        "contenttype/document."
+    ]
+
+
+@pytest.mark.parametrize(
+    "icon",
+    ["alarm", "contenttype/document", "plone-copy", "logo.svg", ""],
+)
+def test_valid_icon_names(icon):
+    value = menu(external_link())
+    value["items"][0]["icon"] = icon
+
+    assert validate_menu(value) == []
 
 
 def test_folder_cannot_have_target():

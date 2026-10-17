@@ -9,6 +9,7 @@ import re
 
 UUID_RE = re.compile(r"^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$")
 CSS_RE = re.compile(r"^$|^[A-Za-z_-][A-Za-z0-9_-]*( [A-Za-z_-][A-Za-z0-9_-]*)*$")
+ICON_RE = re.compile(r"^$|^[A-Za-z0-9_./-]+$")
 HOST_RE = re.compile(
     r"^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?"
     r"(\.[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?)*$"
@@ -34,6 +35,9 @@ MAX_ICON = 200
 URL_ERROR = _("Use an http(s), mailto, or tel URL.")
 CSS_ERROR = _(
     "Use only letters, numbers, hyphens, and underscores, separated by single spaces."
+)
+ICON_ERROR = _(
+    "Use a valid Plone icon name, for example alarm or contenttype/document."
 )
 INTERNAL_TARGET_ERROR = _(
     "The selected internal target no longer exists or is not visible to you."
@@ -143,6 +147,13 @@ def _validate_css_like(value, path, errors, max_length):
         _error(errors, path, TOO_LONG)
 
 
+def _validate_icon(value, path, errors):
+    if not isinstance(value, str) or not ICON_RE.fullmatch(value):
+        _error(errors, path, ICON_ERROR)
+    elif len(value) > MAX_ICON:
+        _error(errors, path, TOO_LONG)
+
+
 def _validate_folder(item, path, seen_ids, errors):
     _check_unknown_keys(item, FOLDER_KEYS | TARGET_KEYS, path, errors)
     if any(key in item for key in TARGET_KEYS):
@@ -161,7 +172,7 @@ def _validate_item(item, path, seen_ids, errors):
     _validate_id(item, path, seen_ids, errors)
     _validate_title(item, path, errors)
     _validate_css_like(item.get("css_class"), path, errors, MAX_CSS)
-    _validate_css_like(item.get("icon"), path, errors, MAX_ICON)
+    _validate_icon(item.get("icon"), path, errors)
 
     if item_type == "folder":
         _validate_folder(item, path, seen_ids, errors)

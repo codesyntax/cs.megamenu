@@ -42,7 +42,7 @@ Constraints:
 | `type` | `folder` or `link` |
 | `title` | required, trimmed, at most 200 characters |
 | `css_class` | CSS class list, at most 200 characters |
-| `icon` | CSS class list, at most 200 characters |
+| `icon` | Plone icon name (letters, numbers, `_`, `.`, `/`, `-`), at most 200 characters; resolved through `@@iconresolver` |
 | `internal_uid` | non-empty string, at most 64 characters, resolved on save |
 | `external_url` | at most 2048 characters; `http`, `https`, `mailto`, or `tel` |
 | `open_in_new_tab` | boolean on links |

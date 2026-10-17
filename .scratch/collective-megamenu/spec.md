@@ -14,7 +14,7 @@ The menu supports:
 - infinitely nested folders, which are placeholders and not clickable;
 - leaf links to internal Plone content or external URLs;
 - internal links stored as raw Plone UIDs and resolved at render time;
-- an optional CSS class and an optional CSS-class icon on every item;
+- an optional CSS class and an optional Plone icon name on every item;
 - an “open in new tab” option on links;
 - inline validation in the editor and permission-filtered rendering.
 
@@ -35,7 +35,8 @@ The menu supports:
 - Volto/headless support.
 - Drag-and-drop reordering.
 - Folder items with targets; folders are placeholders only.
-- Image icons or a fixed icon vocabulary.
+- Image uploads or a fixed icon vocabulary; icons are Plone icon names
+  resolved through `@@iconresolver`.
 - Item descriptions, per-item visibility rules, translated menu labels.
 - Caching or performance tuning.
 - Automatic submenu generation from Plone folders.
@@ -84,14 +85,14 @@ Native JSON (a Python `dict`), not a JSON string:
       "type": "folder",
       "title": "Products",
       "css_class": "nav-products",
-      "icon": "bi bi-box",
+      "icon": "folder",
       "children": [
         {
           "id": "22222222-2222-4222-8222-222222222222",
           "type": "link",
           "title": "Product A",
           "css_class": "",
-          "icon": "bi bi-file-earmark",
+          "icon": "contenttype/document",
           "internal_uid": "e5f6…",
           "external_url": "",
           "open_in_new_tab": false
@@ -108,7 +109,8 @@ Rules:
 - `type` is `folder` or `link`.
 - Folder items have `children`; links have exactly one target and no `children`.
 - `title` is required, trimmed, max 200 characters.
-- `css_class` and `icon` are optional CSS class lists, max 200 characters.
+- `css_class` is an optional CSS class list; `icon` is an optional Plone icon
+  name. Both are max 200 characters.
 - `internal_uid` is a raw Plone UID, max 64 characters.
 - `external_url` is max 2048 characters and uses `http`, `https`, `mailto`, or `tel`.
 - `open_in_new_tab` is a boolean on links only.
@@ -226,7 +228,7 @@ Preserve the Barceloneta mobile offcanvas contract:
 
 - `ul.navbar-nav#portal-globalnav`
 - `li.nav-item`
-- `a.nav-link` for links; `span.nav-link` for folder labels
+- `a.nav-link` for links and folder labels
 - `has_subtree` on a parent `li`
 - `dropdown has_subtree` on a nested `ul`
 - the mobile opener pair: `<input class="opener">` plus `<label role="button" aria-label="…">`
@@ -239,16 +241,16 @@ Minimal shape:
 <nav class="navbar navbar-expand-lg pat-navigationmarker" aria-label="Main navigation">
   <ul class="navbar-nav" id="portal-globalnav">
     <li class="nav-item has_subtree nav-products">
-      <span class="nav-link">
-        <i class="bi bi-box" aria-hidden="true"></i>
+      <a href="#" class="nav-link">
+        <svg class="plone-icon megamenu-icon" aria-hidden="true">…</svg>
         Products
-      </span>
+      </a>
       <input id="navitem-1111" type="checkbox" class="opener">
       <label for="navitem-1111" role="button" aria-label="Products"></label>
       <ul class="dropdown has_subtree">
         <li class="nav-item">
           <a class="nav-link" href="/plone/products/product-a">
-            <i class="bi bi-file-earmark" aria-hidden="true"></i>
+            <svg class="plone-icon megamenu-icon" aria-hidden="true">…</svg>
             Product A
           </a>
         </li>
@@ -261,7 +263,8 @@ Minimal shape:
 Notes:
 
 - Add the item's `css_class` to the `li`, alongside the viewlet's own classes.
-- Render the icon only when it is non-empty; always escape it.
+- Resolve non-empty icons with `@@iconresolver` (`icons.tag(...)`) and render
+  the returned inline SVG.
 - Folders with children get the opener pair. Folders without children are omitted at render time.
 - Do not claim modal behavior for the mobile menu; rely on Barceloneta's CSS-only opener.
 
@@ -299,7 +302,7 @@ Use the chosen **master-detail** layout (prototype Variant A):
 - Right pane: inspector for the selected node.
 - Tree row: expand/collapse toggle (folders), icon, title, type badge, target summary, error dot, and row actions (add folder child, add link child, move up, move down, delete).
 - Inspector: title, CSS class, icon with preview, target editor for links, and actions (add child, move up, move down, delete).
-- New items: default title “Untitled folder” / “Untitled link”, default icon, selected and focused.
+- New items: default title “Untitled folder” / “Untitled link”, no icon, selected and focused.
 - Delete folder with children: confirm; delete the node and its descendants; select the nearest sibling or parent.
 - Move up/down within siblings.
 - Expand/collapse state is UI-only.
@@ -312,7 +315,9 @@ Do not implement drag-and-drop.
 
 - `title`: text input, required, trimmed, max 200.
 - `css_class`: text input, optional; added to the `li` at render time.
-- `icon`: text input for a CSS class list (for example `bi bi-house`), with a live `<i>` preview.
+- `icon`: text input for a Plone icon name (for example `alarm` or
+  `contenttype/document`), with a live inline-SVG preview resolved through
+  `@@iconresolver`.
 - Target editor, links only, reusing the `LinkWidget` tabbed markup/pattern (`pat-autotoc` + `pat-contentbrowser`) rather than embedding the z3c.form widget class:
   - tabs: Internal / External, with per-link UI state so an empty external target still shows the External tab;
   - internal: content browser picker in the Internal tab;
@@ -348,7 +353,7 @@ The stored menu title is separate from the target's title. The inspector may dis
 ### Server-side validation
 
 - The field's JSON Schema enforces the structural rules.
-- `validate_menu(value)` enforces the semantic rules using the current site and security context: duplicate IDs, folder/link field exclusivity, title/CSS/icon limits, external URL syntax, and internal UID resolution with the current user's permissions.
+- `validate_menu(value)` enforces the semantic rules using the current site and security context: duplicate IDs, folder/link field exclusivity, title/CSS/icon-name limits, external URL syntax, and internal UID resolution with the current user's permissions.
 - Register `MenuValidator` (a `z3c.form.validator.SimpleFieldValidator`) with `WidgetValidatorDiscriminators` for `IEditableMenu["menu"]`. It runs `validate_menu` before the field's JSON Schema and raises `zope.interface.Invalid` with the newline-separated path-aware messages.
 - Internal UID checks use the shared `resolve_internal_target` helper (catalog brain, `getObject`, then an explicit `View` permission check), the same helper the viewlet uses.
 - Raise `zope.interface.Invalid` with path-aware messages, for example `Products → Product A: Choose exactly one target: internal or external.`
@@ -398,7 +403,7 @@ Key points:
 | `type` is `folder` or `link` | JSON Schema | “A menu item must be a folder or a link.” |
 | `title` required, trimmed, max 200 | Client + server; JSON Schema for shape | “Title is required.” / “Use at most 200 characters.” |
 | `css_class` optional, max 200, CSS class list | Client + server; JSON Schema for shape | “Use only letters, numbers, hyphens, and underscores, separated by single spaces.” |
-| `icon` optional, max 200, CSS class list | Client + server; JSON Schema for shape | Same as CSS class |
+| `icon` optional, max 200, Plone icon name (letters, numbers, `_`, `.`, `/`, `-`) | Client + server; JSON Schema for shape | “Use a valid Plone icon name, for example alarm or contenttype/document.” |
 | Folder has `children`; no target fields | JSON Schema + server validator | “A folder cannot have a target.” |
 | Link has exactly one target; no `children` | JSON Schema + server validator | “Choose exactly one target: internal or external.” / “A link cannot have children.” |
 | `internal_uid` non-empty, max 64, resolves and is viewable | Server (client checks only empty/whitespace; existence and visibility are resolved server-side) | “The selected internal target no longer exists or is not visible to you.” |
@@ -418,7 +423,8 @@ Client-side errors appear inline in the inspector and as error dots in the tree.
 - Editing uses the standard edit permission of the content type; site-root editing uses the standard `@@edit` permissions.
 - Internal UIDs are resolved through the catalog and checked with `api.user.has_permission("View", obj=obj)`; inaccessible or missing leaves are omitted.
 - External URLs are scheme-allowlisted and HTML-escaped. New-tab links use `rel="noopener noreferrer"`.
-- Titles, CSS classes, and icons are plain text and escaped in HTML/attributes.
+- Titles and CSS classes are escaped in HTML/attributes; icons are resolved
+  by Plone's `@@iconresolver` and rendered as inline SVG.
 - The JSON is stored as a native dict; no HTML rendering.
 - The standard edit form handles CSRF. If a custom write endpoint is added, protect it with `plone.protect`.
 - The content browser's `@@getVocabulary` requires `zope2.View`; its prefilled-UID POST is read-only and needs no CSRF token.
@@ -431,9 +437,9 @@ Client-side errors appear inline in the inspector and as error dots in the tree.
 - Behavior is installed on Folder and Plone Site; the field default is `None` (inherit).
 - LRF behavior is installed only when PAM is present; test PAM before/after the addon.
 - JSON Schema accepts the valid fixtures and rejects the invalid fixtures.
-- Server validator covers duplicate IDs, titles, CSS/icon patterns, URL schemes, folder/link exclusivity, and UID resolution/permission failures.
+- Server validator covers duplicate IDs, titles, CSS/icon-name patterns, URL schemes, folder/link exclusivity, and UID resolution/permission failures.
 - Resolver covers nearest ancestor, unset inheritance, explicit empty opt-out, no behavior, site root, LRF, and inheritance.
-- Viewlet covers: custom menu replaces the main nav; no menu renders nothing; an explicit empty menu renders nothing; inaccessible internal leaves are omitted; empty folders are omitted; external links always render; icons/CSS classes/open-in-new-tab render correctly; mobile markup contract is present.
+- Viewlet covers: custom menu replaces the main nav; no menu renders nothing; an explicit empty menu renders nothing; inaccessible internal leaves are omitted; empty folders are omitted; external links always render; icons (inline SVG from `@@iconresolver`)/CSS classes/open-in-new-tab render correctly; mobile markup contract is present.
 - Site root `@@edit` exposes the Menu field and saves the JSON.
 
 ### Robot / browser

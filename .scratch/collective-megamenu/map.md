@@ -25,7 +25,8 @@ A build-ready spec in `.scratch/collective-megamenu/spec.md` plus an implementat
   - `type: "folder"` items are placeholders: they have `children` and no target;
   - `type: "link"` items are leaves: exactly one of `internal_uid` or `external_url`, no children;
   - `open_in_new_tab` exists only on link items;
-  - `icon` is a CSS class string (for example `bi bi-house`) rendered on every item;
+  - `icon` is a Plone icon name (for example `alarm`) resolved through
+  `@@iconresolver`;
   - `css_class` is free-form per item.
 - Internal links store raw UIDs. They are resolved at render time with a permission check.
 - Permission filtering: inaccessible internal-link leaves are omitted; folders whose visible children are all omitted are omitted too; external links always render.
@@ -42,7 +43,7 @@ A build-ready spec in `.scratch/collective-megamenu/spec.md` plus an implementat
 - [Conditional LRF behavior registration](issues/02-conditional-lrf-registration.md): import `types/LRF.xml` without listing LRF in `types.xml` (missing FTIs are skipped); use the addon profile's `post_handler` (PAM installed later requires reapplying the addon profile); uninstall with `remove="true"` and `purge="false"`.
 - [Content browser integration for per-node internal links](issues/03-content-browser-per-node.md): use `pat-contentbrowser` per link node with a hidden input and Python-built options; scan new nodes; unmount the Svelte app on delete; keep one hidden JSON textarea for the converter.
 - [Tree editor prototype](issues/04-tree-editor-prototype.md): chose Variant A, master-detail (tree left, inspector right), with row actions, inspector fields, inline validation, and no additional changes requested.
-- [Finalize JSON Schema and validation rules](issues/05-json-schema-validation.md): draft-07 schema with separate folder/link item definitions; UUID IDs; exact text/CSS/icon/URL limits; path-aware server validation; inline client validation; empty menus and empty folders allowed.
+- [Finalize JSON Schema and validation rules](issues/05-json-schema-validation.md): draft-07 schema with separate folder/link item definitions; UUID IDs; exact text/CSS/icon-name/URL limits; path-aware server validation; inline client validation; empty menus and empty folders allowed.
 
 ## Not yet specified
 
@@ -53,7 +54,7 @@ None. The route is clear; the remaining implementation detail is specified in [`
 - Volto/headless support.
 - Drag-and-drop reordering.
 - Folder items with targets; folders are placeholders only, for accessibility and dropdown reasons.
-- Image icons or a fixed icon vocabulary; icons are CSS classes only.
+- Image uploads; icons are Plone icon names resolved through `@@iconresolver`.
 - Item descriptions.
 - Per-item visibility rules.
 - Translated menu labels.

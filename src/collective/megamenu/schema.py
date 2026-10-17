@@ -42,7 +42,7 @@ MENU_JSON_SCHEMA = r"""
     "icon": {
       "type": "string",
       "maxLength": 200,
-      "pattern": "^$|^[A-Za-z_-][A-Za-z0-9_-]*( [A-Za-z_-][A-Za-z0-9_-]*)*$"
+      "pattern": "^$|^[A-Za-z0-9_./-]+$"
     },
     "internalUid": {
       "type": "string",

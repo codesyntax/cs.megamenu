@@ -30,14 +30,14 @@ The stored value is native JSON:
       "type": "folder",
       "title": "Products",
       "css_class": "nav-products",
-      "icon": "bi bi-box",
+      "icon": "folder",
       "children": [
         {
           "id": "22222222-2222-4222-8222-222222222222",
           "type": "link",
           "title": "Product A",
           "css_class": "",
-          "icon": "bi bi-file-earmark",
+          "icon": "contenttype/document",
           "internal_uid": "e5f6…",
           "external_url": "",
           "open_in_new_tab": false

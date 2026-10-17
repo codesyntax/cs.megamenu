@@ -29,7 +29,7 @@ An editable, JSON-backed megamenu for Plone 6 Classic UI.
   (leaves).
 - Internal links stored as raw Plone UIDs and resolved at render time.
 - External links validated to `http`, `https`, `mailto`, and `tel`.
-- Per-item CSS class and CSS-class icon; links may open in a new tab.
+- Per-item CSS class and Plone icon name; links may open in a new tab.
 - A master-detail editor in the standard edit form, with a per-node content
   browser for internal targets, inline validation, and a “Use inherited menu”
   action.
@@ -98,8 +98,8 @@ with a configured menu supplies the menu for its descendants.
 - **External** links use the **External** tab and accept `http`, `https`, `mailto`, and `tel` URLs.
 - **Open in a new tab** adds `target="_blank"` and
   `rel="noopener noreferrer"`.
-- **Icon** is a CSS class list such as `bi bi-house`; the theme supplies the
-  icon font.
+- **Icon** is a Plone icon name such as `alarm` or `contenttype/document`;
+  Plone's `@@iconresolver` renders it as an inline SVG.
 
 ### Language Root Folders 🌐
 

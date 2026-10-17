@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-10-17 15:14+0000\n"
+"POT-Creation-Date: 2026-10-17 15:36+0000\n"
 "PO-Revision-Date: 2026-10-17 14:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Basque <eu@li.org>\n"
@@ -35,22 +35,22 @@ msgstr "+ Esteka"
 msgid "A configurable JSON-backed menu."
 msgstr "JSON-en oinarritutako menu konfiguragarria."
 
-#: collective/megamenu/browser/widgets.py:109
-#: collective/megamenu/validation.py:44
+#: collective/megamenu/browser/widgets.py:113
+#: collective/megamenu/validation.py:48
 msgid "A folder cannot have a target."
 msgstr "Karpeta batek ezin du helbururik izan."
 
-#: collective/megamenu/browser/widgets.py:110
+#: collective/megamenu/browser/widgets.py:114
 msgid "A folder must have children."
 msgstr "Karpeta batek elementu seme-alabak izan behar ditu."
 
-#: collective/megamenu/browser/widgets.py:111
-#: collective/megamenu/validation.py:45
+#: collective/megamenu/browser/widgets.py:115
+#: collective/megamenu/validation.py:49
 msgid "A link cannot have children."
 msgstr "Esteka batek ezin ditu elementu seme-alabak izan."
 
-#: collective/megamenu/browser/widgets.py:113
-#: collective/megamenu/validation.py:47
+#: collective/megamenu/browser/widgets.py:117
+#: collective/megamenu/validation.py:51
 msgid "A menu item must be a folder or a link."
 msgstr "Menu-elementua karpeta edo esteka bat izan behar da."
 
@@ -74,8 +74,8 @@ msgstr "Gehitu esteka barruan"
 msgid "CSS class"
 msgstr "CSS klasea"
 
-#: collective/megamenu/browser/widgets.py:112
-#: collective/megamenu/validation.py:46
+#: collective/megamenu/browser/widgets.py:116
+#: collective/megamenu/validation.py:50
 msgid "Choose exactly one target: internal or external."
 msgstr "Aukeratu helburu bat soilik: barnekoa edo kanpokoa."
 
@@ -123,10 +123,6 @@ msgstr "Karpetaren xehetasunak"
 msgid "Folders are placeholders. They group children and are not clickable."
 msgstr "Karpetak leku-markak dira. Seme-alabak biltzen dituzte eta ez dira klikagarriak."
 
-#: collective/megamenu/browser/widgets.py:62
-msgid "Icon CSS class"
-msgstr "Ikonoaren CSS klasea"
-
 #: collective/megamenu/browser/widgets.py:66
 msgid "Icon preview:"
 msgstr "Ikonoaren aurrebista:"
@@ -159,8 +155,8 @@ msgstr ""
 msgid "Menu"
 msgstr "Menua"
 
-#: collective/megamenu/browser/widgets.py:108
-#: collective/megamenu/validation.py:43
+#: collective/megamenu/browser/widgets.py:112
+#: collective/megamenu/validation.py:47
 msgid "Menu item IDs must be unique and valid UUIDs."
 msgstr "Menu-elementuen IDek baliozko UUID bakarrak izan behar dituzte."
 
@@ -196,6 +192,10 @@ msgstr "Ireki fitxa berri batean"
 msgid "Package to configure a new collective.megamenu site"
 msgstr "collective.megamenu gune berri bat konfiguratzeko paketea"
 
+#: collective/megamenu/browser/widgets.py:62
+msgid "Plone icon name"
+msgstr "Plone ikonoaren izena"
+
 #: collective/megamenu/browser/widgets.py:55
 msgid "Select a menu item to edit it."
 msgstr "Hautatu menu-elementu bat editatzeko."
@@ -208,8 +208,8 @@ msgstr "Helburua"
 msgid "The nearest ancestor menu is inherited."
 msgstr "Gertueneko arbasoaren menua heredatzen da."
 
-#: collective/megamenu/browser/widgets.py:104
-#: collective/megamenu/validation.py:38
+#: collective/megamenu/browser/widgets.py:108
+#: collective/megamenu/validation.py:42
 msgid "The selected internal target no longer exists or is not visible to you."
 msgstr "Hautatutako barne helburua jada ez da existitzen edo ez da ikusgai zuretzat."
 
@@ -230,7 +230,7 @@ msgid "Title"
 msgstr "Izenburua"
 
 #: collective/megamenu/browser/widgets.py:97
-#: collective/megamenu/validation.py:41
+#: collective/megamenu/validation.py:45
 msgid "Title is required."
 msgstr "Izenburua derrigorrezkoa da."
 
@@ -238,12 +238,12 @@ msgstr "Izenburua derrigorrezkoa da."
 msgid "Uninstall collective.megamenu setup."
 msgstr "Desinstalatu collective.megamenu konfigurazioa."
 
-#: collective/megamenu/validation.py:62
+#: collective/megamenu/validation.py:66
 msgid "Unknown field: `${name}`."
 msgstr "Eremu ezezaguna: `${name}`."
 
-#: collective/megamenu/browser/widgets.py:114
-#: collective/megamenu/validation.py:48
+#: collective/megamenu/browser/widgets.py:118
+#: collective/megamenu/validation.py:52
 msgid "Unsupported menu version. Expected version 1."
 msgstr "Onartzen ez den menu-bertsioa. 1. bertsioa espero zen."
 
@@ -251,7 +251,7 @@ msgstr "Onartzen ez den menu-bertsioa. 1. bertsioa espero zen."
 msgid "Untitled folder"
 msgstr "Izenbururik gabeko karpeta"
 
-#: collective/megamenu/validation.py:180
+#: collective/megamenu/validation.py:191
 msgid "Untitled item #{index}"
 msgstr "Izenbururik gabeko elementua #{index}"
 
@@ -260,12 +260,17 @@ msgid "Untitled link"
 msgstr "Izenbururik gabeko esteka"
 
 #: collective/megamenu/browser/widgets.py:103
-#: collective/megamenu/validation.py:34
+#: collective/megamenu/validation.py:39
+msgid "Use a valid Plone icon name, for example alarm or contenttype/document."
+msgstr "Erabili Plone ikonoaren izen baliozkoa, adibidez alarm edo contenttype/document."
+
+#: collective/megamenu/browser/widgets.py:107
+#: collective/megamenu/validation.py:35
 msgid "Use an http(s), mailto, or tel URL."
 msgstr "Erabili http(s), mailto edo tel URL bat."
 
 #: collective/megamenu/browser/widgets.py:98
-#: collective/megamenu/validation.py:42
+#: collective/megamenu/validation.py:46
 msgid "Use at most 200 characters."
 msgstr "Erabili gehienez 200 karaktere."
 
@@ -274,7 +279,7 @@ msgid "Use inherited menu"
 msgstr "Erabili heredatutako menua"
 
 #: collective/megamenu/browser/widgets.py:99
-#: collective/megamenu/validation.py:35
+#: collective/megamenu/validation.py:36
 msgid "Use only letters, numbers, hyphens, and underscores, separated by single spaces."
 msgstr "Erabili soilik letrak, zenbakiak, marratxoak eta azpimarrak, zuriune bakar batez banatuta."
 
@@ -295,8 +300,8 @@ msgid "collective.megamenu: Uninstall"
 msgstr "collective.megamenu: Desinstalatu"
 
 #: collective/megamenu/browser/widgets.py:65
-msgid "e.g. bi bi-house"
-msgstr "adib. bi bi-house"
+msgid "e.g. alarm or contenttype/document"
+msgstr "adib. alarm edo contenttype/document"
 
 #: collective/megamenu/browser/widgets.py:64
 msgid "e.g. nav-products"

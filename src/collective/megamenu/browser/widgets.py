@@ -59,10 +59,10 @@ class MegaMenuWidget(TextAreaWidget):
             "link": _("Link"),
             "title": _("Title"),
             "cssClass": _("CSS class"),
-            "iconClass": _("Icon CSS class"),
+            "iconName": _("Plone icon name"),
             "requiredSuffix": _(" (required)"),
             "cssPlaceholder": _("e.g. nav-products"),
-            "iconPlaceholder": _("e.g. bi bi-house"),
+            "iconPlaceholder": _("e.g. alarm or contenttype/document"),
             "iconPreview": _("Icon preview:"),
             "folderHelp": _(
                 "Folders are placeholders. They group children and are not clickable."
@@ -99,6 +99,10 @@ class MegaMenuWidget(TextAreaWidget):
             "cssError": _(
                 "Use only letters, numbers, hyphens, and underscores, "
                 "separated by single spaces."
+            ),
+            "iconError": _(
+                "Use a valid Plone icon name, for example alarm or "
+                "contenttype/document."
             ),
             "urlError": _("Use an http(s), mailto, or tel URL."),
             "internalTargetError": _(

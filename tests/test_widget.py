@@ -21,7 +21,7 @@ VALID_MENU = {
             "type": "folder",
             "title": "Products",
             "css_class": "nav-products",
-            "icon": "bi bi-box",
+            "icon": "box",
             "children": [],
         }
     ],

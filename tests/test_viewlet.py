@@ -13,14 +13,14 @@ def link(item_id, title, *, internal_uid="", external_url="", open_in_new_tab=Fa
         "type": "link",
         "title": title,
         "css_class": "",
-        "icon": "bi bi-file-earmark",
+        "icon": "file-earmark",
         "internal_uid": internal_uid,
         "external_url": external_url,
         "open_in_new_tab": open_in_new_tab,
     }
 
 
-def folder(item_id, title, *, children, css_class="", icon="bi bi-box"):
+def folder(item_id, title, *, children, css_class="", icon="box"):
     return {
         "id": item_id,
         "type": "folder",
@@ -64,8 +64,9 @@ def test_viewlet_renders_menu_markup(portal, http_request):
     assert 'id="portal-globalnav"' in html
     assert 'class="navbar-toggler"' in html
     assert "nav-products" in html
-    assert "bi bi-box" in html
-    assert '<span class="nav-link">' in html
+    assert "megamenu-icon" in html
+    assert "<svg" in html
+    assert '<a href="#" class="nav-link">' in html
     assert f'href="{portal.absolute_url()}"' in html
     assert 'target="_blank" rel="noopener noreferrer"' in html
     assert 'class="opener"' in html
