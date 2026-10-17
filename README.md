@@ -13,7 +13,7 @@
 [![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
 
 [![CI](https://github.com/collective/collective.megamenu/actions/workflows/main.yml/badge.svg)](https://github.com/collective/collective.megamenu/actions/workflows/main.yml)
-![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000)
+![Code Style](https://img.shields.io/badge/Code%20Style-Ruff-000000)
 
 [![GitHub contributors](https://img.shields.io/github/contributors/collective/collective.megamenu)](https://github.com/collective/collective.megamenu)
 [![GitHub Repo stars](https://img.shields.io/github/stars/collective/collective.megamenu?style=social)](https://github.com/collective/collective.megamenu)
@@ -44,8 +44,9 @@ An editable, JSON-backed megamenu for Plone 6 Classic UI.
 
 ## Requirements 📋
 
-- Plone 6.2 Classic UI.
+- Plone 6 Classic UI (tested with Plone 6.2).
 - Python 3.10 or newer.
+- Node.js 18 or newer, only for building the editor bundle.
 - `plone.app.multilingual` only if you want LRF support.
 
 ## Installation 🚀
@@ -99,8 +100,6 @@ with a configured menu supplies the menu for its descendants.
 - **External** links use the **External** tab and accept `http`, `https`, `mailto`, and `tel` URLs.
 - **Open in a new tab** adds `target="_blank"` and
   `rel="noopener noreferrer"`.
-- **Icon** is a Plone icon name such as `alarm` or `contenttype/document`;
-  Plone's `@@iconresolver` renders it as an inline SVG.
 
 ### Language Root Folders 🌐
 
@@ -112,6 +111,9 @@ If you install PAM **after** `collective.megamenu`, reapply the
 ### Custom styling 🎨
 
 - **CSS class** is added to the menu item’s `<li>`.
+- **Icon** is a Plone icon name such as `alarm` or `contenttype/document`.
+  The editor preview and the viewlet resolve it with `@@iconresolver`; the
+  viewlet renders an inline SVG with the `megamenu-icon` class.
 - The viewlet preserves the standard `#portal-globalnav` and Barceloneta classes,
   so themes and the mobile offcanvas continue to work.
 
@@ -139,6 +141,27 @@ npm run build
 
 The build writes the remote bundle and its chunks to
 `src/collective/megamenu/browser/static/bundles/`.
+
+Run the browser checks against a running Plone site:
+
+```shell
+make test-browser
+```
+
+Update translations with:
+
+```shell
+make i18n
+```
+
+### Project layout
+
+- `src/collective/megamenu/behaviors/menu.py` — behavior schema and `menu` field.
+- `src/collective/megamenu/validators/` — form validator and semantic validation.
+- `src/collective/megamenu/widgets/` — master-detail editor widget and template.
+- `src/collective/megamenu/viewlets/menu.py` — main navigation viewlet.
+- `src/collective/megamenu/browser/` — static assets and published bundles.
+- `resources/pat-megamenu/` — Patternslib editor source.
 
 ## Limitations ⚠️
 

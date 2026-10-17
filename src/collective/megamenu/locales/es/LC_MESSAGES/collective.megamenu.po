@@ -105,7 +105,7 @@ msgstr "Expandir"
 
 #: collective/megamenu/widgets/menu.py:75
 msgid "External"
-msgstr ""
+msgstr "Externo"
 
 #: collective/megamenu/widgets/menu.py:76
 msgid "External URL"
@@ -129,7 +129,7 @@ msgstr "Vista previa del icono:"
 
 #: collective/megamenu/widgets/menu.py:74
 msgid "Internal"
-msgstr ""
+msgstr "Interno"
 
 #: collective/megamenu/widgets/menu.py:89
 msgid "Internal target"
@@ -149,7 +149,7 @@ msgstr "Detalles del enlace"
 
 #: collective/megamenu/behaviors/menu.py:17
 msgid "Mega menu"
-msgstr ""
+msgstr "Megamenú"
 
 #: collective/megamenu/behaviors/menu.py:22
 msgid "Menu"
