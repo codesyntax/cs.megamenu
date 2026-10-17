@@ -1,0 +1,32 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.editablemenu"
+    >
+
+  <genericsetup:registerProfile
+      name="default"
+      title="collective.editablemenu: Install"
+      description="Package to configure a new collective.editablemenu site"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/default"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="collective.editablemenu: Uninstall"
+      description="Uninstall collective.editablemenu setup."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/uninstall"
+      />
+
+  <!-- Hide Uninstall Profile-->
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="collective.editablemenu"
+      />
+
+
+  <include package=".upgrades" />
+
+</configure>

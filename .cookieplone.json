@@ -1,0 +1,14 @@
+{
+    "title": "collective.editablemenu",
+    "description": "A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder",
+    "author": "CodeSyntax",
+    "email": "plone@codesyntax.com",
+    "github_organization": "collective",
+    "use_prerelease_versions": "No",
+    "plone_version": "6.2.2",
+    "python_package_name": "collective.editablemenu",
+    "feature_headless": false,
+    "initialize_ci": true,
+    "initialize_documentation": true,
+    "__template__": "backend_addon"
+}
