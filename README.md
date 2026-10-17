@@ -2,6 +2,7 @@
     <h1 align="center">collective.megamenu</h1>
 </div>
 <div align="center">
+
 [![PyPI](https://img.shields.io/pypi/v/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
 [![PyPI - Wheel](https://img.shields.io/pypi/wheel/collective.megamenu)](https://pypi.org/project/collective.megamenu/)

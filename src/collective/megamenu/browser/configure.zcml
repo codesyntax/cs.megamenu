@@ -1,43 +1,14 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
-    xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="collective.megamenu"
     >
-
-  <include
-      package="z3c.form"
-      file="meta.zcml"
-      />
 
   <!-- Publish static files -->
   <plone:static
       directory="static"
       name="collective.megamenu"
       type="plone"
-      />
-
-  <!-- Replace the main navigation with the nearest configured menu. -->
-  <browser:viewlet
-      name="plone.global_sections"
-      manager="plone.app.layout.viewlets.interfaces.IMainNavigation"
-      class=".viewlets.MegaMenuViewlet"
-      permission="zope2.View"
-      layer="collective.megamenu.interfaces.IBrowserLayer"
-      />
-
-  <!-- Master-detail editor for the JSON-backed menu field. -->
-  <adapter
-      factory="collective.megamenu.widgets.menu.MegaMenuFieldWidget"
-      for="plone.schema.jsonfield.IJSONField
-           collective.megamenu.interfaces.IBrowserLayer"
-      />
-  <z3c:widgetTemplate
-      widget="collective.megamenu.widgets.menu.IMegaMenuWidget"
-      template="templates/menu_input.pt"
-      layer="collective.megamenu.interfaces.IBrowserLayer"
-      mode="input"
       />
 
 </configure>

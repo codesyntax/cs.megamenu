@@ -15,6 +15,8 @@
   <include file="dependencies.zcml" />
   <include package=".behaviors" />
   <include package=".validators" />
+  <include package=".widgets" />
+  <include package=".viewlets" />
   <include file="profiles.zcml" />
   <include file="permissions.zcml" />
 

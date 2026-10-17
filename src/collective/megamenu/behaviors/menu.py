@@ -2,6 +2,8 @@
 
 from .. import _
 from ..schema import MENU_JSON_SCHEMA
+from ..widgets.menu import MegaMenuFieldWidget
+from plone.autoform import directives
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.schema import JSONField
 from plone.supermodel import model
@@ -17,6 +19,8 @@ class IEditableMenu(model.Schema):
         label=_("Mega menu"),
         fields=["menu"],
     )
+
+    directives.widget("menu", MegaMenuFieldWidget)
 
     menu = JSONField(
         title=_("Menu"),

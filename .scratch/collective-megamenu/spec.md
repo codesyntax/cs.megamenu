@@ -214,7 +214,7 @@ Subclass `plone.app.layout.viewlets.common.GlobalSectionsViewlet` and re-registe
 <browser:viewlet
     name="plone.global_sections"
     manager="plone.app.layout.viewlets.interfaces.IMainNavigation"
-    class=".viewlets.MegaMenuViewlet"
+    class=".menu.MegaMenuViewlet"
     layer="collective.megamenu.interfaces.IBrowserLayer"
     permission="zope2.View"
     />
@@ -369,7 +369,7 @@ The stored menu title is separate from the target's title. The inspector may dis
 - Use the standard `plonecli add mockup_pattern`-style webpack/module-federation scaffold at the repository root. Build with `npm install && npm run build`; the output goes to `src/collective/megamenu/browser/static/bundles/`.
 - The widget renders one hidden textarea with the submitted JSON. The core `JSONDataConverter` continues to handle serialization; no custom converter is needed.
 - Do not render the raw JSON preview in production; it was a prototype aid.
-- Register the widget adapter and widget template for the addon's `IBrowserLayer`, not directly for `IPloneFormLayer`. `IBrowserLayer` extends `IPloneFormLayer`; the more specific registration wins over the core JSON textarea widget without causing a ZCML configuration conflict.
+- Apply the widget with `plone.autoform.directives.widget("menu", MegaMenuFieldWidget)` on `IEditableMenu` and register the widget template for the addon's `IBrowserLayer`. Do not register a broad `IJSONField` adapter, which would replace every JSON field widget.
 - Patternslib gives each pattern instance a `uuid` property. Do not name a pattern method `uuid`; use a distinct name such as `newId()`.
 
 ### Accessibility
@@ -467,7 +467,7 @@ Each ticket should be a tracer bullet with tests. The order respects dependencie
 3. **Server validation** — add the context-aware `validate_menu` validator and tests. Depends on: 2.
 4. **Menu resolver** — add `get_menu(context)` and tests. Depends on: 2.
 5. **Viewlet** — replace `plone.global_sections`, render the Barceloneta contract, filter links, omit empty folders, and test. Depends on: 4.
-6. **Widget scaffold** — custom `IJSONField`/`IBrowserLayer` widget, template, hidden textarea, content browser options. Depends on: 2.
+6. **Widget scaffold** — custom widget for the `menu` field, template, hidden textarea, content browser options. Depends on: 2.
 7. **Tree editor** — Variant A master-detail editor, add/delete/move, fields, serialization, client validation, bundle. Depends on: 6, 3.
 8. **Content browser picker** — per-node `pat-contentbrowser` integration, scan/unmount lifecycle. Depends on: 7.
 9. **LRF support** — conditional FTI registration and profile post_handler. Depends on: 2.

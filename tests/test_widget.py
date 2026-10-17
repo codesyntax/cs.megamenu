@@ -1,8 +1,12 @@
 from collective.megamenu.behaviors.menu import IEditableMenu
+from collective.megamenu.widgets.menu import MegaMenuFieldWidget
 from collective.megamenu.widgets.menu import MegaMenuWidget
 from plone.app.z3cform.interfaces import IPloneFormLayer
+from plone.autoform.interfaces import WIDGETS_KEY
+from plone.autoform.widgets import ParameterizedWidget
 from plone.base.interfaces import IBundleRegistry
 from plone.registry.interfaces import IRegistry
+from plone.schema import JSONField
 from z3c.form.interfaces import IFieldWidget
 from zope.component import getMultiAdapter
 from zope.component import getUtility
@@ -28,13 +32,22 @@ VALID_MENU = {
 }
 
 
-def test_widget_is_registered(portal, http_request):
+def test_menu_field_uses_megamenu_widget():
+    widget = IEditableMenu.getTaggedValue(WIDGETS_KEY)["menu"]
+
+    assert isinstance(widget, ParameterizedWidget)
+    assert widget.widget_factory is MegaMenuFieldWidget
+
+
+def test_other_json_fields_use_the_default_widget(portal, http_request):
     alsoProvides(http_request, IPloneFormLayer)
-    field = IEditableMenu["menu"]
+    field = JSONField(title="Other")
+    field.__name__ = "other"
 
     widget = getMultiAdapter((field, http_request), IFieldWidget)
 
-    assert isinstance(widget, MegaMenuWidget)
+    assert widget is not None
+    assert not isinstance(widget, MegaMenuWidget)
 
 
 def test_widget_renders_tree_container_and_textarea(portal, http_request):
