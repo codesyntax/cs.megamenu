@@ -122,3 +122,13 @@ def test_malformed_value_is_treated_as_unset(portal):
     child.menu = "not-a-dict"
 
     assert get_menu(child) == (MENU_A, section)
+
+
+def test_empty_menu_without_version_is_treated_as_unset(portal):
+    login(portal.aq_parent, "admin")
+    section = create_folder(portal, "section", "Section")
+    section.menu = MENU_A
+    child = create_folder(section, "child", "Child")
+    child.menu = {"items": []}
+
+    assert get_menu(child) == (MENU_A, section)
