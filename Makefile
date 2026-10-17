@@ -34,7 +34,7 @@ endif
 ifdef CI
 UV_VENV_ARGS :=
 else
-UV_VENV_ARGS := --python=3.10
+UV_VENV_ARGS := --python=3.13
 endif
 
 VENV_FOLDER=$(BACKEND_FOLDER)/.venv
