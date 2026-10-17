@@ -2,6 +2,7 @@ from collective.megamenu.interfaces import IEditableMenu
 from plone import api
 from plone.app.testing import login
 from plone.behavior.interfaces import IBehaviorAssignable
+from plone.supermodel.interfaces import FIELDSETS_KEY
 from zope.schema.interfaces import WrongContainedType
 
 import copy
@@ -50,6 +51,14 @@ def test_folder_has_editable_menu(portal):
 def test_plone_site_has_editable_menu(portal):
     assert IBehaviorAssignable(portal).supports(IEditableMenu)
     assert portal.menu is None
+
+
+def test_menu_field_has_its_own_fieldset():
+    fieldsets = IEditableMenu.queryTaggedValue(FIELDSETS_KEY)
+
+    assert [fieldset.__name__ for fieldset in fieldsets] == ["megamenu"]
+    assert fieldsets[0].fields == ["menu"]
+    assert str(fieldsets[0].label) == "Mega menu"
 
 
 def test_valid_menu_passes_schema_validation():

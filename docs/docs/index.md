@@ -32,7 +32,8 @@ make install
 make start
 ```
 
-Then edit the Plone Site root or a Folder and use the **Menu** field.
+Then edit the Plone Site root or a Folder, switch to the **Mega menu**
+fieldset, and use the **Menu** field.
 
 ```{warning}
 There is no fallback to Plone’s default main navigation. If no menu is

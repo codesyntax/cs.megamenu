@@ -13,6 +13,7 @@ myst:
 
 - Interface: `collective.megamenu.interfaces.IEditableMenu`
 - Behavior name: `collective.megamenu.menu`
+- Fieldset: `megamenu` (label **Mega menu**)
 - Field: `menu` (`plone.schema.JSONField`)
 - Default: `None` (inherit)
 

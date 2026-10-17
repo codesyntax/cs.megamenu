@@ -19,7 +19,8 @@ Then install **collective.megamenu** from **Site Setup → Add-ons**.
 
 ## Open the site root edit form ✏️
 
-Log in as an administrator and open `/Plone/@@edit`.
+Log in as an administrator, open `/Plone/@@edit`, and switch to the
+**Mega menu** fieldset.
 
 ## Add a folder 📁
 

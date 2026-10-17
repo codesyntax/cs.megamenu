@@ -64,7 +64,7 @@ make start
 ### Configure the site menu 🛠️
 
 1. Log in as a user who can edit the Plone Site root.
-2. Open the site root edit form (`/Plone/@@edit`).
+2. Open the site root edit form (`/Plone/@@edit`) and switch to the **Mega menu** fieldset.
 3. Use the **Menu** field to add folders and links.
 4. Save the form.
 
@@ -73,9 +73,9 @@ its own menu.
 
 ### Configure a folder menu 📁
 
-Every Folder has the behavior. Open the folder edit form and configure its
-**Menu** field. The nearest ancestor with a configured menu supplies the menu
-for its descendants.
+Every Folder has the behavior. Open the folder edit form, switch to the
+**Mega menu** fieldset, and configure its **Menu** field. The nearest ancestor
+with a configured menu supplies the menu for its descendants.
 
 - Leave the field **unset** to inherit the nearest ancestor menu.
 - Use **Use inherited menu** in the editor to clear the field back to inherit.

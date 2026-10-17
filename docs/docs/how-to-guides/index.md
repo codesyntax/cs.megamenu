@@ -12,7 +12,7 @@ myst:
 ## Configure the site-wide menu 🛠️
 
 1. Log in as a user who can edit the Plone Site root.
-2. Open `/Plone/@@edit`.
+2. Open `/Plone/@@edit` and switch to the **Mega menu** fieldset.
 3. In the **Menu** field, use **Add folder** and **Add link**.
 4. Save.
 
@@ -21,7 +21,8 @@ menu.
 
 ## Override the menu in a section 📁
 
-1. Open the section Folder’s edit form.
+1. Open the section Folder’s edit form and switch to the **Mega menu**
+   fieldset.
 2. Configure its **Menu** field.
 3. Save.
 

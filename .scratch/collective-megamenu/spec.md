@@ -135,6 +135,12 @@ _ = MessageFactory("collective.megamenu")
 
 @provider(IFormFieldProvider)
 class IEditableMenu(model.Schema):
+    model.fieldset(
+        "megamenu",
+        label=_("Mega menu"),
+        fields=["menu"],
+    )
+
     menu = JSONField(
         title=_("Menu"),
         description=_(
@@ -148,6 +154,7 @@ class IEditableMenu(model.Schema):
 
 - Put the schema string in a dedicated module (`schema.py`) and import it. The asset is [research/menu-schema.json](research/menu-schema.json).
 - `plone.schema>=3.0.0` must be declared in `pyproject.toml`.
+- The `menu` field lives in its own `megamenu` fieldset, labelled **Mega menu**, so the edit form gets a dedicated tab.
 - Do not set a mutable default. The field default is `None`, which means inherit.
 
 ### Registration

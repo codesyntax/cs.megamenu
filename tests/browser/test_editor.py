@@ -80,6 +80,12 @@ def open_editor(driver):
     WebDriverWait(driver, 20).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".megamenu-editor"))
     )
+    tabs = driver.find_elements(By.LINK_TEXT, "Mega menu")
+    if tabs:
+        tabs[0].click()
+        WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, ".megamenu-editor"))
+        )
 
 
 def reset_to_inherited(driver):
@@ -192,4 +198,10 @@ def test_lrf_edit_form_has_menu_widget(browser):
     WebDriverWait(browser, 20).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".megamenu-widget"))
     )
+    tabs = browser.find_elements(By.LINK_TEXT, "Mega menu")
+    if tabs:
+        tabs[0].click()
+        WebDriverWait(browser, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, ".megamenu-editor"))
+        )
     assert browser.find_element(By.CSS_SELECTOR, ".pat-megamenu")

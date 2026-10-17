@@ -18,6 +18,12 @@ class IBrowserLayer(IPloneFormLayer, IDefaultBrowserLayer):
 class IEditableMenu(model.Schema):
     """Behavior that adds a configurable menu tree."""
 
+    model.fieldset(
+        "megamenu",
+        label=_("Mega menu"),
+        fields=["menu"],
+    )
+
     menu = JSONField(
         title=_("Menu"),
         description=_(
