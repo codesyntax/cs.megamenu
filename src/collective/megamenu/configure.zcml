@@ -13,8 +13,8 @@
 
 
   <include file="dependencies.zcml" />
-  <include file="behaviors.zcml" />
-  <include file="validators.zcml" />
+  <include package=".behaviors" />
+  <include package=".validators" />
   <include file="profiles.zcml" />
   <include file="permissions.zcml" />
 

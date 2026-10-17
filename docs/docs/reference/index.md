@@ -11,7 +11,7 @@ myst:
 
 ## Behavior field 🧩
 
-- Interface: `collective.megamenu.interfaces.IEditableMenu`
+- Interface: `collective.megamenu.behaviors.menu.IEditableMenu`
 - Behavior name: `collective.megamenu.menu`
 - Fieldset: `megamenu` (label **Mega menu**)
 - Field: `menu` (`plone.schema.JSONField`)

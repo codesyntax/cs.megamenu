@@ -1,7 +1,7 @@
 """Semantic validation for editable menu values."""
 
-from . import _
-from .utils import resolve_internal_target
+from .. import _
+from ..utils import resolve_internal_target
 from urllib.parse import urlparse
 
 import re

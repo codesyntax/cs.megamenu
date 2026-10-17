@@ -13,7 +13,7 @@
       name="collective.megamenu.menu"
       title="Editable menu"
       description="A configurable JSON-backed menu."
-      provides=".interfaces.IEditableMenu"
+      provides=".menu.IEditableMenu"
       />
 
 </configure>

@@ -1,6 +1,6 @@
 """z3c.form validators for the editable menu field."""
 
-from .interfaces import IEditableMenu
+from ..behaviors.menu import IEditableMenu
 from .validation import validate_menu
 from z3c.form import validator
 from z3c.form.interfaces import NOT_CHANGED

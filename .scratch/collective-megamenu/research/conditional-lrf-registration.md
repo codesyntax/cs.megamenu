@@ -317,7 +317,7 @@ Sources:
     name="collective.megamenu.behavior"
     title="Editable menu"
     description="A configurable menu tree"
-    provides=".interfaces.IEditableMenu"
+    provides=".behaviors.menu.IEditableMenu"
     />
 ```
 

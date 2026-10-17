@@ -1,6 +1,6 @@
 """Menu resolution for the nearest configured ancestor."""
 
-from .interfaces import IEditableMenu
+from .behaviors.menu import IEditableMenu
 from AccessControl import Unauthorized
 from plone.behavior.interfaces import IBehaviorAssignable
 

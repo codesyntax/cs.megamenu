@@ -123,7 +123,7 @@ Rules:
 
 ### Interface
 
-Create `IEditableMenu` in `interfaces.py` as a form-field provider:
+Create `IEditableMenu` in `behaviors/menu.py` as a form-field provider:
 
 ```python
 from plone.autoform.interfaces import IFormFieldProvider
@@ -167,7 +167,7 @@ class IEditableMenu(model.Schema):
       name="collective.megamenu.menu"
       title="Editable menu"
       description="A configurable menu tree."
-      provides=".interfaces.IEditableMenu"
+      provides=".behaviors.menu.IEditableMenu"
       />
 </configure>
 ```

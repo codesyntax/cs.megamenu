@@ -1,4 +1,4 @@
-from collective.megamenu.interfaces import IEditableMenu
+from collective.megamenu.behaviors.menu import IEditableMenu
 from plone import api
 from plone.app.testing import login
 from plone.behavior.interfaces import IBehaviorAssignable

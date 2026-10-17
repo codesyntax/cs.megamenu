@@ -11,16 +11,6 @@
       file="meta.zcml"
       />
 
-  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
-  <include
-      package="z3c.jbot"
-      file="meta.zcml"
-      />
-  <browser:jbot
-      directory="overrides"
-      layer="collective.megamenu.interfaces.IBrowserLayer"
-      />
-
   <!-- Publish static files -->
   <plone:static
       directory="static"
@@ -39,12 +29,12 @@
 
   <!-- Master-detail editor for the JSON-backed menu field. -->
   <adapter
-      factory=".widgets.MegaMenuFieldWidget"
+      factory="collective.megamenu.widgets.menu.MegaMenuFieldWidget"
       for="plone.schema.jsonfield.IJSONField
            collective.megamenu.interfaces.IBrowserLayer"
       />
   <z3c:widgetTemplate
-      widget=".widgets.IMegaMenuWidget"
+      widget="collective.megamenu.widgets.menu.IMegaMenuWidget"
       template="templates/menu_input.pt"
       layer="collective.megamenu.interfaces.IBrowserLayer"
       mode="input"

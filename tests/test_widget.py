@@ -1,5 +1,5 @@
-from collective.megamenu.browser.widgets import MegaMenuWidget
-from collective.megamenu.interfaces import IEditableMenu
+from collective.megamenu.behaviors.menu import IEditableMenu
+from collective.megamenu.widgets.menu import MegaMenuWidget
 from plone.app.z3cform.interfaces import IPloneFormLayer
 from plone.base.interfaces import IBundleRegistry
 from plone.registry.interfaces import IRegistry

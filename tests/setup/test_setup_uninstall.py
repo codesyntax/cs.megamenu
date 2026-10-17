@@ -20,7 +20,7 @@ class TestSetupUninstall:
 
     def test_behavior_removed(self, portal):
         """Test that the editable menu behavior is removed."""
-        from collective.megamenu.interfaces import IEditableMenu
+        from collective.megamenu.behaviors.menu import IEditableMenu
         from plone.behavior.interfaces import IBehaviorAssignable
 
         assert not IBehaviorAssignable(portal).supports(IEditableMenu)
