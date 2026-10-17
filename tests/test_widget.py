@@ -52,8 +52,10 @@ def test_widget_renders_tree_container_and_textarea(portal, http_request):
     assert 'name="form.widgets.menu"' in html
     assert 'class="megamenu-json"' in html
     assert 'class="megamenu-options"' in html
+    assert 'class="megamenu-translations"' in html
     assert 'class="pat-megamenu"' in html
     assert "Products" in html
+    assert "Menu tree" in html
 
 
 def test_widget_contentbrowser_options(portal, http_request):
@@ -69,6 +71,20 @@ def test_widget_contentbrowser_options(portal, http_request):
     assert options["mode"] == "browse"
     assert options["basePath"] == "/".join(portal.getPhysicalPath())
     assert "getVocabulary" in options["vocabularyUrl"]
+
+
+def test_widget_translations(portal, http_request):
+    setSite(portal)
+    setRequest(http_request)
+    widget = MegaMenuWidget(http_request)
+    widget.context = portal
+    widget.field = IEditableMenu["menu"]
+
+    translations = json.loads(widget.translations_json())
+
+    assert translations["menuTree"] == "Menu tree"
+    assert translations["addFolder"] == "Add folder"
+    assert translations["titleRequired"] == "Title is required."
 
 
 def test_bundle_registered(portal):

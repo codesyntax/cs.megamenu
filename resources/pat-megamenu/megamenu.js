@@ -28,6 +28,9 @@ class MegaMenuPattern extends BasePattern {
     this.contentbrowserOptions = JSON.parse(
       widget.querySelector(".megamenu-options").textContent || "{}"
     );
+    this.translations = JSON.parse(
+      widget.querySelector(".megamenu-translations").textContent || "{}"
+    );
     this.model = this.readModel();
     this.selectedId = null;
     this.expanded = new Set();
@@ -84,6 +87,10 @@ class MegaMenuPattern extends BasePattern {
 
   escapeAttr(value) {
     return this.escape(value);
+  }
+
+  t(key, fallback) {
+    return (this.translations && this.translations[key]) || fallback || "";
   }
 
   readModel() {
@@ -169,15 +176,19 @@ class MegaMenuPattern extends BasePattern {
   targetSummary(item) {
     if (item.type === "folder") {
       const count = (item.children || []).length;
-      return `${count} ${count === 1 ? "child" : "children"}`;
+      return `${count} ${
+        count === 1
+          ? this.t("child", "child")
+          : this.t("children", "children")
+      }`;
     }
     if (item.internal_uid) {
-      return "Internal target";
+      return this.t("internalTarget", "Internal target");
     }
     if (item.external_url) {
       return item.external_url;
     }
-    return "No target";
+    return this.t("noTarget", "No target");
   }
 
   async render() {
@@ -219,11 +230,11 @@ class MegaMenuPattern extends BasePattern {
         <div class="megamenu-live" aria-live="polite"></div>
         <div class="megamenu-tree-pane">
           <div class="megamenu-toolbar">
-            <strong>Menu tree</strong>
+            <strong>${this.t("menuTree", "Menu tree")}</strong>
             <span class="megamenu-spacer"></span>
-            <button type="button" data-action="add-folder">+ Folder</button>
-            <button type="button" data-action="add-link">+ Link</button>
-            <button type="button" data-action="use-inherited">Use inherited menu</button>
+            <button type="button" data-action="add-folder">${this.t("addFolderShort", "+ Folder")}</button>
+            <button type="button" data-action="add-link">${this.t("addLinkShort", "+ Link")}</button>
+            <button type="button" data-action="use-inherited">${this.t("useInherited", "Use inherited menu")}</button>
           </div>
           ${items.length ? this.renderTree(items, 0) : this.renderEmptyState()}
         </div>
@@ -238,7 +249,7 @@ class MegaMenuPattern extends BasePattern {
         <div class="megamenu-tree-pane">${this.renderEmptyState()}</div>
         <div class="megamenu-inspector">
           <p class="megamenu-muted">
-            No menu is configured here. The nearest ancestor menu is inherited.
+            ${this.t("inheritedHere", "No menu is configured here. The nearest ancestor menu is inherited.")}
           </p>
         </div>
       </div>`;
@@ -248,15 +259,15 @@ class MegaMenuPattern extends BasePattern {
     const inherited = this.model === null;
     return `
       <div class="megamenu-empty">
-        <h3>${inherited ? "No menu configured" : "This menu is intentionally empty"}</h3>
+        <h3>${inherited ? this.t("noMenu", "No menu configured") : this.t("intentionalEmpty", "This menu is intentionally empty")}</h3>
         <p>${
           inherited
-            ? "The nearest ancestor menu is inherited."
-            : "The viewlet will render no navigation here."
+            ? this.t("inherited", "The nearest ancestor menu is inherited.")
+            : this.t("noNavigation", "The viewlet will render no navigation here.")
         }</p>
         <div>
-          <button type="button" data-action="add-folder">Add folder</button>
-          <button type="button" data-action="add-link">Add link</button>
+          <button type="button" data-action="add-folder">${this.t("addFolder", "Add folder")}</button>
+          <button type="button" data-action="add-link">${this.t("addLink", "Add link")}</button>
         </div>
       </div>`;
   }
@@ -272,7 +283,7 @@ class MegaMenuPattern extends BasePattern {
     const expanded = this.expanded.has(item.id);
     const selected = this.selectedId === item.id;
     const errorCount = this.errorCountFor(item.id);
-    const title = this.escape(item.title || "(untitled)");
+    const title = this.escape(item.title || this.t("untitled", "(untitled)"));
     const icon = this.escapeAttr(item.icon || "bi bi-circle");
     return `
       <li>
@@ -284,21 +295,21 @@ class MegaMenuPattern extends BasePattern {
               ? `<button type="button" class="megamenu-icon-btn" data-action="toggle" data-id="${this.escapeAttr(
                   item.id
                 )}" aria-expanded="${expanded}" aria-label="${
-                  expanded ? "Collapse" : "Expand"
+                  expanded ? this.t("collapse", "Collapse") : this.t("expand", "Expand")
                 } ${title}">${expanded ? "▾" : "▸"}</button>`
               : '<span class="megamenu-toggle-spacer"></span>'
           }
           <i class="${icon}" aria-hidden="true"></i>
           <span class="megamenu-node-title">${title}</span>
           <span class="megamenu-badge megamenu-badge-${item.type}">${
-            isFolder ? "Folder" : "Link"
+            isFolder ? this.t("folder", "Folder") : this.t("link", "Link")
           }</span>
           <span class="megamenu-target-summary">${this.escape(
             this.targetSummary(item)
           )}</span>
           ${
             errorCount
-              ? `<span class="megamenu-error-dot" title="${errorCount} validation error(s)">!</span>`
+              ? `<span class="megamenu-error-dot" title="${this.t("validationErrors", "{count} validation error(s)").replace("{count}", errorCount)}">!</span>`
               : ""
           }
           <span class="megamenu-row-actions">
@@ -306,21 +317,21 @@ class MegaMenuPattern extends BasePattern {
               isFolder
                 ? `<button type="button" data-action="add-folder-child" data-id="${this.escapeAttr(
                     item.id
-                  )}" title="Add folder inside">+F</button>
+                  )}" title="${this.t("addFolderInside", "Add folder inside")}">+F</button>
                    <button type="button" data-action="add-link-child" data-id="${this.escapeAttr(
                      item.id
-                   )}" title="Add link inside">+L</button>`
+                   )}" title="${this.t("addLinkInside", "Add link inside")}">+L</button>`
                 : ""
             }
             <button type="button" data-action="move-up" data-id="${this.escapeAttr(
               item.id
-            )}" title="Move up">↑</button>
+            )}" title="${this.t("moveUp", "Move up")}">↑</button>
             <button type="button" data-action="move-down" data-id="${this.escapeAttr(
               item.id
-            )}" title="Move down">↓</button>
+            )}" title="${this.t("moveDown", "Move down")}">↓</button>
             <button type="button" class="megamenu-danger" data-action="delete" data-id="${this.escapeAttr(
               item.id
-            )}" title="Delete">✕</button>
+            )}" title="${this.t("delete", "Delete")}">✕</button>
           </span>
         </div>
         ${
@@ -340,7 +351,7 @@ class MegaMenuPattern extends BasePattern {
     return `
       <label class="megamenu-field${error ? " has-error" : ""}">
         <span class="megamenu-field-label">${this.escape(label)}${
-          options.required ? " (required)" : ""
+          options.required ? this.t("requiredSuffix", " (required)") : ""
         }</span>
         <input type="text" data-id="${this.escapeAttr(id)}" data-field="${this.escapeAttr(
           field
@@ -362,28 +373,28 @@ class MegaMenuPattern extends BasePattern {
     const targetError = this.errors[`${item.id}:target`];
     return `
       <fieldset class="megamenu-target-editor">
-        <legend>Target</legend>
+        <legend>${this.t("target", "Target")}</legend>
         <label><input type="radio" name="target-${this.escapeAttr(
           item.id
         )}" data-id="${this.escapeAttr(
           item.id
         )}" data-field="target_type" value="internal" ${
           !isExternal ? "checked" : ""
-        }> Internal Plone content</label>
+        }> ${this.t("internalContent", "Internal Plone content")}</label>
         <label><input type="radio" name="target-${this.escapeAttr(
           item.id
         )}" data-id="${this.escapeAttr(
           item.id
         )}" data-field="target_type" value="external" ${
           isExternal ? "checked" : ""
-        }> External URL</label>
+        }> ${this.t("externalUrl", "External URL")}</label>
         ${
           !isExternal
             ? `<div class="megamenu-picker" data-picker-node="${this.escapeAttr(
                 item.id
               )}"></div>`
             : `<div class="megamenu-field${targetError ? " has-error" : ""}">
-                 <span class="megamenu-field-label">External URL</span>
+                 <span class="megamenu-field-label">${this.t("externalUrl", "External URL")}</span>
                  <input type="text" data-id="${this.escapeAttr(
                    item.id
                  )}" data-field="external_url" value="${this.escapeAttr(
@@ -409,13 +420,13 @@ class MegaMenuPattern extends BasePattern {
           item.id
         )}" data-field="open_in_new_tab" ${
           item.open_in_new_tab ? "checked" : ""
-        }> Open in a new tab</label>
+        }> ${this.t("openInNewTab", "Open in a new tab")}</label>
       </fieldset>`;
   }
 
   renderInspector(item) {
     if (!item) {
-      return '<p class="megamenu-muted">Select a menu item to edit it.</p>';
+      return `<p class="megamenu-muted">${this.t("selectItem", "Select a menu item to edit it.")}</p>`;
     }
     const isFolder = item.type === "folder";
     const errorCount = this.errorCountFor(item.id);
@@ -429,33 +440,33 @@ class MegaMenuPattern extends BasePattern {
       .join("");
     return `
       <div class="megamenu-inspector-header">
-        <h3>${isFolder ? "Folder" : "Link"} details</h3>
+        <h3>${isFolder ? this.t("folderDetails", "Folder details") : this.t("linkDetails", "Link details")}</h3>
         <span class="megamenu-badge megamenu-badge-${item.type}">${
-          isFolder ? "Folder" : "Link"
+          isFolder ? this.t("folder", "Folder") : this.t("link", "Link")
         }</span>
         ${errorCount ? '<span class="megamenu-error-dot">!</span>' : ""}
       </div>
-      ${this.fieldText(item.id, "title", "Title", item.title, { required: true })}
-      ${this.fieldText(item.id, "css_class", "CSS class", item.css_class, {
-        placeholder: "e.g. nav-products",
+      ${this.fieldText(item.id, "title", this.t("title", "Title"), item.title, { required: true })}
+      ${this.fieldText(item.id, "css_class", this.t("cssClass", "CSS class"), item.css_class, {
+        placeholder: this.t("cssPlaceholder", "e.g. nav-products"),
       })}
-      ${this.fieldText(item.id, "icon", "Icon CSS class", item.icon, {
-        placeholder: "e.g. bi bi-house",
+      ${this.fieldText(item.id, "icon", this.t("iconClass", "Icon CSS class"), item.icon, {
+        placeholder: this.t("iconPlaceholder", "e.g. bi bi-house"),
       })}
       <div class="megamenu-icon-preview">
-        Icon preview:
+        ${this.t("iconPreview", "Icon preview:")}
         <i class="${this.escapeAttr(
           item.icon || "bi bi-circle"
         )}" aria-hidden="true"></i>
       </div>
       ${
         isFolder
-          ? '<p class="megamenu-help">Folders are placeholders. They group children and are not clickable.</p>'
+          ? `<p class="megamenu-help">${this.t("folderHelp", "Folders are placeholders. They group children and are not clickable.")}</p>`
           : this.targetEditor(item)
       }
       ${
         isFolder && (!item.children || item.children.length === 0)
-          ? '<p class="megamenu-help">This folder has no children and will not appear in the menu.</p>'
+          ? `<p class="megamenu-help">${this.t("emptyFolderHelp", "This folder has no children and will not appear in the menu.")}</p>`
           : ""
       }
       ${
@@ -468,21 +479,21 @@ class MegaMenuPattern extends BasePattern {
           isFolder
             ? `<button type="button" data-action="add-folder-child" data-id="${this.escapeAttr(
                 item.id
-              )}">Add folder</button>
+              )}">${this.t("addFolder", "Add folder")}</button>
                <button type="button" data-action="add-link-child" data-id="${this.escapeAttr(
                  item.id
-               )}">Add link</button>`
+               )}">${this.t("addLink", "Add link")}</button>`
             : ""
         }
         <button type="button" data-action="move-up" data-id="${this.escapeAttr(
           item.id
-        )}">Move up</button>
+        )}">${this.t("moveUp", "Move up")}</button>
         <button type="button" data-action="move-down" data-id="${this.escapeAttr(
           item.id
-        )}">Move down</button>
+        )}">${this.t("moveDown", "Move down")}</button>
         <button type="button" class="megamenu-danger" data-action="delete" data-id="${this.escapeAttr(
           item.id
-        )}">Delete</button>
+        )}">${this.t("delete", "Delete")}</button>
       </div>`;
   }
 
@@ -539,7 +550,7 @@ class MegaMenuPattern extends BasePattern {
         this.updateTreeSummary(item.id);
         const live = this.el.querySelector(".megamenu-live");
         if (live) {
-          live.textContent = "Internal target selected.";
+          live.textContent = this.t("internalTargetSelected", "Internal target selected.");
         }
         setTimeout(() => {
           const link = container.querySelector(
@@ -580,7 +591,7 @@ class MegaMenuPattern extends BasePattern {
         ? {
             id: this.newId(),
             type: "folder",
-            title: "Untitled folder",
+            title: this.t("untitledFolder", "Untitled folder"),
             css_class: "",
             icon: "bi bi-folder",
             children: [],
@@ -588,7 +599,7 @@ class MegaMenuPattern extends BasePattern {
         : {
             id: this.newId(),
             type: "link",
-            title: "Untitled link",
+            title: this.t("untitledLink", "Untitled link"),
             css_class: "",
             icon: "bi bi-link-45deg",
             internal_uid: "",
@@ -613,11 +624,16 @@ class MegaMenuPattern extends BasePattern {
       return;
     }
     if (item.children && item.children.length) {
-      const confirmed = window.confirm(
-        `Delete "${item.title || "Untitled folder"}" and its ${
-          item.children.length
-        } direct child item(s)?`
-      );
+      const message = this.t(
+        "confirmDelete",
+        'Delete "{title}" and its {count} direct child item(s)?'
+      )
+        .replace(
+          "{title}",
+          item.title || this.t("untitledFolder", "Untitled folder")
+        )
+        .replace("{count}", item.children.length);
+      const confirmed = window.confirm(message);
       if (!confirmed) {
         return;
       }
@@ -838,7 +854,7 @@ class MegaMenuPattern extends BasePattern {
     }
     if (!this.model || this.model.version !== 1) {
       errors["model:version"] =
-        "Unsupported menu version. Expected version 1.";
+        this.t("versionError", "Unsupported menu version. Expected version 1.");
       return errors;
     }
     const seen = new Set();
@@ -847,42 +863,42 @@ class MegaMenuPattern extends BasePattern {
         const id = item.id || "";
         if (!UUID_RE.test(id) || seen.has(id)) {
           errors[`${id}:id`] =
-            "Menu item IDs must be unique and valid UUIDs.";
+            this.t("uniqueIds", "Menu item IDs must be unique and valid UUIDs.");
         } else {
           seen.add(id);
         }
         const title = typeof item.title === "string" ? item.title : "";
         if (!title.trim()) {
-          errors[`${id}:title`] = "Title is required.";
+          errors[`${id}:title`] = this.t("titleRequired", "Title is required.");
         } else if (title.length > 200) {
-          errors[`${id}:title`] = "Use at most 200 characters.";
+          errors[`${id}:title`] = this.t("tooLong", "Use at most 200 characters.");
         }
         if (
           typeof item.css_class !== "string" ||
           !CSS_RE.test(item.css_class)
         ) {
-          errors[`${id}:css_class`] = CSS_ERROR;
+          errors[`${id}:css_class`] = this.t("cssError", CSS_ERROR);
         } else if (item.css_class.length > 200) {
-          errors[`${id}:css_class`] = "Use at most 200 characters.";
+          errors[`${id}:css_class`] = this.t("tooLong", "Use at most 200 characters.");
         }
         if (typeof item.icon !== "string" || !CSS_RE.test(item.icon)) {
-          errors[`${id}:icon`] = CSS_ERROR;
+          errors[`${id}:icon`] = this.t("cssError", CSS_ERROR);
         } else if (item.icon.length > 200) {
-          errors[`${id}:icon`] = "Use at most 200 characters.";
+          errors[`${id}:icon`] = this.t("tooLong", "Use at most 200 characters.");
         }
 
         if (item.type === "folder") {
           if (TARGET_KEYS.some((key) => key in item)) {
-            errors[`${id}:target`] = "A folder cannot have a target.";
+            errors[`${id}:target`] = this.t("folderTarget", "A folder cannot have a target.");
           }
           if (!Array.isArray(item.children)) {
-            errors[`${id}:children`] = "A folder must have children.";
+            errors[`${id}:children`] = this.t("folderChildren", "A folder must have children.");
           } else {
             walk(item.children);
           }
         } else if (item.type === "link") {
           if ("children" in item) {
-            errors[`${id}:children`] = "A link cannot have children.";
+            errors[`${id}:children`] = this.t("linkChildren", "A link cannot have children.");
           }
           const hasInternal =
             typeof item.internal_uid === "string" &&
@@ -892,14 +908,14 @@ class MegaMenuPattern extends BasePattern {
             item.external_url.trim() !== "";
           if (hasInternal === hasExternal) {
             errors[`${id}:target`] =
-              "Choose exactly one target: internal or external.";
+              this.t("oneTarget", "Choose exactly one target: internal or external.");
           } else if (hasExternal && !this.validExternalUrl(item.external_url)) {
-            errors[`${id}:target`] = URL_ERROR;
+            errors[`${id}:target`] = this.t("urlError", URL_ERROR);
           } else if (hasInternal && anyWhitespace(item.internal_uid)) {
-            errors[`${id}:target`] = INTERNAL_TARGET_ERROR;
+            errors[`${id}:target`] = this.t("internalTargetError", INTERNAL_TARGET_ERROR);
           }
         } else {
-          errors[`${id}:type`] = "A menu item must be a folder or a link.";
+          errors[`${id}:type`] = this.t("itemType", "A menu item must be a folder or a link.");
         }
       }
     };

@@ -14,5 +14,9 @@
           type="application/json"
           tal:content="view/contentbrowser_options_json"
   ></script>
+  <script class="megamenu-translations"
+          type="application/json"
+          tal:content="view/translations_json"
+  ></script>
   <div class="pat-megamenu"></div>
 </div>

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-10-17 14:37+0000\n"
+"POT-Creation-Date: 2026-10-17 14:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,50 +14,213 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.megamenu\n"
 
+#: collective/megamenu/browser/widgets.py:64
+msgid " (required)"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:87
+msgid "(untitled)"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:43
+msgid "+ Folder"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:44
+msgid "+ Link"
+msgstr ""
+
 #: collective/megamenu/behaviors.zcml:17
 msgid "A configurable JSON-backed menu."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:110
 #: collective/megamenu/validation.py:44
 msgid "A folder cannot have a target."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:111
+msgid "A folder must have children."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:112
 #: collective/megamenu/validation.py:45
 msgid "A link cannot have children."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:114
 #: collective/megamenu/validation.py:47
 msgid "A menu item must be a folder or a link."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:54
+msgid "Add folder"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:84
+msgid "Add folder inside"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:55
+msgid "Add link"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:85
+msgid "Add link inside"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:62
+msgid "CSS class"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:113
 #: collective/megamenu/validation.py:46
 msgid "Choose exactly one target: internal or external."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:82
+msgid "Collapse"
 msgstr ""
 
 #: collective/megamenu/interfaces.py:23
 msgid "Custom menu for this folder and its descendants. Leave unset to inherit the nearest ancestor's menu."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:81
+msgid "Delete"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:95
+msgid "Delete \"{title}\" and its {count} direct child item(s)?"
+msgstr ""
+
 #: collective/megamenu/behaviors.zcml:17
 msgid "Editable menu"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:83
+msgid "Expand"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:77
+msgid "External URL"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:59
+msgid "Folder"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:57
+msgid "Folder details"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:68
+msgid "Folders are placeholders. They group children and are not clickable."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:63
+msgid "Icon CSS class"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:67
+msgid "Icon preview:"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:76
+msgid "Internal Plone content"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:90
+msgid "Internal target"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:94
+msgid "Internal target selected."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:60
+msgid "Link"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:58
+msgid "Link details"
 msgstr ""
 
 #: collective/megamenu/interfaces.py:22
 msgid "Menu"
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:109
 #: collective/megamenu/validation.py:43
 msgid "Menu item IDs must be unique and valid UUIDs."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:42
+msgid "Menu tree"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:80
+msgid "Move down"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:79
+msgid "Move up"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:46
+msgid "No menu configured"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:50
+msgid "No menu is configured here. The nearest ancestor menu is inherited."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:91
+msgid "No target"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:78
+msgid "Open in a new tab"
 msgstr ""
 
 #: collective/megamenu/profiles.zcml:14
 msgid "Package to configure a new collective.megamenu site"
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:56
+msgid "Select a menu item to edit it."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:75
+msgid "Target"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:48
+msgid "The nearest ancestor menu is inherited."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:105
 #: collective/megamenu/validation.py:38
 msgid "The selected internal target no longer exists or is not visible to you."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:49
+msgid "The viewlet will render no navigation here."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:72
+msgid "This folder has no children and will not appear in the menu."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:47
+msgid "This menu is intentionally empty"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:61
+msgid "Title"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:98
 #: collective/megamenu/validation.py:41
 msgid "Title is required."
 msgstr ""
@@ -70,24 +233,48 @@ msgstr ""
 msgid "Unknown field: `${name}`."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:115
 #: collective/megamenu/validation.py:48
 msgid "Unsupported menu version. Expected version 1."
 msgstr ""
 
-#: collective/megamenu/validation.py:176
+#: collective/megamenu/browser/widgets.py:88
+msgid "Untitled folder"
+msgstr ""
+
+#: collective/megamenu/validation.py:180
 msgid "Untitled item #{index}"
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:89
+msgid "Untitled link"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:104
 #: collective/megamenu/validation.py:34
 msgid "Use an http(s), mailto, or tel URL."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:99
 #: collective/megamenu/validation.py:42
 msgid "Use at most 200 characters."
 msgstr ""
 
+#: collective/megamenu/browser/widgets.py:45
+msgid "Use inherited menu"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:100
 #: collective/megamenu/validation.py:35
 msgid "Use only letters, numbers, hyphens, and underscores, separated by single spaces."
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:92
+msgid "child"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:93
+msgid "children"
 msgstr ""
 
 #: collective/megamenu/profiles.zcml:14
@@ -96,4 +283,16 @@ msgstr ""
 
 #: collective/megamenu/profiles.zcml:22
 msgid "collective.megamenu: Uninstall"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:66
+msgid "e.g. bi bi-house"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:65
+msgid "e.g. nav-products"
+msgstr ""
+
+#: collective/megamenu/browser/widgets.py:86
+msgid "{count} validation error(s)"
 msgstr ""
