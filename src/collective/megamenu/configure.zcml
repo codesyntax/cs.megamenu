@@ -18,9 +18,6 @@
   <include file="profiles.zcml" />
   <include file="permissions.zcml" />
 
-  <include package=".controlpanels" />
-  <include package=".indexers" />
-  <include package=".vocabularies" />
   <include package=".browser" />
 
   <!-- -*- extra stuff goes here -*- -->
