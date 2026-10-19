@@ -13,6 +13,12 @@ myst:
 stored as JSON on a content object, edited with a tree widget in the standard
 edit form, and rendered by a viewlet that replaces Plone’s main navigation.
 
+```{image} _static/menu.svg
+:alt: A menu bar with an open submenu
+:align: center
+:width: 420px
+```
+
 ## Features ✨
 
 - Nested folder placeholders and leaf links.

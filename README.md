@@ -23,6 +23,13 @@
 
 An editable, JSON-backed megamenu for Plone 6 Classic UI.
 
+See the [documentation](https://codesyntax.github.io/cs.megamenu/) for usage,
+reference, and development guides.
+
+<div align="center">
+  <img src="https://codesyntax.github.io/cs.megamenu/_static/menu.svg" alt="A menu bar with an open submenu" width="420">
+</div>
+
 ## Features ✨
 
 - A `menu` behavior enabled on **Plone Site**, **Folder**, and (when

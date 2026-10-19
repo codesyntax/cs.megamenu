@@ -13,7 +13,7 @@ import os
 
 DOCS_BASE_URL = (
     os.environ.get("DOCS_BASE_URL", "").strip()
-    or "https://collective.github.io/collective.megamenu/"
+    or "https://codesyntax.github.io/cs.megamenu/"
 )
 DOCS_BASE_URL = DOCS_BASE_URL.rstrip("/") + "/"
 
@@ -104,7 +104,7 @@ linkcheck_ignore = [
     # Ignore file downloads
     r"^/_static/",
     # Ignore pages that require authentication
-    r"https://github.com/collective/collective.megamenu/issues/new",  # requires auth
+    r"https://github.com/codesyntax/cs.megamenu/issues/new",  # requires auth
     # Ignore github.com pages with anchors
     r"https://github.com/.*#.*",
     # Ignore other specific anchors
@@ -168,7 +168,7 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/collective/collective.megamenu",
+            "url": "https://github.com/codesyntax/cs.megamenu",
             "icon": "fa-brands fa-square-github",
             "type": "fontawesome",
             "attributes": {
@@ -195,7 +195,7 @@ html_theme_options = {
     "navigation_with_keys": True,
     "path_to_docs": "docs/docs",
     "repository_branch": "main",
-    "repository_url": "https://github.com/collective/collective.megamenu",
+    "repository_url": "https://github.com/codesyntax/cs.megamenu",
     "search_bar_text": "Search",
     "show_toc_level": 2,
     "use_edit_page_button": True,
@@ -205,7 +205,7 @@ html_theme_options = {
 # suggest edit link
 # remark:  is mandatory in "edit_page_url_template"
 # html_context = {
-#     "edit_page_url_template": "https://github.com/collective/collective.megamenu/edit/main/docs/",
+#     "edit_page_url_template": "https://github.com/codesyntax/cs.megamenu/edit/main/docs/",
 # }
 
 # Announce that we have an opensearch plugin

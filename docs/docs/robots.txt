@@ -5,4 +5,4 @@ Disallow: /.doctrees/
 Disallow: /*.txt$
 Disallow: /.buildinfo$
 Disallow: /objects.inv$
-Sitemap: https://collective.github.io/collective.megamenu/sitemap-custom.xml
+Sitemap: https://codesyntax.github.io/cs.megamenu/sitemap-custom.xml

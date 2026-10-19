@@ -54,10 +54,10 @@ release = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/collective/collective.megamenu"
+Homepage = "https://github.com/codesyntax/cs.megamenu"
 PyPI = "https://pypi.org/project/cs.megamenu"
-Source = "https://github.com/collective/collective.megamenu"
-Tracker = "https://github.com/collective/collective.megamenu/issues"
+Source = "https://github.com/codesyntax/cs.megamenu"
+Tracker = "https://github.com/codesyntax/cs.megamenu/issues"
 
 
 [project.entry-points."z3c.autoinclude.plugin"]
@@ -580,7 +580,7 @@ filename = "CHANGELOG.md"
 start_string = "<!-- towncrier release notes start -->\n"
 title_format = "## {version} ({project_date})"
 template = "news/.changelog_template.jinja"
-issue_format = "[#{issue}](https://github.com/collective/collective.megamenu/issues/{issue})"
+issue_format = "[#{issue}](https://github.com/codesyntax/cs.megamenu/issues/{issue})"
 underlines = ["", "", ""]
 
 [[tool.towncrier.type]]

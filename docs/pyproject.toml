@@ -53,8 +53,8 @@ dev = [
 ]
 
 [project.urls]
-Repository = "https://github.com/collective/collective.megamenu"
-Documentation = "https://collective.github.io/collective.megamenu/"
+Repository = "https://github.com/codesyntax/cs.megamenu"
+Documentation = "https://codesyntax.github.io/cs.megamenu/"
 
 [build-system]
 requires = ["setuptools"]

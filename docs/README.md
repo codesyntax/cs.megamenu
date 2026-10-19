@@ -93,6 +93,7 @@ After installing a dependency, you might need to add it to your documentation's 
 ### Replace static files
 
 You might want to replace the default static files, located in `docs/docs/_static`, `logo.svg` and `favicon.ico`.
+The documentation home page also uses `menu.svg` as a menu illustration.
 Plone Sphinx Theme is configured to use these files when rendering documentation to HTML.
 
 If you rename `logo.svg`, you must update `conf.py`, under the `html_logo`, `ogp_image`, and `latex_logo` keys.
