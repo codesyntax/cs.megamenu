@@ -1,0 +1,82 @@
+name: "Documentation"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs.yaml"
+      - ".readthedocs.yaml"
+  pull_request:
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs.yaml"
+      - ".readthedocs.yaml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: "Docs: Build"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Pages
+        if: github.event_name != 'pull_request'
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Setup uv
+        uses: plone/meta/.github/actions/setup_uv@2.x
+        with:
+          python-version: "3.13"
+          working-directory: "docs"
+
+      - name: Build documentation
+        working-directory: docs
+        env:
+          DOCS_BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: make html
+
+      - name: Disable Jekyll processing
+        if: github.event_name != 'pull_request'
+        run: touch docs/_build/html/.nojekyll
+
+      - name: Set sitemap URL in robots.txt
+        if: github.event_name != 'pull_request'
+        env:
+          DOCS_BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: |
+          BASE_URL="${DOCS_BASE_URL%/}"
+          sed -i "s|^Sitemap:.*|Sitemap: ${BASE_URL}/sitemap-custom.xml|" docs/_build/html/robots.txt
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/_build/html
+
+  deploy:
+    name: "Docs: Deploy"
+    if: github.event_name != 'pull_request'
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

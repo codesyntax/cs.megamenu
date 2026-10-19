@@ -36,6 +36,10 @@ Log in as an administrator, open `/Plone/@@edit`, and switch to the
    choose a page.
 4. Save the form.
 
+Internal menu links participate in Plone’s linkintegrity checks. If someone
+later deletes the target, Plone shows its standard “Potential link breakage”
+warning.
+
 The menu is now stored on the site root and rendered in place of the main
 navigation.
 

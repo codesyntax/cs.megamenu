@@ -12,11 +12,12 @@
 
 [![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/cs.megamenu)](https://pypi.org/project/cs.megamenu/)
 
-[![CI](https://github.com/collective/collective.megamenu/actions/workflows/main.yml/badge.svg)](https://github.com/collective/collective.megamenu/actions/workflows/main.yml)
+[![CI](https://github.com/codesyntax/cs.megamenu/actions/workflows/main.yml/badge.svg)](https://github.com/codesyntax/cs.megamenu/actions/workflows/main.yml)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://codesyntax.github.io/cs.megamenu/)
 ![Code Style](https://img.shields.io/badge/Code%20Style-Ruff-000000)
 
-[![GitHub contributors](https://img.shields.io/github/contributors/collective/collective.megamenu)](https://github.com/collective/collective.megamenu)
-[![GitHub Repo stars](https://img.shields.io/github/stars/collective/collective.megamenu?style=social)](https://github.com/collective/collective.megamenu)
+[![GitHub contributors](https://img.shields.io/github/contributors/codesyntax/cs.megamenu)](https://github.com/codesyntax/cs.megamenu)
+[![GitHub Repo stars](https://img.shields.io/github/stars/codesyntax/cs.megamenu?style=social)](https://github.com/codesyntax/cs.megamenu)
 
 </div>
 
@@ -144,6 +145,9 @@ npm run build
 The build writes the remote bundle and its chunks to
 `src/cs/megamenu/browser/static/bundles/`.
 
+Build the Sphinx documentation with `make -C docs html`; see
+[`docs/README.md`](docs/README.md) for details.
+
 Run the browser checks against a running Plone site:
 
 ```shell
@@ -166,6 +170,88 @@ make i18n
 - `src/cs/megamenu/browser/` — static assets and published bundles.
 - `resources/pat-megamenu/` — Patternslib editor source.
 
+### Custom menu markup
+
+To render the menu yourself, use `cs.megamenu.menu.get_menu(context)`. It walks
+up the acquisition chain and returns a `(menu, owner)` tuple:
+
+- `menu` is the stored menu dictionary (`{"version": 1, "items": [...]}`) for
+  the nearest configured menu, or `None`.
+- `owner` is the content object that supplied the menu, or `None`.
+- A non-empty configured menu returns `(menu, owner)`.
+- An explicitly saved empty menu returns `(None, owner)`; `owner` is the object
+  that opted out of the inherited menu.
+- No configured menu, or no valid menu found after ignoring
+  malformed/unsupported values, returns `(None, None)`.
+
+The returned tree is the stored JSON, not rendered markup. Internal link items
+contain `internal_uid` and are not resolved to URLs. For the same
+permission-filtered, resolved tree used by the default viewlet, use
+`filter_items()` from `cs.megamenu.viewlets.menu`:
+
+```python
+from cs.megamenu.menu import get_menu
+from cs.megamenu.viewlets.menu import filter_items
+
+menu, owner = get_menu(context)
+items = filter_items(menu["items"]) if menu else []
+```
+
+`filter_items()` returns a new list. Visible link items get a `_url` key with
+the resolved target; internal UIDs that are missing or not viewable by the
+current user are dropped, and folders with no visible children are omitted. Use
+`owner` when you need to know which object supplied an inherited menu, for
+example `owner.absolute_url()`.
+
+## Release process 🚀
+
+Prepare the release from a clean `main` branch with the latest changes pulled.
+
+1. Add a news fragment under `news/` named `<issue>.<type>`, for example
+   `42.feature`. The configured types are `breaking`, `feature`, `bugfix`,
+   `internal`, `documentation`, and `tests`.
+2. Run `make i18n` after changing translatable strings. Commit the updated
+   `.pot` and `.po` files. The `.mo` files are compiled during release and are
+   not committed.
+3. Compile the editor bundle:
+
+   ```shell
+   npm install
+   npm run build
+   ```
+
+   `npm install` is only needed when JS dependencies change; commit any
+   `package.json` or `package-lock.json` updates together with the rebuilt
+   bundle. `npm run build` writes `cs.megamenu-remote.min.js`,
+   `cs.megamenu.min.js`, their source maps, and the chunk files under
+   `src/cs/megamenu/browser/static/bundles/`. Commit the rebuilt files; do not
+   edit them by hand.
+4. Run the checks and tests:
+
+   ```shell
+   make check
+   make test
+   ```
+
+   Optionally run the browser checks against a running Plone site with
+   `make test-browser` (set `PLONE_URL` if it is not on the default
+   `http://127.0.0.1:8080/Plone`).
+5. Run the release:
+
+   ```shell
+   make release
+   ```
+
+   This installs the release extras and runs `fullrelease`. The configured
+   `zestreleaser.towncrier` plugin turns the `news/` fragments into
+   `CHANGELOG.md`, `zest.pocompile` compiles the translations, and the release
+   tool bumps the version in `src/cs/megamenu/__init__.py`, creates the tag,
+   uploads to PyPI, and prepares the post-release version bump.
+
+Review and push the commits and tags created by the release tool. The release
+tool does **not** rebuild the JavaScript bundle, so the committed bundle from
+step 3 is the one shipped in the release.
+
 ## Limitations ⚠️
 
 - Classic UI only; there is no Volto/headless integration.
@@ -180,6 +266,13 @@ make i18n
   linkintegrity.
 - There is no fallback to the default main navigation.
 - Menu labels are not translated per language.
+
+## Disclaimer ⚠️
+
+This add-on was written with assistance from [OpenCode](https://opencode.ai/),
+[DeepSeek Flash 4.1](https://www.deepseek.com/), and
+[Matt Pocock's skills](https://github.com/mattpocock/skills). Review and test
+the code in your own environment before using it in production.
 
 ## License 📄
 

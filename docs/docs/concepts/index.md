@@ -15,7 +15,9 @@ A menu is an ordered tree of menu items stored in the `menu` behavior field.
 
 Every item is either a **folder item** or a **link item**.
 
-- A folder item is a placeholder. It groups children and is not clickable.
+- A folder item is a placeholder. It groups children and has no navigation
+  target; it renders as an `a.nav-link` with `href="#"` for Barceloneta
+  feature parity.
 - A link item is a leaf. It has exactly one target, either an internal Plone
   object or an external URL.
 
@@ -82,6 +84,8 @@ A viewlet subclasses Plone’s `GlobalSectionsViewlet` and replaces the
 
 ## Storage 💾
 
-The menu is a native `dict` in a `plone.schema.JSONField`. The field is not a
-Plone relation; deleting a target leaves a dangling UID until the menu is
-saved again or rendered.
+The menu is a native `dict` in a `plone.schema.JSONField`. Internal targets are
+also registered with `plone.app.linkintegrity` when the menu is saved, so
+deleting a referenced target shows Plone’s standard warning. External URLs and
+links to the Plone Site root itself are not tracked. Linkintegrity relations
+are created on the next save; existing menus are not backfilled.

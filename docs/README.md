@@ -1,7 +1,6 @@
 # cs.megamenu
 
-Documentation for cs.megamenu.
-A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder
+Documentation for cs.megamenu, an editable menu for Plone 6 Classic UI.
 
 This project provides a Sphinx-based documentation environment for your Plone project, powered by the [Plone Sphinx Theme](https://github.com/plone/plone-sphinx-theme).
 It's generated using the `documentation_starter` template from [Cookieplone](https://github.com/plone/cookieplone).
@@ -63,7 +62,7 @@ make help
 
 This section provides how-to guidance to customize your documentation.
 
-The file `docs/conf.py` controls the configuration of your documentation.
+The file `docs/docs/conf.py` controls the configuration of your documentation.
 It has extensive comments for each part, often with links to the authoritative documentation for extensions and configuration.
 
 The following sections describe customization not addressed in `docs/conf.py`.
@@ -93,31 +92,25 @@ After installing a dependency, you might need to add it to your documentation's 
 
 ### Replace static files
 
-You might want to replace the default static files, located in `docs/_static`, `logo.svg` and `favicon.ico`.
+You might want to replace the default static files, located in `docs/docs/_static`, `logo.svg` and `favicon.ico`.
 Plone Sphinx Theme is configured to use these files when rendering documentation to HTML.
 
 If you rename `logo.svg`, you must update `conf.py`, under the `html_logo`, `ogp_image`, and `latex_logo` keys.
 
 
-## Read the Docs
+## GitHub Pages
 
-Now that you've built your documentation, how do you publish it?
-And how do you get collaborators to easily review your changes to your documentation?
+The `.github/workflows/docs.yaml` workflow builds the Sphinx documentation and
+publishes it to GitHub Pages on pushes to `main`. Pull requests build the
+documentation without deploying it.
 
-Thankfully, [Read the Docs](https://about.readthedocs.com/) provides both hosting of documentation and pull request previews.
-For public repositories, this service is free.
-However, the Plone Foundation donates to Read the Docs for their unwavering support to open source software, and encourages you to do the same.
+In the repository settings, enable GitHub Pages and select **GitHub Actions**
+as the source. The workflow sets `DOCS_BASE_URL` from the Pages configuration,
+so the Sphinx canonical URL, sitemap, and OpenGraph metadata use the deployed
+site URL.
 
-Your documentation scaffold is partially configured to use Read the Docs.
-In several files, search for the string `MY_READTHEDOCS_PROJECT_SLUG`.
-You'll need to replace that string with the slug that Read the Docs creates for you when you import your project.
-
-For complete documentation of this process, see the Plone 6 Documentation [Pull request preview builds](https://6.docs.plone.org/contributing/documentation/admins.html#pull-request-preview-builds).
-
-See also Read the Docs documentation:
-
--   [Pull request previews](https://docs.readthedocs.com/platform/stable/pull-requests.html)
--   [Build process overview](https://docs.readthedocs.com/platform/stable/builds.html)
+The repository also contains a `.readthedocs.yaml` for optional Read the Docs
+builds.
 
 ## Credits and acknowledgements 🙏
 

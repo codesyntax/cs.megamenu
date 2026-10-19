@@ -22,7 +22,8 @@ Menu item
 
 Folder item
     A placeholder menu item that groups other menu items. It has children and
-    no target; it is not clickable.
+    no target; it renders as a non-navigating link for Barceloneta feature
+    parity.
 
 Link item
     A leaf menu item that points to one target. It has no children.
@@ -32,6 +33,10 @@ Internal link
 
 External link
     A link item whose target is a URL outside the Plone site.
+
+Linkintegrity
+    Plone’s mechanism for warning when content referenced by an internal link
+    is deleted. Internal menu links participate in these checks.
 
 Behavior
     The Plone behavior that adds the menu configuration to an enabled content

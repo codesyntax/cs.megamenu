@@ -18,6 +18,7 @@ edit form, and rendered by a viewlet that replaces Plone’s main navigation.
 - Nested folder placeholders and leaf links.
 - Internal links stored as UIDs and permission-filtered at render time.
 - External links, per-item CSS classes, Plone icon names, and open-in-new-tab.
+- Internal menu targets participate in Plone’s linkintegrity checks.
 - Nearest-ancestor inheritance with an explicit empty opt-out.
 - Optional Language Root Folder support with `plone.app.multilingual`.
 

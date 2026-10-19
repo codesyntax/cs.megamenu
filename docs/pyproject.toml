@@ -1,6 +1,6 @@
 [project]
-name = "collective_megamenu_Documentation"
-description = "A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder"
+name = "cs_megamenu_Documentation"
+description = "Documentation for cs.megamenu, an editable menu for Plone 6 Classic UI."
 keywords = [
     "cs.megamenu",
     "documentation",
@@ -10,7 +10,7 @@ keywords = [
 version="1.0.0"
 readme = "README.md"
 requires-python = ">=3.10,<3.14"
-license = { file = "LICENSE" }
+license = { file = "LICENSE.md" }
 maintainers = [
     { name = "CodeSyntax", email = "plone@codesyntax.com" },
 ]
@@ -54,7 +54,7 @@ dev = [
 
 [project.urls]
 Repository = "https://github.com/collective/collective.megamenu"
-Documentation = "https://MY_READTHEDOCS_PROJECT_SLUG.readthedocs.io/"
+Documentation = "https://collective.github.io/collective.megamenu/"
 
 [build-system]
 requires = ["setuptools"]

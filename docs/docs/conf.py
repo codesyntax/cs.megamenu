@@ -8,6 +8,15 @@ from datetime import datetime
 from packaging.version import Version
 from plone_sphinx_theme import __version__
 
+import os
+
+
+DOCS_BASE_URL = (
+    os.environ.get("DOCS_BASE_URL", "").strip()
+    or "https://collective.github.io/collective.megamenu/"
+)
+DOCS_BASE_URL = DOCS_BASE_URL.rstrip("/") + "/"
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -201,7 +210,7 @@ html_theme_options = {
 
 # Announce that we have an opensearch plugin
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_use_opensearch
-html_use_opensearch = "https://MY_READTHEDOCS_PROJECT_SLUG.readthedocs.io"
+html_use_opensearch = DOCS_BASE_URL.rstrip("/")
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -239,7 +248,7 @@ autodoc_class_signature = "separated"
 # -- Options for sphinx_sitemap to html -----------------------------
 
 # Used by sphinx_sitemap to generate a sitemap
-html_baseurl = "https://MY_READTHEDOCS_PROJECT_SLUG.readthedocs.io/"
+html_baseurl = DOCS_BASE_URL
 # https://sphinx-sitemap.readthedocs.io/en/latest/advanced-configuration.html#customizing-the-url-scheme
 sitemap_url_scheme = "{link}"
 sitemap_filename = "sitemap-custom.xml"
@@ -287,9 +296,9 @@ mermaid_version = "11.2.0"
 
 
 # -- OpenGraph configuration ----------------------------------
-ogp_site_url = "https://MY_READTHEDOCS_PROJECT_SLUG.readthedocs.io/"
+ogp_site_url = DOCS_BASE_URL
 ogp_description_length = 200
-ogp_image = "https://MY_READTHEDOCS_PROJECT_SLUG/_static/MY_LOGO.svg"
+ogp_image = f"{DOCS_BASE_URL}_static/logo.svg"
 ogp_site_name = "cs.megamenu Documentation"
 ogp_type = "website"
 ogp_custom_meta_tags = [
