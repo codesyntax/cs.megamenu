@@ -132,3 +132,39 @@ def test_empty_menu_without_version_is_treated_as_unset(portal):
     child.menu = {"items": []}
 
     assert get_menu(child) == (MENU_A, section)
+
+
+def test_custom_field_and_behavior(portal, monkeypatch):
+    from cs.megamenu import menu as menu_module
+
+    portal.footer_menu = MENU_A
+    monkeypatch.setattr(
+        menu_module,
+        "has_menu_behavior",
+        lambda context, behavior: True,
+    )
+
+    menu, owner = menu_module.get_menu(
+        portal,
+        field_name="footer_menu",
+        behavior=object(),
+    )
+
+    assert menu == MENU_A
+    assert owner == portal
+
+
+def test_custom_field_missing_returns_none(portal, monkeypatch):
+    from cs.megamenu import menu as menu_module
+
+    monkeypatch.setattr(
+        menu_module,
+        "has_menu_behavior",
+        lambda context, behavior: True,
+    )
+
+    assert menu_module.get_menu(
+        portal,
+        field_name="footer_menu",
+        behavior=object(),
+    ) == (None, None)

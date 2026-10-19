@@ -18,7 +18,8 @@ myst:
 - Default: `None` (inherit)
 
 The behavior is enabled on `Plone Site` and `Folder` by the default profile.
-`LRF` is enabled when the type exists.
+`LRF` is enabled when the type exists. To define additional menu fields, see
+[Additional menus](../how-to-guides/additional-menus.md).
 
 ## JSON value 🗂️
 

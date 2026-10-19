@@ -1,5 +1,6 @@
 """Main navigation viewlet backed by the editable menu."""
 
+from ..behaviors.menu import IEditableMenu
 from ..menu import get_menu
 from ..utils import resolve_internal_target
 from html import escape
@@ -95,12 +96,23 @@ def render_item(item, icons=None):
 
 
 class MegaMenuViewlet(GlobalSectionsViewlet):
-    """Replace the global sections with the nearest configured menu."""
+    """Replace the global sections with the nearest configured menu.
+
+    Subclass this viewlet and set ``menu_field`` and ``menu_behavior`` to
+    render an additional menu field with a custom viewlet registration.
+    """
+
+    menu_field = "menu"
+    menu_behavior = IEditableMenu
 
     @property
     def visible_items(self):
         if not hasattr(self, "_visible_items"):
-            menu, _owner = get_menu(self.context)
+            menu, _owner = get_menu(
+                self.context,
+                field_name=self.menu_field,
+                behavior=self.menu_behavior,
+            )
             items = menu.get("items", []) if menu else []
             self._visible_items = filter_items(items)
         return self._visible_items

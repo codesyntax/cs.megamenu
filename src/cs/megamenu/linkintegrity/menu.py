@@ -31,12 +31,18 @@ def iter_menu_link_uids(menu):
 @implementer(IRetriever)
 @adapter(IEditableMenu)
 class MenuRetriever(DXGeneral):
-    """DXGeneral plus menu internal UID references."""
+    """DXGeneral plus menu internal UID references.
+
+    Subclass this adapter and set ``field_name`` to track an additional menu
+    field defined by a custom behavior.
+    """
+
+    field_name = "menu"
 
     def retrieveLinks(self):
         links = super().retrieveLinks()
         links |= {
             f"resolveuid/{uid}"
-            for uid in iter_menu_link_uids(getattr(self.context, "menu", None))
+            for uid in iter_menu_link_uids(getattr(self.context, self.field_name, None))
         }
         return links

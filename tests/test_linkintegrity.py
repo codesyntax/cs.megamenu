@@ -313,3 +313,22 @@ def test_lrf_uses_menu_retriever(portal):
     lrf.portal_type = "LRF"
 
     assert isinstance(getAdapter(lrf, IRetriever), MenuRetriever)
+
+
+class FooterMenuRetriever(MenuRetriever):
+    field_name = "footer_menu"
+
+
+def test_menu_retriever_uses_custom_field(portal):
+    login(portal.aq_parent, "admin")
+    target = api.content.create(
+        container=portal, type="Document", id="target-footer", title="Target"
+    )
+    folder = api.content.create(
+        container=portal, type="Folder", id="footer-folder", title="Footer"
+    )
+    folder.footer_menu = menu(link_item(target))
+
+    links = FooterMenuRetriever(folder).retrieveLinks()
+
+    assert f"resolveuid/{api.content.get_uuid(target)}" in links

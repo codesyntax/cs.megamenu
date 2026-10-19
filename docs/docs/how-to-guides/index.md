@@ -80,6 +80,11 @@ Enable **Open in a new tab** if needed; the viewlet adds
 See [Custom menu markup](custom-menu-markup.md) to render the menu with your
 own templates while keeping permission filtering and URL resolution.
 
+## Define additional menus 🧩
+
+See [Additional menus](additional-menus.md) to define another menu field and
+reuse the widget, validator, resolver, and viewlet base class.
+
 ## Enable LRF support 🌍
 
 Install `plone.app.multilingual` before or after `cs.megamenu`.
@@ -104,4 +109,5 @@ The remote bundle and chunks are written to
 :hidden:
 
 custom-menu-markup
+additional-menus
 ```

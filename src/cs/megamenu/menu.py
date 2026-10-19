@@ -5,14 +5,19 @@ from AccessControl import Unauthorized
 from plone.behavior.interfaces import IBehaviorAssignable
 
 
-def has_menu_behavior(context):
-    """Return whether the editable menu behavior is enabled on context."""
+def has_menu_behavior(context, behavior=IEditableMenu):
+    """Return whether the given menu behavior is enabled on context."""
     assignable = IBehaviorAssignable(context, None)
-    return assignable is not None and assignable.supports(IEditableMenu)
+    return assignable is not None and assignable.supports(behavior)
 
 
-def get_menu(context):
-    """Return ``(menu, owner)`` for the nearest configured menu.
+def get_menu(context, field_name="menu", behavior=IEditableMenu):
+    """Return ``(menu, owner)`` for the nearest configured menu field.
+
+    ``field_name`` is the behavior field to read. ``behavior`` is the behavior
+    interface or marker to check. The defaults read the original ``menu`` field
+    on ``IEditableMenu``; pass another behavior and field name for additional
+    menus.
 
     A ``None`` menu value means the object does not configure a menu, so the
     search continues up the acquisition chain. An explicitly saved empty menu
@@ -23,8 +28,8 @@ def get_menu(context):
     obj = context
     while obj is not None:
         try:
-            if has_menu_behavior(obj):
-                menu = getattr(obj, "menu", None)
+            if has_menu_behavior(obj, behavior):
+                menu = getattr(obj, field_name, None)
                 if (
                     isinstance(menu, dict)
                     and menu.get("version") == 1

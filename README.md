@@ -184,6 +184,9 @@ To render the menu yourself, use `cs.megamenu.menu.get_menu(context)` and
 [Custom menu markup](https://codesyntax.github.io/cs.megamenu/how-to-guides/custom-menu-markup.html)
 in the documentation for the return contract and a complete example.
 
+To define additional menu fields and reuse the widget in a custom behavior, see
+[Additional menus](https://codesyntax.github.io/cs.megamenu/how-to-guides/additional-menus.html).
+
 ## Release process 🚀
 
 Prepare the release from a clean `main` branch with the latest changes pulled.

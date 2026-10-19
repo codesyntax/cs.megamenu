@@ -163,3 +163,11 @@ def test_viewlet_is_registered_on_the_site(functional_portal, request_factory):
 
     assert response.status_code == 200
     assert "Custom external" in response.text
+
+
+def test_viewlet_defaults_for_custom_menu_fields():
+    from cs.megamenu.behaviors.menu import IEditableMenu
+    from cs.megamenu.viewlets.menu import MegaMenuViewlet
+
+    assert MegaMenuViewlet.menu_field == "menu"
+    assert MegaMenuViewlet.menu_behavior is IEditableMenu
