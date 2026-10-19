@@ -82,28 +82,9 @@ breakage” confirmation, naming the object that stores the menu.
 
 ## Custom rendering 🧩
 
-For custom markup, call `cs.megamenu.menu.get_menu(context)`. It walks up the
-acquisition chain and returns `(menu, owner)`:
-
-- `(menu, owner)` for the nearest non-empty configured menu.
-- `(None, owner)` for an explicitly saved empty menu; `owner` is the object
-  that opted out.
-- `(None, None)` when no valid menu is found.
-
-The returned `menu` is the stored JSON, not rendered markup. Use
-`filter_items()` from `cs.megamenu.viewlets.menu` to resolve link URLs and
-remove targets the current user cannot view:
-
-```python
-from cs.megamenu.menu import get_menu
-from cs.megamenu.viewlets.menu import filter_items
-
-menu, owner = get_menu(context)
-items = filter_items(menu["items"]) if menu else []
-```
-
-Visible link items receive a `_url` key; inaccessible or dead links and empty
-folders are omitted.
+For custom markup, use `cs.megamenu.menu.get_menu(context)` and
+`filter_items()`. See [Custom menu markup](../how-to-guides/custom-menu-markup.md)
+for the return contract and a complete example.
 
 ## Bundle 📦
 

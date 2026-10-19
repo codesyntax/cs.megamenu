@@ -179,36 +179,10 @@ make i18n
 
 ### Custom menu markup
 
-To render the menu yourself, use `cs.megamenu.menu.get_menu(context)`. It walks
-up the acquisition chain and returns a `(menu, owner)` tuple:
-
-- `menu` is the stored menu dictionary (`{"version": 1, "items": [...]}`) for
-  the nearest configured menu, or `None`.
-- `owner` is the content object that supplied the menu, or `None`.
-- A non-empty configured menu returns `(menu, owner)`.
-- An explicitly saved empty menu returns `(None, owner)`; `owner` is the object
-  that opted out of the inherited menu.
-- No configured menu, or no valid menu found after ignoring
-  malformed/unsupported values, returns `(None, None)`.
-
-The returned tree is the stored JSON, not rendered markup. Internal link items
-contain `internal_uid` and are not resolved to URLs. For the same
-permission-filtered, resolved tree used by the default viewlet, use
-`filter_items()` from `cs.megamenu.viewlets.menu`:
-
-```python
-from cs.megamenu.menu import get_menu
-from cs.megamenu.viewlets.menu import filter_items
-
-menu, owner = get_menu(context)
-items = filter_items(menu["items"]) if menu else []
-```
-
-`filter_items()` returns a new list. Visible link items get a `_url` key with
-the resolved target; internal UIDs that are missing or not viewable by the
-current user are dropped, and folders with no visible children are omitted. Use
-`owner` when you need to know which object supplied an inherited menu, for
-example `owner.absolute_url()`.
+To render the menu yourself, use `cs.megamenu.menu.get_menu(context)` and
+`filter_items()`. See
+[Custom menu markup](https://codesyntax.github.io/cs.megamenu/how-to-guides/custom-menu-markup.html)
+in the documentation for the return contract and a complete example.
 
 ## Release process 🚀
 

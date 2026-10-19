@@ -75,6 +75,11 @@ Enable **Open in a new tab** if needed; the viewlet adds
   inline SVG before the label. Use names such as `alarm` or
   `contenttype/document`.
 
+## Render custom markup 🧩
+
+See [Custom menu markup](custom-menu-markup.md) to render the menu with your
+own templates while keeping permission filtering and URL resolution.
+
 ## Enable LRF support 🌍
 
 Install `plone.app.multilingual` before or after `cs.megamenu`.
@@ -93,3 +98,10 @@ npm run build
 
 The remote bundle and chunks are written to
 `src/cs/megamenu/browser/static/bundles/`.
+
+```{toctree}
+:maxdepth: 1
+:hidden:
+
+custom-menu-markup
+```
