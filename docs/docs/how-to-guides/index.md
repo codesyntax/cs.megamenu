@@ -45,7 +45,18 @@ deleting the last item.
 4. Save.
 
 The target is stored as a UID and resolved with the current user’s `View`
-permission at render time.
+permission at render time. Internal menu links also participate in Plone’s
+linkintegrity checks.
+
+## Delete content referenced by a menu 🗑️
+
+When you delete a content item that an internal menu link points to, Plone shows
+the standard “Potential link breakage” warning. The warning names the object
+that stores the menu (the site root, a folder, or an LRF). Choose **Delete
+anyway** to continue, or cancel and update the menu first.
+
+Existing menus are registered with linkintegrity on their next save. External
+URLs and links to the Plone Site root itself are not tracked.
 
 ## Add an external link 🌐
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2026-10-17 16:22+0000\n"
+"POT-Creation-Date: 2026-10-19 06:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid " (required)"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:86
+#: collective/megamenu/widgets/menu.py:87
 msgid "(untitled)"
 msgstr ""
 
@@ -35,21 +35,21 @@ msgid "A configurable JSON-backed menu."
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:48
-#: collective/megamenu/widgets/menu.py:113
+#: collective/megamenu/widgets/menu.py:114
 msgid "A folder cannot have a target."
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:114
+#: collective/megamenu/widgets/menu.py:115
 msgid "A folder must have children."
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:49
-#: collective/megamenu/widgets/menu.py:115
+#: collective/megamenu/widgets/menu.py:116
 msgid "A link cannot have children."
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:51
-#: collective/megamenu/widgets/menu.py:117
+#: collective/megamenu/widgets/menu.py:118
 msgid "A menu item must be a folder or a link."
 msgstr ""
 
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Add folder"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:83
+#: collective/megamenu/widgets/menu.py:84
 msgid "Add folder inside"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Add link"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:84
+#: collective/megamenu/widgets/menu.py:85
 msgid "Add link inside"
 msgstr ""
 
@@ -74,23 +74,23 @@ msgid "CSS class"
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:50
-#: collective/megamenu/widgets/menu.py:116
+#: collective/megamenu/widgets/menu.py:117
 msgid "Choose exactly one target: internal or external."
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:81
+#: collective/megamenu/widgets/menu.py:82
 msgid "Collapse"
 msgstr ""
 
-#: collective/megamenu/behaviors/menu.py:23
+#: collective/megamenu/behaviors/menu.py:27
 msgid "Custom menu for this folder and its descendants. Leave unset to inherit the nearest ancestor's menu."
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:80
+#: collective/megamenu/widgets/menu.py:81
 msgid "Delete"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:94
+#: collective/megamenu/widgets/menu.py:95
 msgid "Delete \"{title}\" and its {count} direct child item(s)?"
 msgstr ""
 
@@ -98,15 +98,15 @@ msgstr ""
 msgid "Editable menu"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:82
+#: collective/megamenu/widgets/menu.py:83
 msgid "Expand"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:75
+#: collective/megamenu/widgets/menu.py:76
 msgid "External"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:76
+#: collective/megamenu/widgets/menu.py:77
 msgid "External URL"
 msgstr ""
 
@@ -119,22 +119,22 @@ msgid "Folder details"
 msgstr ""
 
 #: collective/megamenu/widgets/menu.py:67
-msgid "Folders are placeholders. They group children and are not clickable."
+msgid "Folders are placeholders. They group children and are not navigation targets."
 msgstr ""
 
 #: collective/megamenu/widgets/menu.py:66
 msgid "Icon preview:"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:74
+#: collective/megamenu/widgets/menu.py:75
 msgid "Internal"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:89
+#: collective/megamenu/widgets/menu.py:90
 msgid "Internal target"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:93
+#: collective/megamenu/widgets/menu.py:94
 msgid "Internal target selected."
 msgstr ""
 
@@ -146,16 +146,16 @@ msgstr ""
 msgid "Link details"
 msgstr ""
 
-#: collective/megamenu/behaviors/menu.py:17
+#: collective/megamenu/behaviors/menu.py:19
 msgid "Mega menu"
 msgstr ""
 
-#: collective/megamenu/behaviors/menu.py:22
+#: collective/megamenu/behaviors/menu.py:26
 msgid "Menu"
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:47
-#: collective/megamenu/widgets/menu.py:112
+#: collective/megamenu/widgets/menu.py:113
 msgid "Menu item IDs must be unique and valid UUIDs."
 msgstr ""
 
@@ -163,11 +163,11 @@ msgstr ""
 msgid "Menu tree"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:79
+#: collective/megamenu/widgets/menu.py:80
 msgid "Move down"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:78
+#: collective/megamenu/widgets/menu.py:79
 msgid "Move up"
 msgstr ""
 
@@ -179,11 +179,11 @@ msgstr ""
 msgid "No menu is configured here. The nearest ancestor menu is inherited."
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:90
+#: collective/megamenu/widgets/menu.py:91
 msgid "No target"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:77
+#: collective/megamenu/widgets/menu.py:78
 msgid "Open in a new tab"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Select a menu item to edit it."
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:73
+#: collective/megamenu/widgets/menu.py:74
 msgid "Target"
 msgstr ""
 
@@ -208,7 +208,7 @@ msgid "The nearest ancestor menu is inherited."
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:42
-#: collective/megamenu/widgets/menu.py:108
+#: collective/megamenu/widgets/menu.py:109
 msgid "The selected internal target no longer exists or is not visible to you."
 msgstr ""
 
@@ -216,7 +216,7 @@ msgstr ""
 msgid "The viewlet will render no navigation here."
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:70
+#: collective/megamenu/widgets/menu.py:71
 msgid "This folder has no children and will not appear in the menu."
 msgstr ""
 
@@ -229,7 +229,7 @@ msgid "Title"
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:45
-#: collective/megamenu/widgets/menu.py:97
+#: collective/megamenu/widgets/menu.py:98
 msgid "Title is required."
 msgstr ""
 
@@ -242,11 +242,11 @@ msgid "Unknown field: `${name}`."
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:52
-#: collective/megamenu/widgets/menu.py:118
+#: collective/megamenu/widgets/menu.py:119
 msgid "Unsupported menu version. Expected version 1."
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:87
+#: collective/megamenu/widgets/menu.py:88
 msgid "Untitled folder"
 msgstr ""
 
@@ -254,22 +254,22 @@ msgstr ""
 msgid "Untitled item #{index}"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:88
+#: collective/megamenu/widgets/menu.py:89
 msgid "Untitled link"
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:39
-#: collective/megamenu/widgets/menu.py:103
+#: collective/megamenu/widgets/menu.py:104
 msgid "Use a valid Plone icon name, for example alarm or contenttype/document."
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:35
-#: collective/megamenu/widgets/menu.py:107
+#: collective/megamenu/widgets/menu.py:108
 msgid "Use an http(s), mailto, or tel URL."
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:46
-#: collective/megamenu/widgets/menu.py:98
+#: collective/megamenu/widgets/menu.py:99
 msgid "Use at most 200 characters."
 msgstr ""
 
@@ -278,15 +278,15 @@ msgid "Use inherited menu"
 msgstr ""
 
 #: collective/megamenu/validators/validation.py:36
-#: collective/megamenu/widgets/menu.py:99
+#: collective/megamenu/widgets/menu.py:100
 msgid "Use only letters, numbers, hyphens, and underscores, separated by single spaces."
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:91
+#: collective/megamenu/widgets/menu.py:92
 msgid "child"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:92
+#: collective/megamenu/widgets/menu.py:93
 msgid "children"
 msgstr ""
 
@@ -306,6 +306,6 @@ msgstr ""
 msgid "e.g. nav-products"
 msgstr ""
 
-#: collective/megamenu/widgets/menu.py:85
+#: collective/megamenu/widgets/menu.py:86
 msgid "{count} validation error(s)"
 msgstr ""

@@ -29,6 +29,8 @@ An editable, JSON-backed megamenu for Plone 6 Classic UI.
 - Unlimited nesting of **folder items** (placeholders) and **link items**
   (leaves).
 - Internal links stored as raw Plone UIDs and resolved at render time.
+- Internal menu targets participate in Plone’s linkintegrity checks, so deleting
+  referenced content shows the standard link-breakage warning.
 - External links validated to `http`, `https`, `mailto`, and `tel`.
 - Per-item CSS class and Plone icon name; links may open in a new tab.
 - A master-detail editor in the standard edit form, with a per-node content
@@ -160,6 +162,7 @@ make i18n
 - `src/collective/megamenu/validators/` — form validator and semantic validation.
 - `src/collective/megamenu/widgets/` — master-detail editor widget and template.
 - `src/collective/megamenu/viewlets/menu.py` — main navigation viewlet.
+- `src/collective/megamenu/linkintegrity/` — menu reference tracking for Plone linkintegrity.
 - `src/collective/megamenu/browser/` — static assets and published bundles.
 - `resources/pat-megamenu/` — Patternslib editor source.
 
@@ -168,8 +171,13 @@ make i18n
 - Classic UI only; there is no Volto/headless integration.
 - No drag-and-drop; use the move up/down buttons.
 - Folder items are placeholders and cannot have a target.
-- Internal links are not stored as Plone relations, so there are no
-  link-integrity backrefs. Dead targets are caught at save and render time.
+- Internal links are stored as UIDs, not relation-field backrefs. Existing
+  targets are registered with `plone.app.linkintegrity` when the menu is saved;
+  external URLs are not tracked. Dead targets are omitted at render time.
+- Existing menus are registered with linkintegrity on their next save; there is
+  no backfill.
+- A menu link whose target is the Plone Site root itself is not tracked by
+  linkintegrity.
 - There is no fallback to the default main navigation.
 - Menu labels are not translated per language.
 

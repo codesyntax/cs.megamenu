@@ -11,7 +11,8 @@ Target: Plone 6.2, Classic UI, Python 3.10+
 
 The menu supports:
 
-- infinitely nested folders, which are placeholders and not clickable;
+- infinitely nested folders, which are placeholders and render as non-navigating
+  links for Barceloneta feature parity;
 - leaf links to internal Plone content or external URLs;
 - internal links stored as raw Plone UIDs and resolved at render time;
 - an optional CSS class and an optional Plone icon name on every item;
@@ -40,7 +41,10 @@ The menu supports:
 - Item descriptions, per-item visibility rules, translated menu labels.
 - Caching or performance tuning.
 - Automatic submenu generation from Plone folders.
-- Link-integrity/backrefs or relation fields for menu links.
+- Link-integrity/backrefs or relation fields for menu links. **Addressed in a
+  later step:** internal menu links now participate in
+  `plone.app.linkintegrity`; see
+  [linkintegrity/spec.md](../001-linkintegrity/spec.md).
 - Multiple menus per object.
 - Fallback to Plone's default main navigation.
 - Permission filtering of external links.
@@ -64,11 +68,11 @@ Rename checklist:
 
 ## 4. Domain model
 
-See [GLOSSARY.md](../../GLOSSARY.md) for the terms. In short:
+See [GLOSSARY.md](../../../GLOSSARY.md) for the terms. In short:
 
 - A **menu** is an ordered tree of menu items.
 - A **menu item** is a folder item or a link item.
-- A **folder item** is a placeholder that groups children. It is not clickable and has no target.
+- A **folder item** is a placeholder that groups children. It has no navigation target; it renders as an `a.nav-link` with `href="#"` for Barceloneta feature parity.
 - A **link item** is a leaf with exactly one target: an internal Plone object (raw UID) or an external URL.
 - The **nearest ancestor** with the behavior enabled supplies the menu. An unset field (`None`) means inherit; an explicitly saved empty menu is an **explicit opt-out** and renders no menu.
 
@@ -229,6 +233,8 @@ Preserve the Barceloneta mobile offcanvas contract:
 - `ul.navbar-nav#portal-globalnav`
 - `li.nav-item`
 - `a.nav-link` for links and folder labels
+- folder labels use `a.nav-link` with `href="#"`; they are focusable for
+  Barceloneta parity but do not navigate
 - `has_subtree` on a parent `li`
 - `dropdown has_subtree` on a nested `ul`
 - the mobile opener pair: `<input class="opener">` plus `<label role="button" aria-label="…">`
@@ -323,7 +329,7 @@ Do not implement drag-and-drop.
   - internal: content browser picker in the Internal tab;
   - external: URL text input in the External tab;
   - checkbox: open in a new tab.
-- Folders show a help note: “Folders are placeholders and are not clickable.”
+- Folders show a help note: “Folders are placeholders and are not navigation targets.”
 - Empty folders show a non-blocking note: “This folder has no children and will not appear in the menu.”
 
 ### Internal link picker
@@ -479,7 +485,7 @@ Each ticket should be a tracer bullet with tests. The order respects dependencie
 - The content browser is a single-picker component; per-node lifecycle and Svelte cleanup are the main technical risk. The research recommends the pattern but flags performance and accessibility issues.
 - Barceloneta's mobile offcanvas expects specific markup. Verify in a real browser; the research records the contract.
 - The addon replaces the main navigation and renders nothing when no menu is configured. This is intentional and must be documented.
-- Raw UIDs in JSON are not relations; deletion/backrefs are not tracked. Save-time and render-time checks cover dead targets but not link integrity.
+- Raw UIDs in JSON are not relation fields. Internal menu links are registered with `plone.app.linkintegrity`, so deleting a referenced target shows Plone's standard warning. External URLs and links to the site root itself are not tracked.
 - `jsonschema` draft-07 support was verified with the installed version; keep the schema free of newer draft features.
 - LRF support depends on PAM's FTI shape; the addon profile's post_handler is the chosen approach. PAM installed after the addon requires reapplying the addon profile.
 
@@ -490,7 +496,7 @@ Each ticket should be a tracer bullet with tests. The order respects dependencie
 - [Conditional LRF registration](research/conditional-lrf-registration.md)
 - [Content browser per-node integration](research/content-browser-per-node.md)
 - [JSON Schema asset](research/menu-schema.json)
-- [Glossary](../../GLOSSARY.md)
+- [Glossary](../../../GLOSSARY.md)
 - Plone 6.2 docs: <https://6.docs.plone.org/>
 - `plone.schema` source: <https://github.com/plone/plone.schema>
 - `plone.app.layout` main navigation: <https://github.com/plone/plone.app.layout>

@@ -1,8 +1,8 @@
 """JSON Schema for the editable menu value.
 
 This is the schema embedded in the behavior field. Keep it in sync with
-``.scratch/collective-megamenu/research/menu-schema.json`` and the validation
-table in the implementation spec.
+``.scratch/collective-megamenu/000-initial/research/menu-schema.json``
+and the validation table in the implementation spec.
 """
 
 MENU_JSON_SCHEMA = r"""

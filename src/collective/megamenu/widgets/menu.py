@@ -65,7 +65,8 @@ class MegaMenuWidget(TextAreaWidget):
             "iconPlaceholder": _("e.g. alarm or contenttype/document"),
             "iconPreview": _("Icon preview:"),
             "folderHelp": _(
-                "Folders are placeholders. They group children and are not clickable."
+                "Folders are placeholders. They group children and are not "
+                "navigation targets."
             ),
             "emptyFolderHelp": _(
                 "This folder has no children and will not appear in the menu."

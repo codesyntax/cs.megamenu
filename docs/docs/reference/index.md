@@ -53,12 +53,26 @@ Duplicate titles are allowed; duplicate IDs are not.
 ## Validation ✅
 
 Client-side validation mirrors the server rules and shows inline errors in the
-editor. Server-side validation is an `IValidator` for the menu field and raises
-newline-separated, path-aware messages such as:
+editor. Server-side validation is a `MenuValidator` registered for the menu
+field and raises newline-separated, path-aware messages such as:
 
 ```text
 Products → Product A: Choose exactly one target: internal or external.
 ```
+
+## Linkintegrity 🔗
+
+Internal menu links are registered with `plone.app.linkintegrity` when the menu
+is saved. Deleting a referenced target shows Plone’s standard “Potential link
+breakage” confirmation, naming the object that stores the menu.
+
+- Works for menus on Plone Site, Folder, and LRF.
+- Inherited menus are attributed to the ancestor that stores the menu.
+- Only `internal_uid` references are tracked; external URLs are not.
+- Soft dependency: if `plone.app.linkintegrity` is absent or
+  `enable_link_integrity_checks` is off, menus still work without warnings.
+- Existing menus are registered on their next save; there is no backfill.
+- A menu link whose target is the Plone Site root itself is not tracked.
 
 ## Viewlet 🧭
 
