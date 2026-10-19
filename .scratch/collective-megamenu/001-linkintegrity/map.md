@@ -15,7 +15,7 @@ A build-ready spec for tracking menu `internal_uid` references with `plone.app.l
 - The relation source is the object that stores the menu (the ancestor for inherited menus); the standard warning names that object.
 - Soft dependency: menu editing and rendering must work without `plone.app.linkintegrity`; tracking activates only when it is installed and `enable_link_integrity_checks` is on. When the setting is off, stay off and respect Plone's behavior.
 - No backfill for existing menus: references are tracked on the next save.
-- Target version: Plone 6.0–6.2, with Plone 6.2 as the tested environment. The relevant linkintegrity API is stable across the range.
+- Target version: Plone 6.2 only.
 - Site-root target limitation: core linkintegrity skips `IPloneSiteRoot` targets, so a menu item pointing at the site root itself is not tracked. Accepted because the site root is never deleted by a content editor.
 
 ## Decisions so far

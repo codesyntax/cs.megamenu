@@ -1,5 +1,8 @@
 # Linkintegrity integration for menu `internal_uid` references
 
+> Support scope: Plone 6.2 only. The older-version comparison below is retained
+> as historical research.
+
 Research for ticket [01-linkintegrity-integration-research](../issues/01-linkintegrity-integration-research.md).
 
 Verified against the installed stack:

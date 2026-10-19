@@ -26,7 +26,7 @@ a custom warning screen, a parallel relation store, or a hard deletion block.
 - Keep `plone.app.linkintegrity` a soft dependency.
 - Respect `enable_link_integrity_checks`.
 - Preserve existing RichText link tracking.
-- Support Plone 6.0–6.2, with Plone 6.2 as the tested environment.
+- Support Plone 6.2.
 
 ### Non-goals
 
@@ -250,10 +250,7 @@ The standard delete confirmation shows the menu owner as an accessible source.
 ### 6.3 Delete the source
 
 Deleting a menu-owning object removes its outgoing `isReferencing` relations
-through the core `removedContent` handler on linkintegrity 4.0.2+. This is
-expected on the supported Plone 6.1 and 6.2 releases. On very early Plone 6.0
-releases (linkintegrity 3.6.1), core may leave relations behind; that is core
-behavior, not an integration API difference.
+through the core `removedContent` handler in Plone 6.2's linkintegrity 5.0.0.
 
 ### 6.4 Disabled or absent linkintegrity
 
@@ -272,18 +269,11 @@ of this feature.
 
 ## 7. Compatibility
 
-The relevant API is stable across the supported range:
-
-| Plone | linkintegrity | Relevant difference |
-| --- | --- | --- |
-| 6.0.0–6.0.2 | 3.6.1 | DX retriever API identical; no source-deletion cleanup |
-| 6.0.5–6.0.15 | 4.0.x | Source-deletion cleanup from 4.0.2 |
-| 6.1.x | 4.0.6 | Same retriever API |
-| 6.2.x | 5.0.0 | PEP 420/src layout only; retriever/handler API unchanged |
-
-`IRetriever.retrieveLinks()`, `DXGeneral`, `getObjectsFromLinks`, the
-`resolveuid` branch, `isReferencing`, `getIncomingLinks`, and the
-`IDexterityHasRelations` subscribers are stable across the range.
+Supported and tested on Plone 6.2.x (`plone.app.linkintegrity` 5.0.0). The
+`IRetriever`/`DXGeneral` API, `getObjectsFromLinks`, the `resolveuid` branch,
+`isReferencing`, `getIncomingLinks`, and the `IDexterityHasRelations`
+subscribers are used as provided by that release. Plone 6.0 and 6.1 are not
+supported.
 
 ## 8. Testing and acceptance
 

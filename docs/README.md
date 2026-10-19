@@ -1,6 +1,6 @@
 # cs.megamenu
 
-Documentation for cs.megamenu, an editable menu for Plone 6 Classic UI.
+Documentation for cs.megamenu, an editable menu for Plone 6.2 Classic UI.
 
 This project provides a Sphinx-based documentation environment for your Plone project, powered by the [Plone Sphinx Theme](https://github.com/plone/plone-sphinx-theme).
 It's generated using the `documentation_starter` template from [Cookieplone](https://github.com/plone/cookieplone).

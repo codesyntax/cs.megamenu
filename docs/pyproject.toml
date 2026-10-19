@@ -1,6 +1,6 @@
 [project]
 name = "cs_megamenu_Documentation"
-description = "Documentation for cs.megamenu, an editable menu for Plone 6 Classic UI."
+description = "Documentation for cs.megamenu, an editable menu for Plone 6.2 Classic UI."
 keywords = [
     "cs.megamenu",
     "documentation",

@@ -21,7 +21,7 @@
 
 </div>
 
-An editable, JSON-backed megamenu for Plone 6 Classic UI.
+An editable, JSON-backed megamenu for Plone 6.2 Classic UI.
 
 See the [documentation](https://codesyntax.github.io/cs.megamenu/) for usage,
 reference, and development guides.
@@ -54,7 +54,7 @@ reference, and development guides.
 
 ## Requirements 📋
 
-- Plone 6 Classic UI (tested with Plone 6.2).
+- Plone 6.2 Classic UI.
 - Python 3.10 or newer.
 - Node.js 18 or newer, only for building the editor bundle.
 - `plone.app.multilingual` only if you want LRF support.

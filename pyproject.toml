@@ -1,7 +1,7 @@
 [project]
 name = "cs.megamenu"
 dynamic = ["version", "readme"]
-description = "An editable JSON-backed megamenu for Plone 6 Classic UI."
+description = "An editable JSON-backed megamenu for Plone 6.2 Classic UI."
 license = "GPL-2.0-only"
 requires-python = ">=3.10"
 authors = [
@@ -16,8 +16,6 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Web Environment",
     "Framework :: Plone",
-    "Framework :: Plone :: 6.0",
-    "Framework :: Plone :: 6.1",
     "Framework :: Plone :: 6.2",
     "Framework :: Plone :: Addon",
     "Operating System :: OS Independent",
