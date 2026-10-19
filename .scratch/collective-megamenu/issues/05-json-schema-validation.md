@@ -15,12 +15,12 @@ The settled model:
 - folder items have `children` and no target;
 - link items have exactly one of `internal_uid` or `external_url`, no children, and `open_in_new_tab`;
 - internal targets are raw UIDs;
-- icons are CSS class strings.
+- icons are Plone icon names resolved through `@@iconresolver`.
 
 Decide the remaining constraints:
 
 - required versus optional fields and allowed empty values;
-- maximum lengths and allowed characters for titles, CSS classes, and icons;
+- maximum lengths and allowed characters for titles, CSS classes, and icon names;
 - allowed URL schemes and validation for external URLs;
 - duplicate IDs, duplicate titles, and cyclic/`children` edge cases;
 - whether empty placeholder folders are valid in storage or only in the editor;
@@ -42,7 +42,8 @@ The JSON Schema asset is [research/menu-schema.json](../research/menu-schema.jso
 - Link items: exactly one of `internal_uid` / `external_url`, `open_in_new_tab` required; no `children`.
 - `id` uniqueness is not expressible in JSON Schema; the server-side validator checks it.
 - `title`: trimmed non-empty, max 200, at least one non-whitespace character.
-- `css_class` and `icon`: max 200, zero or more space-separated CSS identifiers, single spaces only.
+- `css_class`: max 200, zero or more space-separated CSS identifiers, single spaces only.
+- `icon`: max 200, a Plone icon name using letters, numbers, `_`, `.`, `/`, and `-`; empty is allowed.
 - `internal_uid`: max 64, non-whitespace; the real check is resolving it with the current user's permissions.
 - `external_url`: max 2048, schemes limited to `http`, `https`, `mailto`, and `tel`; host/recipient checked server-side.
 - `version` must be `1`; unknown versions are rejected.
@@ -59,10 +60,10 @@ The JSON Schema asset is [research/menu-schema.json](../research/menu-schema.jso
 | `type` is `folder` or `link` | JSON Schema | “A menu item must be a folder or a link.” |
 | `title` required, trimmed, max 200 | Client + server; JSON Schema for shape | “Title is required.” / “Use at most 200 characters.” |
 | `css_class` optional, max 200, CSS class list | Client + server; JSON Schema for shape | “Use only letters, numbers, hyphens, and underscores, separated by single spaces.” |
-| `icon` optional, max 200, CSS class list | Client + server; JSON Schema for shape | Same as CSS class |
+| `icon` optional, max 200, Plone icon name | Client + server; JSON Schema for shape | “Use a valid Plone icon name, for example alarm or contenttype/document.” |
 | Folder has `children`; no target fields | JSON Schema + server validator | “A folder cannot have a target.” |
 | Link has exactly one target; no `children` | JSON Schema + server validator | “Choose exactly one target: internal or external.” / “A link cannot have children.” |
-| `internal_uid` non-empty, max 64, resolves and is viewable | Client + server (context-aware) | “The selected internal target no longer exists or is not visible to you.” |
+| `internal_uid` non-empty, max 64, resolves and is viewable | Client checks only empty/whitespace; server resolves existence and visibility | “The selected internal target no longer exists or is not visible to you.” |
 | `external_url` max 2048, allowed scheme, valid host/recipient | Client + server | “Use an http(s), mailto, or tel URL.” |
 | `open_in_new_tab` is boolean | JSON Schema | — |
 | Unknown property | JSON Schema + server validator | “Unknown field: `<name>`.” |
@@ -79,7 +80,7 @@ The JSON Schema asset is [research/menu-schema.json](../research/menu-schema.jso
 ### Enforcement points
 
 - The field carries the JSON Schema via `plone.schema.JSONField.schema`. `JSONField._validate()` runs `jsonschema.validate()` and raises a field error.
-- A context-aware `validate_menu(value, context)` walks the tree for the semantic rules (duplicate IDs, folder/link field exclusivity, title/CSS/icon limits, URL syntax, UID resolution with `uuidToObject` or `plone.api.content.get`). It raises `zope.interface.Invalid` with the path-aware message; register it as an `IValidator` for the behavior on `IPloneFormLayer` (or call it from the edit form) so it has the context.
+- A context-aware `validate_menu(value)` walks the tree for the semantic rules (duplicate IDs, folder/link field exclusivity, title/CSS/icon-name limits, URL syntax, and UID resolution with the shared `resolve_internal_target` helper: catalog brain, `getObject`, and an explicit `View` permission check). It raises `zope.interface.Invalid` with the path-aware message; register `MenuValidator` with `WidgetValidatorDiscriminators` for `IEditableMenu["menu"]`.
 - The widget/converter trims titles and lowercases the external URL scheme before serialization. The server revalidates; a raw UID in JSON is not a relation, so a deleted target is caught at save time and again at render time.
 - Client-side validation is hand-coded to mirror this table. Keep a fixture suite that runs the same valid/invalid samples through both the JS validator and the server validator so the rules cannot drift.
 - `jsonschema` does not enforce `format` without a format checker, so UUIDs use an explicit regex. JSON Schema structural errors are intentionally generic; the semantic validator supplies the readable path-aware messages.

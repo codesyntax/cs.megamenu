@@ -34,7 +34,7 @@ A build-ready spec in `.scratch/collective-megamenu/spec.md` plus an implementat
 - Editor: inline in the standard edit form, using the chosen **master-detail** layout: menu tree on the left, inspector for the selected node on the right. Buttons add folder, add link, add child, delete, move up/down. Each node edits title, CSS class, icon, and (for links) internal/external target and open-in-new-tab. Internal link selection uses Plone's content browser. No drag-and-drop.
 - Site-root editing relies on the standard `@@edit` form; the user reports it exposes behavior fields on the Plone Site root. This is an assumption to verify in the first implementation spike.
 - Main navigation replacement: subclass `GlobalSectionsViewlet` and re-register `plone.global_sections` for `IMainNavigation` on the addon browser layer. Preserve Barceloneta's mobile offcanvas contract (`#portal-globalnav`, `navbar-nav`, `nav-item`, `nav-link`, `has_subtree`, `dropdown`, `opener`, `pat-navigationmarker`).
-- Field: `plone.schema.JSONField` with a JSON Schema. Classic UI's default widget is a textarea; the addon registers a custom widget for `IJSONField` plus `IPloneFormLayer` and a custom data converter.
+- Field: `plone.schema.JSONField` with a JSON Schema. Classic UI's default widget is a textarea; the addon applies its custom widget to the behavior's `menu` field with `plone.autoform.directives.widget` and reuses the core `JSONDataConverter`.
 - Widget frontend: Patternslib pattern built with the standard plonecli/webpack setup; bundle registered through `plone.base.interfaces.IBundleRegistry`, depending on `plone`.
 
 ## Decisions so far
