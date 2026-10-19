@@ -9,6 +9,15 @@ myst:
 
 # How-to guides 🛠️
 
+## Choose an approach 🧩
+
+| Goal | Approach |
+| --- | --- |
+| Main menu, built-in Barceloneta markup | Use the existing viewlet |
+| Additional menu field, built-in markup | [Additional menu fields](additional-menus.md) → subclass `MegaMenuViewlet` |
+| Additional menu field, custom HTML | Define it in [Additional menu fields](additional-menus.md), then use [Custom menu rendering](custom-menu-markup.md) |
+| Main menu, custom HTML | [Custom menu rendering](custom-menu-markup.md) |
+
 ## Configure the site-wide menu 🛠️
 
 1. Log in as a user who can edit the Plone Site root.
@@ -75,15 +84,15 @@ Enable **Open in a new tab** if needed; the viewlet adds
   inline SVG before the label. Use names such as `alarm` or
   `contenttype/document`.
 
-## Render custom markup 🧩
+## Define additional menu fields 🧩
 
-See [Custom menu markup](custom-menu-markup.md) to render the menu with your
+See [Additional menu fields](additional-menus.md) to define another menu field
+and reuse the widget, validator, resolver, and viewlet base class.
+
+## Render custom menu templates 🧩
+
+See [Custom menu rendering](custom-menu-markup.md) to render the menu with your
 own templates while keeping permission filtering and URL resolution.
-
-## Define additional menus 🧩
-
-See [Additional menus](additional-menus.md) to define another menu field and
-reuse the widget, validator, resolver, and viewlet base class.
 
 ## Enable LRF support 🌍
 
@@ -108,6 +117,6 @@ The remote bundle and chunks are written to
 :maxdepth: 1
 :hidden:
 
-custom-menu-markup
 additional-menus
+custom-menu-markup
 ```

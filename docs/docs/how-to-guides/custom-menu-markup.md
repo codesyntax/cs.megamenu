@@ -1,21 +1,26 @@
 ---
 myst:
   html_meta:
-    "description": "Render the cs.megamenu menu with custom markup."
-    "property=og:description": "Render the cs.megamenu menu with custom markup."
-    "property=og:title": "Custom menu markup"
+    "description": "Render the cs.megamenu menu with custom templates."
+    "property=og:description": "Render the cs.megamenu menu with custom templates."
+    "property=og:title": "Custom menu rendering"
     "keywords": "Plone, cs.megamenu, custom, markup, get_menu"
 ---
 
-# Custom menu markup 🧩
+# Custom menu rendering 🧩
 
 The default viewlet renders the menu as a Barceloneta navigation. To use your
 own markup, call the resolver directly instead of overriding the viewlet.
 
+If you are adding a second menu field, start with
+[Additional menu fields](additional-menus.md).
+
 ## Get the menu
 
-`cs.megamenu.menu.get_menu(context)` walks up the acquisition chain and returns
-a `(menu, owner)` tuple:
+`cs.megamenu.menu.get_menu(context, field_name="menu", behavior=IEditableMenu)`
+walks up the acquisition chain and returns a `(menu, owner)` tuple. The
+defaults read the built-in `menu` field; pass another field name and behavior
+for an additional menu.
 
 - `(menu, owner)` for the nearest non-empty configured menu.
 - `(None, owner)` for an explicitly saved empty menu; `owner` is the object that
@@ -29,6 +34,9 @@ empty menu.
 
 `owner` is the content object that supplied the menu. For an inherited menu it
 is the ancestor that stores the menu, not the current context.
+
+For a custom field, pass its field name and behavior; see
+[Additional menu fields](additional-menus.md).
 
 ## Resolve links and permissions
 
@@ -54,7 +62,7 @@ items = filter_items(menu["items"]) if menu else []
 
 If you need the raw stored data, iterate `menu["items"]` directly.
 
-## Example: Render a custom menu in a viewlet
+## Example: standalone viewlet with a custom template
 
 The viewlet below is an example in a separate custom add-on (`myaddon`). It is
 not part of `cs.megamenu`; copy and adapt it in your own package.
@@ -67,6 +75,7 @@ resolved menu items; the template uses a recursive macro to render nested
 
 ```python
 # myaddon/viewlets/nested_menu.py
+from cs.megamenu.behaviors.menu import IEditableMenu
 from cs.megamenu.menu import get_menu
 from cs.megamenu.viewlets.menu import filter_items
 from plone.app.layout.viewlets.common import ViewletBase
@@ -75,11 +84,20 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class NestedMenuViewlet(ViewletBase):
     index = ViewPageTemplateFile("nested_menu.pt")
+    menu_field = "menu"
+    menu_behavior = IEditableMenu
 
     def items(self):
-        menu, _owner = get_menu(self.context)
+        menu, _owner = get_menu(
+            self.context,
+            field_name=self.menu_field,
+            behavior=self.menu_behavior,
+        )
         return filter_items(menu["items"]) if menu else []
 ```
+
+For an additional menu, subclass this viewlet and set `menu_field` and
+`menu_behavior`, or pass those values directly to `get_menu()`.
 
 ### Template
 
@@ -142,10 +160,10 @@ the module.
   and omits empty folders.
 - Folder items are placeholders, so the example renders a `<span>`. Use
   `<a href="#">` for focusable folder labels with Barceloneta parity.
-- For an additional menu field, call
-  `get_menu(self.context, field_name="footer_menu", behavior=IFooterMenu)` in
-  `items()` and choose the viewlet name and manager for your menu’s location.
-  See [Additional menus](additional-menus.md).
+- For an additional menu field, subclass `NestedMenuViewlet` and set
+  `menu_field = "footer_menu"` and `menu_behavior = IFooterMenu`, or pass those
+  values directly to `get_menu()`. Choose the viewlet name and manager for your
+  menu’s location. See [Additional menu fields](additional-menus.md).
 - Add `target="_blank"` and `rel="noopener noreferrer"` for link items with
   `open_in_new_tab` if your markup should preserve that behavior.
 - An empty menu renders no `<ul>` because of `tal:condition="items"`.

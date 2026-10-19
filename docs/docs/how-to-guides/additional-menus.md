@@ -3,11 +3,11 @@ myst:
   html_meta:
     "description": "Define additional menu fields and reuse the cs.megamenu widget."
     "property=og:description": "Define additional menu fields and reuse the cs.megamenu widget."
-    "property=og:title": "Additional menus"
+    "property=og:title": "Additional menu fields"
     "keywords": "Plone, cs.megamenu, additional menus, behavior, widget"
 ---
 
-# Additional menus 🧩
+# Additional menu fields 🧩
 
 `cs.megamenu` ships one behavior with a `menu` field (`IEditableMenu`) and a
 viewlet for the main navigation. You can define additional menu fields in your
@@ -16,6 +16,9 @@ retriever, and viewlet base class.
 
 The code in this guide is an example for a separate add-on (`myaddon`). It is
 not part of `cs.megamenu`; copy and adapt it in your own package.
+
+To render your new field with custom HTML, see
+[Custom menu rendering](custom-menu-markup.md) after defining it.
 
 Use a distinct field name and behavior for each menu. The examples below add a
 `footer_menu` field.
@@ -118,16 +121,8 @@ menu, owner = get_menu(
 )
 ```
 
-Use `filter_items()` for resolved URLs and permission filtering:
-
-```python
-from cs.megamenu.viewlets.menu import filter_items
-
-items = filter_items(menu["items"]) if menu else []
-```
-
-See [Custom menu markup](../how-to-guides/custom-menu-markup.md) for the full
-return contract and a rendering example.
+See [Custom menu rendering](custom-menu-markup.md) for the return contract,
+`filter_items()`, and rendering examples.
 
 ## Track link integrity
 
@@ -172,7 +167,7 @@ Register it conditionally so your package still works without
 </configure>
 ```
 
-## Render a custom viewlet
+## Render with the built-in MegaMenuViewlet
 
 Subclass `MegaMenuViewlet` and point it at your field and behavior:
 
@@ -187,9 +182,25 @@ class FooterMenuViewlet(MegaMenuViewlet):
     menu_behavior = IFooterMenu
 ```
 
-Register it under a new viewlet name and the manager used by your template.
-The base class reuses resolution, permission filtering, icon rendering, and the
-Barceloneta markup.
+This reuses the built-in Barceloneta markup, resolution, permission filtering,
+and icon rendering. For fully custom HTML, use the standalone viewlet pattern
+in [Custom menu rendering](custom-menu-markup.md).
+
+Register it under a new viewlet name and the manager used by your template, for
+example:
+
+```xml
+<browser:viewlet
+    name="myaddon.footer_menu"
+    manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+    class=".viewlets.footer.FooterMenuViewlet"
+    permission="zope2.View"
+    layer="myaddon.interfaces.IBrowserLayer"
+    />
+```
+
+Add the `browser` namespace to the ZCML root
+(`xmlns:browser="http://namespaces.zope.org/browser"`).
 
 ## Checklist
 

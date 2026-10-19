@@ -19,7 +19,7 @@ myst:
 
 The behavior is enabled on `Plone Site` and `Folder` by the default profile.
 `LRF` is enabled when the type exists. To define additional menu fields, see
-[Additional menus](../how-to-guides/additional-menus.md).
+[Additional menu fields](../how-to-guides/additional-menus.md).
 
 ## JSON value 🗂️
 
@@ -84,8 +84,9 @@ breakage” confirmation, naming the object that stores the menu.
 ## Custom rendering 🧩
 
 For custom markup, use `cs.megamenu.menu.get_menu(context)` and
-`filter_items()`. See [Custom menu markup](../how-to-guides/custom-menu-markup.md)
-for the return contract and a complete example.
+`filter_items()`. See
+[Custom menu rendering](../how-to-guides/custom-menu-markup.md) for the return
+contract and a complete example.
 
 ## Bundle 📦
 

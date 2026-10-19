@@ -177,15 +177,18 @@ make i18n
 - `src/cs/megamenu/browser/` — static assets and published bundles.
 - `resources/pat-megamenu/` — Patternslib editor source.
 
-### Custom menu markup
+### Custom menus
 
-To render the menu yourself, use `cs.megamenu.menu.get_menu(context)` and
-`filter_items()`. See
-[Custom menu markup](https://codesyntax.github.io/cs.megamenu/how-to-guides/custom-menu-markup.html)
-in the documentation for the return contract and a complete example.
+To render the menu with your own markup, see
+[Custom menu rendering](https://codesyntax.github.io/cs.megamenu/how-to-guides/custom-menu-markup.html)
+in the documentation for the return contract and examples.
 
-To define additional menu fields and reuse the widget in a custom behavior, see
-[Additional menus](https://codesyntax.github.io/cs.megamenu/how-to-guides/additional-menus.html).
+To add a second menu field to a custom behavior, see
+[Additional menu fields](https://codesyntax.github.io/cs.megamenu/how-to-guides/additional-menus.html).
+
+To render an additional field with the built-in Barceloneta markup, subclass
+`MegaMenuViewlet` as shown in
+[Additional menu fields](https://codesyntax.github.io/cs.megamenu/how-to-guides/additional-menus.html).
 
 ## Release process 🚀
 
