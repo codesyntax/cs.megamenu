@@ -1,4 +1,4 @@
-# collective.megamenu — Implementation Specification
+# cs.megamenu — Implementation Specification
 
 Status: ready for implementation
 Source of decisions: [wayfinder map](map.md) and its child tickets
@@ -7,7 +7,7 @@ Target: Plone 6.2, Classic UI, Python 3.10+
 
 ## 1. Summary
 
-`collective.megamenu` is a Plone 6.2 Classic UI addon that lets editors configure a custom menu on a Plone Site, an LRF, or a Folder. The menu is stored as JSON on the content object through a behavior. Editors build the menu with a tree widget in the standard edit form. A viewlet replaces Plone's main navigation with the menu from the nearest ancestor that has the behavior enabled.
+`cs.megamenu` is a Plone 6.2 Classic UI addon that lets editors configure a custom menu on a Plone Site, an LRF, or a Folder. The menu is stored as JSON on the content object through a behavior. Editors build the menu with a tree widget in the standard edit form. A viewlet replaces Plone's main navigation with the menu from the nearest ancestor that has the behavior enabled.
 
 The menu supports:
 
@@ -52,19 +52,19 @@ The menu supports:
 
 ## 3. Package identity and rename
 
-The repository currently uses the distribution name `collective.editablemenu`, which is already RedTurtle's PyPI project. The addon must be renamed to **`collective.megamenu`** in the first implementation ticket.
+The repository currently uses the distribution name `collective.editablemenu`, which is already RedTurtle's PyPI project. The addon must be renamed to **`cs.megamenu`** in the first implementation ticket.
 
 Rename checklist:
 
 - `pyproject.toml`: project name, URLs, classifiers if needed, package discovery.
-- `src/collective/editablemenu/` → `src/collective/megamenu/`.
+- `src/collective/editablemenu/` → `src/cs/megamenu/`.
 - All imports, ZCML `package=` references, profile names, browser layer, behavior name, i18n domain, bundle names, static paths, test imports.
 - `Makefile`, `mx.ini`, `instance.yaml`, `.cookieplone.json`, `.github/`, `scripts/`, `docs/`, `README.md`, `CHANGELOG.md`, `CONTRIBUTORS.md`.
-- Distribution/profile names: `collective.megamenu`, `collective.megamenu:default`, `collective.megamenu:uninstall`.
-- Browser layer: `collective.megamenu.interfaces.IBrowserLayer`.
-- Behavior name: `collective.megamenu.menu`.
-- Bundle: `plone.bundles/collective.megamenu`, served from `++plone++collective.megamenu/...`.
-- Confirm `collective.megamenu` is still free on PyPI and in the `collective` GitHub org before release.
+- Distribution/profile names: `cs.megamenu`, `cs.megamenu:default`, `cs.megamenu:uninstall`.
+- Browser layer: `cs.megamenu.interfaces.IBrowserLayer`.
+- Behavior name: `cs.megamenu.menu`.
+- Bundle: `plone.bundles/cs.megamenu`, served from `++plone++cs.megamenu/...`.
+- Confirm `cs.megamenu` is still free on PyPI and in the `collective` GitHub org before release.
 
 ## 4. Domain model
 
@@ -136,7 +136,7 @@ from plone.supermodel import model
 from zope.interface import provider
 from zope.i18nmessageid import MessageFactory
 
-_ = MessageFactory("collective.megamenu")
+_ = MessageFactory("cs.megamenu")
 
 
 @provider(IFormFieldProvider)
@@ -168,7 +168,7 @@ class IEditableMenu(model.Schema):
 ```xml
 <configure xmlns:plone="http://namespaces.plone.org/plone">
   <plone:behavior
-      name="collective.megamenu.menu"
+      name="cs.megamenu.menu"
       title="Editable menu"
       description="A configurable menu tree."
       provides=".behaviors.menu.IEditableMenu"
@@ -219,7 +219,7 @@ Subclass `plone.app.layout.viewlets.common.GlobalSectionsViewlet` and re-registe
     name="plone.global_sections"
     manager="plone.app.layout.viewlets.interfaces.IMainNavigation"
     class=".menu.MegaMenuViewlet"
-    layer="collective.megamenu.interfaces.IBrowserLayer"
+    layer="cs.megamenu.interfaces.IBrowserLayer"
     permission="zope2.View"
     />
 ```
@@ -293,7 +293,7 @@ Notes:
 - Use the addon profile's **`post_handler`**, `setuphandlers.add_behavior_to_lrf`, instead of a `ProfileImportedEvent` subscriber. It checks the `LRF` FTI and appends the behavior if missing.
 - This covers PAM installed before the addon and site creation when both are selected. If PAM is installed after the addon, reapply the addon profile; there is no automatic PAM-profile subscription.
 - The post_handler is idempotent; the declarative `types/LRF.xml` and the handler may both add the behavior without creating duplicates.
-- Uninstall: `profiles/uninstall/types/LRF.xml` with `<element value="collective.megamenu.menu" remove="true"/>` and `purge="false"`; omitting `purge="false"` would wipe PAM's behaviors.
+- Uninstall: `profiles/uninstall/types/LRF.xml` with `<element value="cs.megamenu.menu" remove="true"/>` and `purge="false"`; omitting `purge="false"` would wipe PAM's behaviors.
 - No upgrade step is needed for the initial release. If LRF support is added after a release, use `<genericsetup:upgradeDepends import_steps="types"/>`.
 
 Test without PAM, with PAM installed before the addon, and with PAM installed after the addon followed by reapplying the addon profile.
@@ -369,10 +369,10 @@ The stored menu title is separate from the target's title. The inspector may dis
 ### Frontend bundle
 
 - Implement the editor as a Patternslib pattern (for example `megamenu`) triggered on the widget root.
-- Register the bundle in `profiles/default/registry/bundles.xml` with `interface="plone.base.interfaces.IBundleRegistry"`, prefix `plone.bundles/collective.megamenu`, `depends=plone`.
-- Static output lives under `browser/static/bundles/` and is served from `++plone++collective.megamenu/...`.
+- Register the bundle in `profiles/default/registry/bundles.xml` with `interface="plone.base.interfaces.IBundleRegistry"`, prefix `plone.bundles/cs.megamenu`, `depends=plone`.
+- Static output lives under `browser/static/bundles/` and is served from `++plone++cs.megamenu/...`.
 - Declare `@patternslib/patternslib`, `@plone/mockup`, and `svelte` in the addon's `package.json`. Pin `svelte` to the version shared by the target Plone bundle (5.57.0 in Plone 6.2) to avoid a module-federation version warning.
-- Use the standard `plonecli add mockup_pattern`-style webpack/module-federation scaffold at the repository root. Build with `npm install && npm run build`; the output goes to `src/collective/megamenu/browser/static/bundles/`.
+- Use the standard `plonecli add mockup_pattern`-style webpack/module-federation scaffold at the repository root. Build with `npm install && npm run build`; the output goes to `src/cs/megamenu/browser/static/bundles/`.
 - The widget renders one hidden textarea with the submitted JSON. The core `JSONDataConverter` continues to handle serialization; no custom converter is needed.
 - Do not render the raw JSON preview in production; it was a prototype aid.
 - Apply the widget with `plone.autoform.directives.widget("menu", MegaMenuFieldWidget)` on `IEditableMenu` and register the widget template for the addon's `IBrowserLayer`. Do not register a broad `IJSONField` adapter, which would replace every JSON field widget.
@@ -468,7 +468,7 @@ Client-side errors appear inline in the inspector and as error dots in the tree.
 
 Each ticket should be a tracer bullet with tests. The order respects dependencies.
 
-1. **Rename and scaffold** — rename the package to `collective.megamenu`, update metadata/ZCML/profiles/docs/CI, add `plone.schema` dependency, add the pattern/webpack scaffold. Depends on: nothing.
+1. **Rename and scaffold** — rename the package to `cs.megamenu`, update metadata/ZCML/profiles/docs/CI, add `plone.schema` dependency, add the pattern/webpack scaffold. Depends on: nothing.
 2. **Behavior and schema** — add `IEditableMenu`, the JSON Schema string, the field, behavior registration, and enable it on Folder and Plone Site. Depends on: 1.
 3. **Server validation** — add the context-aware `validate_menu` validator and tests. Depends on: 2.
 4. **Menu resolver** — add `get_menu(context)` and tests. Depends on: 2.

@@ -2,7 +2,7 @@
 name = "collective_megamenu_Documentation"
 description = "A new addon for Plone Blicca that provides a behavior to create a custom menu in a given folder"
 keywords = [
-    "collective.megamenu",
+    "cs.megamenu",
     "documentation",
     "Plone",
     "Diátaxis",

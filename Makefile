@@ -124,7 +124,7 @@ check: format lint ## Check and fix code base according to Plone standards
 .PHONY: i18n
 i18n: $(VENV_FOLDER) ## Update locales
 	@echo "$(GREEN)==> Updating locales$(RESET)"
-	@$(BIN_FOLDER)/python -m collective.megamenu.locales
+	@$(BIN_FOLDER)/python -m cs.megamenu.locales
 
 # Tests
 .PHONY: test
@@ -133,7 +133,7 @@ test: $(VENV_FOLDER) ## run tests
 
 .PHONY: test-coverage
 test-coverage: $(VENV_FOLDER) ## run tests with coverage
-	@$(BIN_FOLDER)/pytest --cov=collective.megamenu --cov-report term-missing
+	@$(BIN_FOLDER)/pytest --cov=cs.megamenu --cov-report term-missing
 
 .PHONY: test-browser
 test-browser: $(VENV_FOLDER) ## run browser tests against a running Plone instance

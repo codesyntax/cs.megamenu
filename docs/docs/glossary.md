@@ -1,10 +1,10 @@
 ---
 myst:
   html_meta:
-    "description": "Terms and definitions used by collective.megamenu."
-    "property=og:description": "Terms and definitions used by collective.megamenu."
+    "description": "Terms and definitions used by cs.megamenu."
+    "property=og:description": "Terms and definitions used by cs.megamenu."
     "property=og:title": "Glossary"
-    "keywords": "Plone, collective.megamenu, glossary, menu"
+    "keywords": "Plone, cs.megamenu, glossary, menu"
 ---
 
 # Glossary 📚

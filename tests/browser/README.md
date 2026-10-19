@@ -5,7 +5,7 @@ Plone site. They are skipped by the normal test suite unless `PLONE_URL` is set.
 
 ## Prerequisites
 
-- A running Plone 6.2 site with `collective.megamenu` installed.
+- A running Plone 6.2 site with `cs.megamenu` installed.
 - Chrome and a compatible Selenium driver (Selenium Manager handles the driver).
 - An admin account. The defaults are `admin` / `admin`; override them with
   `PLONE_USER` and `PLONE_PASSWORD`.

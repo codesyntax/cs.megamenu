@@ -1,5 +1,5 @@
 [project]
-name = "collective.megamenu"
+name = "cs.megamenu"
 dynamic = ["version", "readme"]
 description = "An editable JSON-backed megamenu for Plone 6 Classic UI."
 license = "GPL-2.0-only"
@@ -55,7 +55,7 @@ release = [
 
 [project.urls]
 Homepage = "https://github.com/collective/collective.megamenu"
-PyPI = "https://pypi.org/project/collective.megamenu"
+PyPI = "https://pypi.org/project/cs.megamenu"
 Source = "https://github.com/collective/collective.megamenu"
 Tracker = "https://github.com/collective/collective.megamenu/issues"
 
@@ -545,7 +545,7 @@ constraint-dependencies = [
 ]
 
 [tool.hatch.version]
-path = "src/collective/megamenu/__init__.py"
+path = "src/cs/megamenu/__init__.py"
 
 [build-system]
 requires = ["hatchling", "hatch-fancy-pypi-readme"]
@@ -560,7 +560,7 @@ exclude = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/collective"]
+packages = ["src/cs"]
 
 [tool.hatch.metadata.hooks.fancy-pypi-readme]
 content-type = "text/markdown"
@@ -672,12 +672,12 @@ markers = [
 ]
 
 [tool.coverage.run]
-source_pkgs = ["collective.megamenu", "tests"]
+source_pkgs = ["cs.megamenu", "tests"]
 branch = true
 parallel = true
 omit = [
-  "src/collective/megamenu/locales/*.py",
+  "src/cs/megamenu/locales/*.py",
 ]
 
 [tool.zest-releaser]
-python-file-with-version = "src/collective/megamenu/__init__.py"
+python-file-with-version = "src/cs/megamenu/__init__.py"

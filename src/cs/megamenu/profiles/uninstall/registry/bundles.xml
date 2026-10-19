@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<registry>
+
+  <records interface="plone.base.interfaces.IBundleRegistry"
+           prefix="plone.bundles/cs.megamenu"
+           remove="true"
+  />
+
+</registry>

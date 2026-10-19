@@ -1,6 +1,6 @@
-from collective.megamenu.testing import ACCEPTANCE_TESTING
-from collective.megamenu.testing import FUNCTIONAL_TESTING
-from collective.megamenu.testing import INTEGRATION_TESTING
+from cs.megamenu.testing import ACCEPTANCE_TESTING
+from cs.megamenu.testing import FUNCTIONAL_TESTING
+from cs.megamenu.testing import INTEGRATION_TESTING
 from pytest_plone import fixtures_factory
 
 

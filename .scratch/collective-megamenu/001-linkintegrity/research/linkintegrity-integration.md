@@ -51,7 +51,7 @@ if assignable is not None:
 all_spec = Provides(cls, *dynamically_provided)
 ```
 
-So an object of a type whose FTI lists `collective.megamenu.menu` provides
+So an object of a type whose FTI lists `cs.megamenu.menu` provides
 `IEditableMenu` through `providedBy()`/`IEditableMenu.providedBy()`. This is not
 persisted in the ZODB; it is recomputed from the FTI behavior list and cached on
 `_v__providedBy__`.
@@ -265,7 +265,7 @@ Keep `plone.app.linkintegrity` optional at import and ZCML level.
 
   <include
       file="linkintegrity.zcml"
-      package="collective.megamenu"
+      package="cs.megamenu"
       zcml:condition="installed plone.app.linkintegrity"
       />
 
@@ -456,7 +456,7 @@ No installed addon other than `plone.restapi` registers an `IRetriever`.
 ### Soft-dependency tests
 
 19. Import isolation: in a subprocess, block `plone.app.linkintegrity` (or run
-    in an environment without it) and import `collective.megamenu`; assert it
+    in an environment without it) and import `cs.megamenu`; assert it
     imports and `iter_menu_link_uids` can be used. The `linkintegrity.py`
     module and its imports must not be reachable from the package root.
 20. ZCML: assert the addon's `configure.zcml` uses

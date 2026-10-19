@@ -1,7 +1,7 @@
 """Tests for linkintegrity integration."""
 
-from collective.megamenu.linkintegrity.menu import iter_menu_link_uids
-from collective.megamenu.linkintegrity.menu import MenuRetriever
+from cs.megamenu.linkintegrity.menu import iter_menu_link_uids
+from cs.megamenu.linkintegrity.menu import MenuRetriever
 from pathlib import Path
 from plone import api
 from plone.app.linkintegrity.browser.info import DeleteConfirmationInfo
@@ -297,7 +297,7 @@ def test_site_root_target_is_not_tracked(portal, linkintegrity_checks):
 
 
 def test_linkintegrity_zcml_is_conditional():
-    zcml = Path("src/collective/megamenu/configure.zcml").read_text()
+    zcml = Path("src/cs/megamenu/configure.zcml").read_text()
 
     assert 'zcml:condition="installed plone.app.linkintegrity"' in zcml
     assert 'package=".linkintegrity"' in zcml
@@ -308,7 +308,7 @@ def test_lrf_uses_menu_retriever(portal):
 
     login(portal.aq_parent, "admin")
     applyProfile(portal, "plone.app.multilingual:default")
-    applyProfile(portal, "collective.megamenu:default")
+    applyProfile(portal, "cs.megamenu:default")
     lrf = api.content.create(container=portal, type="Folder", id="lrf", title="LRF")
     lrf.portal_type = "LRF"
 

@@ -1,0 +1,312 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2026-10-19 07:07+0000\n"
+"PO-Revision-Date: 2026-10-17 14:43+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Basque <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Code: eu\n"
+"Language-Name: Euskara\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: cs.megamenu\n"
+"Language: eu\n"
+
+#: cs/megamenu/widgets/menu.py:63
+msgid " (required)"
+msgstr " (derrigorrezkoa)"
+
+#: cs/megamenu/widgets/menu.py:87
+msgid "(untitled)"
+msgstr "(izenbururik gabe)"
+
+#: cs/megamenu/widgets/menu.py:43
+msgid "+ Folder"
+msgstr "+ Karpeta"
+
+#: cs/megamenu/widgets/menu.py:44
+msgid "+ Link"
+msgstr "+ Esteka"
+
+#: cs/megamenu/behaviors/configure.zcml:17
+msgid "A configurable JSON-backed menu."
+msgstr "JSON-en oinarritutako menu konfiguragarria."
+
+#: cs/megamenu/validators/validation.py:48
+#: cs/megamenu/widgets/menu.py:114
+msgid "A folder cannot have a target."
+msgstr "Karpeta batek ezin du helbururik izan."
+
+#: cs/megamenu/widgets/menu.py:115
+msgid "A folder must have children."
+msgstr "Karpeta batek elementu seme-alabak izan behar ditu."
+
+#: cs/megamenu/validators/validation.py:49
+#: cs/megamenu/widgets/menu.py:116
+msgid "A link cannot have children."
+msgstr "Esteka batek ezin ditu elementu seme-alabak izan."
+
+#: cs/megamenu/validators/validation.py:51
+#: cs/megamenu/widgets/menu.py:118
+msgid "A menu item must be a folder or a link."
+msgstr "Menu-elementua karpeta edo esteka bat izan behar da."
+
+#: cs/megamenu/widgets/menu.py:53
+msgid "Add folder"
+msgstr "Gehitu karpeta"
+
+#: cs/megamenu/widgets/menu.py:84
+msgid "Add folder inside"
+msgstr "Gehitu karpeta barruan"
+
+#: cs/megamenu/widgets/menu.py:54
+msgid "Add link"
+msgstr "Gehitu esteka"
+
+#: cs/megamenu/widgets/menu.py:85
+msgid "Add link inside"
+msgstr "Gehitu esteka barruan"
+
+#: cs/megamenu/widgets/menu.py:61
+msgid "CSS class"
+msgstr "CSS klasea"
+
+#: cs/megamenu/validators/validation.py:50
+#: cs/megamenu/widgets/menu.py:117
+msgid "Choose exactly one target: internal or external."
+msgstr "Aukeratu helburu bat soilik: barnekoa edo kanpokoa."
+
+#: cs/megamenu/widgets/menu.py:82
+msgid "Collapse"
+msgstr "Tolestu"
+
+#: cs/megamenu/behaviors/menu.py:27
+msgid "Custom menu for this folder and its descendants. Leave unset to inherit the nearest ancestor's menu."
+msgstr "Karpeta honetarako eta bere ondorengoetarako menu pertsonalizatua. Utzi zehaztu gabe gertueneko arbasoaren menua heredatzeko."
+
+#: cs/megamenu/widgets/menu.py:81
+msgid "Delete"
+msgstr "Ezabatu"
+
+#: cs/megamenu/widgets/menu.py:95
+msgid "Delete \"{title}\" and its {count} direct child item(s)?"
+msgstr "Ezabatu \"{title}\" eta bere {count} elementu seme-alaba zuzena(k)?"
+
+#: cs/megamenu/behaviors/configure.zcml:17
+msgid "Editable menu"
+msgstr "Menu editagarria"
+
+#: cs/megamenu/widgets/menu.py:83
+msgid "Expand"
+msgstr "Zabaldu"
+
+#: cs/megamenu/widgets/menu.py:76
+msgid "External"
+msgstr "Kanpokoa"
+
+#: cs/megamenu/widgets/menu.py:77
+msgid "External URL"
+msgstr "Kanpo URL-a"
+
+#: cs/megamenu/widgets/menu.py:58
+msgid "Folder"
+msgstr "Karpeta"
+
+#: cs/megamenu/widgets/menu.py:56
+msgid "Folder details"
+msgstr "Karpetaren xehetasunak"
+
+#: cs/megamenu/widgets/menu.py:67
+msgid "Folders are placeholders. They group children and are not navigation targets."
+msgstr "Karpetak leku-markak dira. Elementu seme-alabak biltzen dituzte eta ez dira nabigazio-helmugak."
+
+#: cs/megamenu/widgets/menu.py:66
+msgid "Icon preview:"
+msgstr "Ikonoaren aurrebista:"
+
+#: cs/megamenu/widgets/menu.py:75
+msgid "Internal"
+msgstr "Barnekoa"
+
+#: cs/megamenu/widgets/menu.py:90
+msgid "Internal target"
+msgstr "Barne helburua"
+
+#: cs/megamenu/widgets/menu.py:94
+msgid "Internal target selected."
+msgstr "Barne helburua hautatuta."
+
+#: cs/megamenu/widgets/menu.py:59
+msgid "Link"
+msgstr "Esteka"
+
+#: cs/megamenu/widgets/menu.py:57
+msgid "Link details"
+msgstr "Estekaren xehetasunak"
+
+#: cs/megamenu/behaviors/menu.py:19
+msgid "Mega menu"
+msgstr "Megamenua"
+
+#: cs/megamenu/behaviors/menu.py:26
+msgid "Menu"
+msgstr "Menua"
+
+#: cs/megamenu/validators/validation.py:47
+#: cs/megamenu/widgets/menu.py:113
+msgid "Menu item IDs must be unique and valid UUIDs."
+msgstr "Menu-elementuen IDek baliozko UUID bakarrak izan behar dituzte."
+
+#: cs/megamenu/widgets/menu.py:42
+msgid "Menu tree"
+msgstr "Menuaren zuhaitza"
+
+#: cs/megamenu/widgets/menu.py:80
+msgid "Move down"
+msgstr "Mugitu behera"
+
+#: cs/megamenu/widgets/menu.py:79
+msgid "Move up"
+msgstr "Mugitu gora"
+
+#: cs/megamenu/widgets/menu.py:46
+msgid "No menu configured"
+msgstr "Ez dago menurik konfiguratuta"
+
+#: cs/megamenu/widgets/menu.py:50
+msgid "No menu is configured here. The nearest ancestor menu is inherited."
+msgstr "Hemen ez dago menurik konfiguratuta. Gertueneko arbasoaren menua heredatzen da."
+
+#: cs/megamenu/widgets/menu.py:91
+msgid "No target"
+msgstr "Helbururik gabe"
+
+#: cs/megamenu/widgets/menu.py:78
+msgid "Open in a new tab"
+msgstr "Ireki fitxa berri batean"
+
+#: cs/megamenu/profiles.zcml:14
+msgid "Package to configure a new cs.megamenu site"
+msgstr "cs.megamenu gune berri bat konfiguratzeko paketea"
+
+#: cs/megamenu/widgets/menu.py:62
+msgid "Plone icon name"
+msgstr "Plone ikonoaren izena"
+
+#: cs/megamenu/widgets/menu.py:55
+msgid "Select a menu item to edit it."
+msgstr "Hautatu menu-elementu bat editatzeko."
+
+#: cs/megamenu/widgets/menu.py:74
+msgid "Target"
+msgstr "Helburua"
+
+#: cs/megamenu/widgets/menu.py:48
+msgid "The nearest ancestor menu is inherited."
+msgstr "Gertueneko arbasoaren menua heredatzen da."
+
+#: cs/megamenu/validators/validation.py:42
+#: cs/megamenu/widgets/menu.py:109
+msgid "The selected internal target no longer exists or is not visible to you."
+msgstr "Hautatutako barne helburua jada ez da existitzen edo ez da ikusgai zuretzat."
+
+#: cs/megamenu/widgets/menu.py:49
+msgid "The viewlet will render no navigation here."
+msgstr "Viewletak ez du nabigaziorik erakutsiko hemen."
+
+#: cs/megamenu/widgets/menu.py:71
+msgid "This folder has no children and will not appear in the menu."
+msgstr "Karpeta honek ez du seme-alabarik eta ez da menuan agertuko."
+
+#: cs/megamenu/widgets/menu.py:47
+msgid "This menu is intentionally empty"
+msgstr "Menu hau nahita dago hutsik"
+
+#: cs/megamenu/widgets/menu.py:60
+msgid "Title"
+msgstr "Izenburua"
+
+#: cs/megamenu/validators/validation.py:45
+#: cs/megamenu/widgets/menu.py:98
+msgid "Title is required."
+msgstr "Izenburua derrigorrezkoa da."
+
+#: cs/megamenu/profiles.zcml:22
+msgid "Uninstall cs.megamenu setup."
+msgstr "Desinstalatu cs.megamenu konfigurazioa."
+
+#: cs/megamenu/validators/validation.py:66
+msgid "Unknown field: `${name}`."
+msgstr "Eremu ezezaguna: `${name}`."
+
+#: cs/megamenu/validators/validation.py:52
+#: cs/megamenu/widgets/menu.py:119
+msgid "Unsupported menu version. Expected version 1."
+msgstr "Onartzen ez den menu-bertsioa. 1. bertsioa espero zen."
+
+#: cs/megamenu/widgets/menu.py:88
+msgid "Untitled folder"
+msgstr "Izenbururik gabeko karpeta"
+
+#: cs/megamenu/validators/validation.py:191
+msgid "Untitled item #{index}"
+msgstr "Izenbururik gabeko elementua #{index}"
+
+#: cs/megamenu/widgets/menu.py:89
+msgid "Untitled link"
+msgstr "Izenbururik gabeko esteka"
+
+#: cs/megamenu/validators/validation.py:39
+#: cs/megamenu/widgets/menu.py:104
+msgid "Use a valid Plone icon name, for example alarm or contenttype/document."
+msgstr "Erabili Plone ikonoaren izen baliozkoa, adibidez alarm edo contenttype/document."
+
+#: cs/megamenu/validators/validation.py:35
+#: cs/megamenu/widgets/menu.py:108
+msgid "Use an http(s), mailto, or tel URL."
+msgstr "Erabili http(s), mailto edo tel URL bat."
+
+#: cs/megamenu/validators/validation.py:46
+#: cs/megamenu/widgets/menu.py:99
+msgid "Use at most 200 characters."
+msgstr "Erabili gehienez 200 karaktere."
+
+#: cs/megamenu/widgets/menu.py:45
+msgid "Use inherited menu"
+msgstr "Erabili heredatutako menua"
+
+#: cs/megamenu/validators/validation.py:36
+#: cs/megamenu/widgets/menu.py:100
+msgid "Use only letters, numbers, hyphens, and underscores, separated by single spaces."
+msgstr "Erabili soilik letrak, zenbakiak, marratxoak eta azpimarrak, zuriune bakar batez banatuta."
+
+#: cs/megamenu/widgets/menu.py:92
+msgid "child"
+msgstr "seme-alaba"
+
+#: cs/megamenu/widgets/menu.py:93
+msgid "children"
+msgstr "seme-alabak"
+
+#: cs/megamenu/profiles.zcml:14
+msgid "cs.megamenu: Install"
+msgstr "cs.megamenu: Instalatu"
+
+#: cs/megamenu/profiles.zcml:22
+msgid "cs.megamenu: Uninstall"
+msgstr "cs.megamenu: Desinstalatu"
+
+#: cs/megamenu/widgets/menu.py:65
+msgid "e.g. alarm or contenttype/document"
+msgstr "adib. alarm edo contenttype/document"
+
+#: cs/megamenu/widgets/menu.py:64
+msgid "e.g. nav-products"
+msgstr "adib. nav-products"
+
+#: cs/megamenu/widgets/menu.py:86
+msgid "{count} validation error(s)"
+msgstr "{count} balidazio-errore"

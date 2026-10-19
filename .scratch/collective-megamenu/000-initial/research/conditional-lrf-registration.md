@@ -1,4 +1,4 @@
-# Conditional `LRF` behavior registration for `collective.megamenu`
+# Conditional `LRF` behavior registration for `cs.megamenu`
 
 Research for [ticket 02](../issues/02-conditional-lrf-registration.md). Baseline: Plone 6.2.2, `plone.app.multilingual` 9.0.2, `Products.GenericSetup` 5.2, `Products.CMFCore` 3.8, `plone.dexterity` 4.0.0, `plone.behavior` 3.0.1. Version pins: <https://dist.plone.org/release/6.2.2/constraints.txt>.
 
@@ -68,7 +68,7 @@ A second profile (for example `profiles/lrf`) with the same `types/LRF.xml` work
 ```xml
 <genericsetup:registerProfile
     name="lrf"
-    title="collective.megamenu: Language Root Folder support"
+    title="cs.megamenu: Language Root Folder support"
     description="Adds the editable menu behavior to plone.app.multilingual language root folders."
     provides="Products.GenericSetup.interfaces.EXTENSION"
     directory="profiles/lrf"
@@ -82,11 +82,11 @@ A Python step is defensible if you want an explicit log line and a single code p
 ```python
 from Products.CMFCore.utils import getToolByName
 
-BEHAVIOR = "collective.megamenu.behavior"
+BEHAVIOR = "cs.megamenu.behavior"
 
 
 def add_behavior_to_lrf(context):
-    if context.readDataFile("collective.megamenu_default.txt") is None:
+    if context.readDataFile("cs.megamenu_default.txt") is None:
         return
     portal = context.getSite()
     fti = getToolByName(portal, "portal_types").get("LRF")
@@ -102,9 +102,9 @@ Register it as a `<genericsetup:importStep>`:
 
 ```xml
 <genericsetup:importStep
-    name="collective.megamenu.lrf"
-    title="collective.megamenu: enable the behavior on LRF"
-    handler="collective.megamenu.setuphandlers.add_behavior_to_lrf"
+    name="cs.megamenu.lrf"
+    title="cs.megamenu: enable the behavior on LRF"
+    handler="cs.megamenu.setuphandlers.add_behavior_to_lrf"
     />
 ```
 
@@ -139,7 +139,7 @@ Sources:
 
 GenericSetup re-runs the `types` step. With `purge="false"` on the `behaviors` property, `_initProperties()` merges the existing tuple with the new elements and filters duplicates. Reapplying is idempotent.
 
-`purge` defaults to **true per property**, even when the profile is an EXTENSION profile and `shouldPurge()` is false for the whole object. Without `purge="false"`, the install XML would replace PAM's entire behavior list with only `collective.megamenu.behavior`.
+`purge` defaults to **true per property**, even when the profile is an EXTENSION profile and `shouldPurge()` is false for the whole object. Without `purge="false"`, the install XML would replace PAM's entire behavior list with only `cs.megamenu.behavior`.
 
 ### Reinstall
 
@@ -151,7 +151,7 @@ If LRF support is introduced after the addon has already shipped, bump the profi
 
 ```xml
 <genericsetup:upgradeSteps
-    profile="collective.megamenu:default"
+    profile="cs.megamenu:default"
     source="1000"
     destination="1001"
     >
@@ -172,8 +172,8 @@ This is the important gap. When PAM is installed, its profile creates the `LRF` 
 from Acquisition import aq_parent
 
 PAM_PROFILE = "plone.app.multilingual:default"
-OWN_PROFILE = "collective.megamenu:default"
-BEHAVIOR = "collective.megamenu.behavior"
+OWN_PROFILE = "cs.megamenu:default"
+BEHAVIOR = "cs.megamenu.behavior"
 
 
 def _normalize(profile_id):
@@ -214,7 +214,7 @@ Details that matter:
 - `getLastVersionForProfile()` returns `"unknown"` when this addon is not installed and strips a `profile-` prefix itself. Use it to avoid adding the behavior on sites that merely have the addon package in the Python path.
 - `event.tool` is `portal_setup`; it has no public `getSite()`. `aq_parent(setup)` returns the Plone site because `portal_setup` lives in the site root.
 - Do not use an `IObjectAddedEvent` subscriber on the `LRF` FTI as a late-install hook. PAM's `types/LRF.xml` imports its `behaviors` property without `purge="false"` and would overwrite a behavior added on FTI creation. `ProfileImportedEvent` fires after PAM's `types` step and post handler, so it is safe.
-- Site creation applies `extension_ids` in order. `collective.megamenu` can run before `plone.app.multilingual`, so the profile XML is skipped; the subscriber fixes this case.
+- Site creation applies `extension_ids` in order. `cs.megamenu` can run before `plone.app.multilingual`, so the profile XML is skipped; the subscriber fixes this case.
 
 ### PAM uninstall and reinstall
 
@@ -226,7 +226,7 @@ PAM's uninstall profile removes the `LRF` FTI entirely:
 </object>
 ```
 
-So when PAM is uninstalled, the behavior assignment disappears with the FTI. Uninstalling `collective.megamenu` afterwards is a silent no-op for LRF. If PAM is later reinstalled, a fresh `LRF` FTI is created with PAM's default behaviors; the `ProfileImportedEvent` subscriber re-adds the addon behavior, otherwise the site manager must reapply the addon profile.
+So when PAM is uninstalled, the behavior assignment disappears with the FTI. Uninstalling `cs.megamenu` afterwards is a silent no-op for LRF. If PAM is later reinstalled, a fresh `LRF` FTI is created with PAM's default behaviors; the `ProfileImportedEvent` subscriber re-adds the addon behavior, otherwise the site manager must reapply the addon profile.
 
 ### Uninstall behavior
 
@@ -236,7 +236,7 @@ Ship a separate file in the uninstall profile:
 <?xml version="1.0" encoding="utf-8"?>
 <object name="LRF" meta_type="Dexterity FTI">
   <property name="behaviors" purge="false">
-    <element value="collective.megamenu.behavior" remove="true" />
+    <element value="cs.megamenu.behavior" remove="true" />
   </property>
 </object>
 ```
@@ -288,7 +288,7 @@ Sources:
 - <https://github.com/plone/plone.behavior/blob/3.0.1/src/plone/behavior/annotation.py>
 - <https://github.com/plone/plone.dexterity/blob/4.0.0/src/plone/dexterity/content.py>
 
-## 6. Concrete files for `collective.megamenu`
+## 6. Concrete files for `cs.megamenu`
 
 `profiles/default/types/LRF.xml`:
 
@@ -297,7 +297,7 @@ Sources:
 <object name="LRF" meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <property name="behaviors" purge="false">
-    <element value="collective.megamenu.behavior" />
+    <element value="cs.megamenu.behavior" />
   </property>
 </object>
 ```
@@ -314,7 +314,7 @@ Sources:
 
 ```xml
 <plone:behavior
-    name="collective.megamenu.behavior"
+    name="cs.megamenu.behavior"
     title="Editable menu"
     description="A configurable menu tree"
     provides=".behaviors.menu.IEditableMenu"
@@ -327,7 +327,7 @@ Sources:
 <?xml version="1.0" encoding="utf-8"?>
 <object name="LRF" meta_type="Dexterity FTI">
   <property name="behaviors" purge="false">
-    <element value="collective.megamenu.behavior" remove="true" />
+    <element value="cs.megamenu.behavior" remove="true" />
   </property>
 </object>
 ```
@@ -367,5 +367,5 @@ Sources:
 ## 8. Open verification items
 
 1. Confirm on a real Plone 6.2.2 instance that the `ProfileImportedEvent` subscriber runs after PAM's `post_handler` and that `portal_types["LRF"]` is present. The source order says yes; verify with a test.
-2. Confirm that site creation with both addons selected applies `collective.megamenu` before `plone.app.multilingual` in the actual Classic UI form. The subscriber makes the order irrelevant, but the test should assert it.
+2. Confirm that site creation with both addons selected applies `cs.megamenu` before `plone.app.multilingual` in the actual Classic UI form. The subscriber makes the order irrelevant, but the test should assert it.
 3. Confirm that the behavior fields are exposed on LRF's `@@edit` form once the FTI behavior is added, and that existing LRFs created by `init_pam` pick it up without migration.

@@ -1,10 +1,10 @@
 # Linkintegrity support — Implementation Specification
 
-Implementation status: implemented in `src/collective/megamenu/linkintegrity/`.
+Implementation status: implemented in `src/cs/megamenu/linkintegrity/`.
 
 ## 1. Summary
 
-`collective.megamenu` stores internal menu targets as raw Plone UIDs in the
+`cs.megamenu` stores internal menu targets as raw Plone UIDs in the
 `menu` JSON field. `plone.app.linkintegrity` does not inspect that field, so
 deleting content referenced by a menu shows no warning. This specification adds
 a behavior-specific `IRetriever` adapter so menu UIDs participate in Plone's
@@ -57,7 +57,7 @@ with `getIncomingLinks(obj, from_attribute=None)` and shows the standard
 
 Dexterity content, including `Folder`, `LRF`, and `PloneSite`, provides
 `IDexterityHasRelations`. A schema-only behavior registers its interface as a
-marker, so objects with `collective.megamenu.menu` provide `IEditableMenu`.
+marker, so objects with `cs.megamenu.menu` provide `IEditableMenu`.
 
 ## 4. Integration design
 
@@ -92,7 +92,7 @@ copy that omission.
 ### 4.2 Module layout
 
 ```text
-src/collective/megamenu/linkintegrity/
+src/cs/megamenu/linkintegrity/
 ├── __init__.py          # empty; must not import menu.py
 ├── menu.py              # iter_menu_link_uids + MenuRetriever
 └── configure.zcml       # <adapter factory=".menu.MenuRetriever" />
@@ -112,7 +112,7 @@ Add the ZCML namespace to the top-level `configure.zcml`:
     xmlns="http://namespaces.zope.org/zope"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml"
-    i18n_domain="collective.megamenu"
+    i18n_domain="cs.megamenu"
     >
 ```
 
@@ -331,7 +331,7 @@ The relevant API is stable across the supported range:
 
 ### 8.5 Soft-dependency tests
 
-- Import `collective.megamenu` in an environment without
+- Import `cs.megamenu` in an environment without
   `plone.app.linkintegrity`; the package imports and menus render.
 - The addon `configure.zcml` uses
   `zcml:condition="installed plone.app.linkintegrity"`.

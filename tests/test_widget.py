@@ -1,6 +1,6 @@
-from collective.megamenu.behaviors.menu import IEditableMenu
-from collective.megamenu.widgets.menu import MegaMenuFieldWidget
-from collective.megamenu.widgets.menu import MegaMenuWidget
+from cs.megamenu.behaviors.menu import IEditableMenu
+from cs.megamenu.widgets.menu import MegaMenuFieldWidget
+from cs.megamenu.widgets.menu import MegaMenuWidget
 from plone.app.z3cform.interfaces import IPloneFormLayer
 from plone.autoform.interfaces import WIDGETS_KEY
 from plone.autoform.widgets import ParameterizedWidget
@@ -104,9 +104,9 @@ def test_bundle_registered(portal):
     registry = getUtility(IRegistry)
     bundle = registry.forInterface(
         IBundleRegistry,
-        prefix="plone.bundles/collective.megamenu",
+        prefix="plone.bundles/cs.megamenu",
     )
 
     assert bundle.enabled is True
-    assert bundle.jscompilation.endswith("collective.megamenu-remote.min.js")
+    assert bundle.jscompilation.endswith("cs.megamenu-remote.min.js")
     assert bundle.depends == "plone"

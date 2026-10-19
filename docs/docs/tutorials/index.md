@@ -1,10 +1,10 @@
 ---
 myst:
   html_meta:
-    "description": "collective.megamenu tutorial"
-    "property=og:description": "collective.megamenu tutorial"
-    "property=og:title": "collective.megamenu tutorial"
-    "keywords": "Plone, collective.megamenu, tutorial"
+    "description": "cs.megamenu tutorial"
+    "property=og:description": "cs.megamenu tutorial"
+    "property=og:title": "cs.megamenu tutorial"
+    "keywords": "Plone, cs.megamenu, tutorial"
 ---
 
 # Tutorial: create your first site menu 🚀
@@ -12,10 +12,10 @@ myst:
 ## Install the add-on 🚀
 
 ```shell
-pip install collective.megamenu
+pip install cs.megamenu
 ```
 
-Then install **collective.megamenu** from **Site Setup → Add-ons**.
+Then install **cs.megamenu** from **Site Setup → Add-ons**.
 
 ## Open the site root edit form ✏️
 

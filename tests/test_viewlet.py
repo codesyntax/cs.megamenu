@@ -1,4 +1,4 @@
-from collective.megamenu.viewlets.menu import MegaMenuViewlet
+from cs.megamenu.viewlets.menu import MegaMenuViewlet
 from plone import api
 from plone.app.testing import login
 from plone.app.testing import logout

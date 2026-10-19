@@ -1,16 +1,16 @@
 <div align="center">
-    <h1 align="center">collective.megamenu</h1>
+    <h1 align="center">cs.megamenu</h1>
 </div>
 <div align="center">
 
-[![PyPI](https://img.shields.io/pypi/v/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
-[![PyPI - Wheel](https://img.shields.io/pypi/wheel/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
-[![PyPI - License](https://img.shields.io/pypi/l/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
-[![PyPI - Status](https://img.shields.io/pypi/status/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
+[![PyPI](https://img.shields.io/pypi/v/cs.megamenu)](https://pypi.org/project/cs.megamenu/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/cs.megamenu)](https://pypi.org/project/cs.megamenu/)
+[![PyPI - Wheel](https://img.shields.io/pypi/wheel/cs.megamenu)](https://pypi.org/project/cs.megamenu/)
+[![PyPI - License](https://img.shields.io/pypi/l/cs.megamenu)](https://pypi.org/project/cs.megamenu/)
+[![PyPI - Status](https://img.shields.io/pypi/status/cs.megamenu)](https://pypi.org/project/cs.megamenu/)
 
 
-[![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/collective.megamenu)](https://pypi.org/project/collective.megamenu/)
+[![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/cs.megamenu)](https://pypi.org/project/cs.megamenu/)
 
 [![CI](https://github.com/collective/collective.megamenu/actions/workflows/main.yml/badge.svg)](https://github.com/collective/collective.megamenu/actions/workflows/main.yml)
 ![Code Style](https://img.shields.io/badge/Code%20Style-Ruff-000000)
@@ -107,8 +107,8 @@ with a configured menu supplies the menu for its descendants.
 
 When `plone.app.multilingual` is installed, the behavior is enabled on `LRF`.
 The add-on profile’s post-handler adds the behavior when the `LRF` type exists.
-If you install PAM **after** `collective.megamenu`, reapply the
-`collective.megamenu:default` profile.
+If you install PAM **after** `cs.megamenu`, reapply the
+`cs.megamenu:default` profile.
 
 ### Custom styling 🎨
 
@@ -142,7 +142,7 @@ npm run build
 ```
 
 The build writes the remote bundle and its chunks to
-`src/collective/megamenu/browser/static/bundles/`.
+`src/cs/megamenu/browser/static/bundles/`.
 
 Run the browser checks against a running Plone site:
 
@@ -158,12 +158,12 @@ make i18n
 
 ### Project layout
 
-- `src/collective/megamenu/behaviors/menu.py` — behavior schema and `menu` field.
-- `src/collective/megamenu/validators/` — form validator and semantic validation.
-- `src/collective/megamenu/widgets/` — master-detail editor widget and template.
-- `src/collective/megamenu/viewlets/menu.py` — main navigation viewlet.
-- `src/collective/megamenu/linkintegrity/` — menu reference tracking for Plone linkintegrity.
-- `src/collective/megamenu/browser/` — static assets and published bundles.
+- `src/cs/megamenu/behaviors/menu.py` — behavior schema and `menu` field.
+- `src/cs/megamenu/validators/` — form validator and semantic validation.
+- `src/cs/megamenu/widgets/` — master-detail editor widget and template.
+- `src/cs/megamenu/viewlets/menu.py` — main navigation viewlet.
+- `src/cs/megamenu/linkintegrity/` — menu reference tracking for Plone linkintegrity.
+- `src/cs/megamenu/browser/` — static assets and published bundles.
 - `resources/pat-megamenu/` — Patternslib editor source.
 
 ## Limitations ⚠️

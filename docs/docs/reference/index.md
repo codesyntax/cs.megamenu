@@ -1,18 +1,18 @@
 ---
 myst:
   html_meta:
-    "description": "collective.megamenu reference"
-    "property=og:description": "collective.megamenu reference"
-    "property=og:title": "collective.megamenu reference"
-    "keywords": "Plone, collective.megamenu, reference, JSON schema"
+    "description": "cs.megamenu reference"
+    "property=og:description": "cs.megamenu reference"
+    "property=og:title": "cs.megamenu reference"
+    "keywords": "Plone, cs.megamenu, reference, JSON schema"
 ---
 
 # Reference 📖
 
 ## Behavior field 🧩
 
-- Interface: `collective.megamenu.behaviors.menu.IEditableMenu`
-- Behavior name: `collective.megamenu.menu`
+- Interface: `cs.megamenu.behaviors.menu.IEditableMenu`
+- Behavior name: `cs.megamenu.menu`
 - Fieldset: `megamenu` (label **Mega menu**)
 - Field: `menu` (`plone.schema.JSONField`)
 - Default: `None` (inherit)
@@ -77,16 +77,16 @@ breakage” confirmation, naming the object that stores the menu.
 ## Viewlet 🧭
 
 - Replaces `plone.global_sections` in `plone.mainnavigation`.
-- Registered for `collective.megamenu.interfaces.IBrowserLayer`.
+- Registered for `cs.megamenu.interfaces.IBrowserLayer`.
 - Permissions: `zope2.View`.
 
 ## Bundle 📦
 
-- Registry prefix: `plone.bundles/collective.megamenu`
-- Compilation: `++plone++collective.megamenu/bundles/collective.megamenu-remote.min.js`
+- Registry prefix: `plone.bundles/cs.megamenu`
+- Compilation: `++plone++cs.megamenu/bundles/cs.megamenu-remote.min.js`
 - Depends on: `plone`
 
 ## Endpoints and assets 🔌
 
 - Content browser vocabulary: `@@getVocabulary?name=plone.app.vocabularies.Catalog`
-- Static assets: `++plone++collective.megamenu/`
+- Static assets: `++plone++cs.megamenu/`

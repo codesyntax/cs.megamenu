@@ -1,6 +1,6 @@
 """Selenium browser checks for the master-detail menu editor.
 
-These tests need a running Plone site with `collective.megamenu` installed.
+These tests need a running Plone site with `cs.megamenu` installed.
 Set `PLONE_URL` to run them; they are skipped otherwise.
 
 Example:

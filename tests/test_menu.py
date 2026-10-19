@@ -1,4 +1,4 @@
-from collective.megamenu.menu import get_menu
+from cs.megamenu.menu import get_menu
 from plone import api
 from plone.app.testing import login
 from plone.app.testing import logout

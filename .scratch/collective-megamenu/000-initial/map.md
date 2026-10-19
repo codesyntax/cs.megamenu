@@ -1,17 +1,17 @@
-# collective.megamenu — wayfinder map
+# cs.megamenu — wayfinder map
 
 > Status: route clear. The destination artifact is [spec.md](spec.md).
 
 ## Destination
 
-A build-ready spec in `.scratch/collective-megamenu/000-initial/spec.md` plus an implementation ticket breakdown for `collective.megamenu`: a Plone 6.2 Classic UI addon providing an `IEditableMenu` behavior (JSON menu tree) on Plone Site, LRF, and Folder, a Patternslib tree editor widget in the standard edit form, and a viewlet that replaces the main navigation with the nearest configured menu.
+A build-ready spec in `.scratch/collective-megamenu/000-initial/spec.md` plus an implementation ticket breakdown for `cs.megamenu`: a Plone 6.2 Classic UI addon providing an `IEditableMenu` behavior (JSON menu tree) on Plone Site, LRF, and Folder, a Patternslib tree editor widget in the standard edit form, and a viewlet that replaces the main navigation with the nearest configured menu.
 
 ## Notes
 
 - Domain: Plone 6.2 Classic UI, Python 3.10+, pytest-plone. No Volto/headless.
 - Skills every session should consult: `plone-expert-developer`, `grilling`, `domain-modeling`, and `tdd` when implementation starts.
 - Tracker: local markdown under `.scratch/collective-megamenu/000-initial/`. No remote or tracker is configured.
-- Package rename: the repo currently says `collective.editablemenu`; the destination is `collective.megamenu`. Both PyPI and `collective/collective.megamenu` were free when checked on 2026-10-17.
+- Package rename: the repo currently says `collective.editablemenu`; the destination is `cs.megamenu`. Both PyPI and `collective/collective.megamenu` were free when checked on 2026-10-17.
 - Research asset: [`research/plone-6.2-apis.md`](research/plone-6.2-apis.md).
 
 ### Foundation decisions from charting

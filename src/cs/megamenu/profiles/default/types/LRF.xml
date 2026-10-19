@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object meta_type="Dexterity FTI"
+        name="LRF"
+>
+  <property name="behaviors"
+            purge="false"
+  >
+    <element value="cs.megamenu.menu" />
+  </property>
+</object>

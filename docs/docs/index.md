@@ -3,13 +3,13 @@ myst:
   html_meta:
     "description": "An editable, JSON-backed megamenu for Plone 6 Classic UI."
     "property=og:description": "An editable, JSON-backed megamenu for Plone 6 Classic UI."
-    "property=og:title": "collective.megamenu"
-    "keywords": "collective.megamenu, Plone, Classic UI, navigation, menu"
+    "property=og:title": "cs.megamenu"
+    "keywords": "cs.megamenu, Plone, Classic UI, navigation, menu"
 ---
 
-# collective.megamenu
+# cs.megamenu
 
-`collective.megamenu` adds an editable menu to Plone 6 Classic UI. The menu is
+`cs.megamenu` adds an editable menu to Plone 6 Classic UI. The menu is
 stored as JSON on a content object, edited with a tree widget in the standard
 edit form, and rendered by a viewlet that replaces Plone’s main navigation.
 

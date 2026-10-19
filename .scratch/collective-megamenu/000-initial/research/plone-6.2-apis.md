@@ -1,4 +1,4 @@
-# Plone 6.2 API constraints for `collective.megamenu`
+# Plone 6.2 API constraints for `cs.megamenu`
 
 Research for [ticket 01](../issues/01-plone-6.2-api-constraints.md). Baseline: Plone 6.2.2, `plone.schema` 3.0.0, `plone.app.z3cform` 5.0.2, `plone.app.layout` 6.0.2, `plonetheme.barceloneta` 4.1.1, `plone.staticresources` 3.0.9, `plone.app.uuid` 3.0.0.
 
@@ -73,7 +73,7 @@ profiles/default/types/LRF.xml
 <?xml version="1.0"?>
 <object name="Folder" meta_type="Dexterity FTI">
   <property name="behaviors" purge="false">
-    <element value="collective.megamenu.behavior" />
+    <element value="cs.megamenu.behavior" />
   </property>
 </object>
 ```
@@ -82,7 +82,7 @@ Behavior registration:
 
 ```xml
 <plone:behavior
-    name="collective.megamenu.behavior"
+    name="cs.megamenu.behavior"
     title="Editable menu"
     description="A configurable menu tree"
     provides=".behaviors.menu.IEditableMenu"
@@ -134,7 +134,7 @@ Recommended replacement: subclass `GlobalSectionsViewlet`, override the navigati
     name="plone.global_sections"
     manager="plone.app.layout.viewlets.interfaces.IMainNavigation"
     class=".viewlets.MegaMenuViewlet"
-    layer="collective.megamenu.interfaces.IMegaMenuLayer"
+    layer="cs.megamenu.interfaces.IMegaMenuLayer"
     permission="zope2.View"
     />
 ```
@@ -206,10 +206,10 @@ Register the addon bundle in `profiles/default/registry/bundles.xml`:
 <registry>
   <records
       interface="plone.base.interfaces.IBundleRegistry"
-      prefix="plone.bundles/collective.megamenu">
+      prefix="plone.bundles/cs.megamenu">
     <value key="enabled">True</value>
-    <value key="jscompilation">++plone++collective.megamenu/bundles/collective.megamenu-remote.min.js</value>
-    <value key="csscompilation">++plone++collective.megamenu/bundles/collective.megamenu.min.css</value>
+    <value key="jscompilation">++plone++cs.megamenu/bundles/cs.megamenu-remote.min.js</value>
+    <value key="csscompilation">++plone++cs.megamenu/bundles/cs.megamenu.min.css</value>
     <value key="depends">plone</value>
     <value key="load_async">False</value>
     <value key="load_defer">False</value>
@@ -217,7 +217,7 @@ Register the addon bundle in `profiles/default/registry/bundles.xml`:
 </registry>
 ```
 
-- Static files live under `browser/static/bundles/` and are served as `++plone++collective.megamenu/...`.
+- Static files live under `browser/static/bundles/` and are served as `++plone++cs.megamenu/...`.
 - `plone.staticresources` already ships Patternslib in the `plone` bundle, so the addon does not need to ship its own copy at runtime.
 - The addon's `package.json` should still declare `@patternslib/patternslib` (and usually `@plone/mockup`) so the webpack/module-federation build can share the modules.
 - After changing `bundles.xml`, reapply the addon profile or add an upgrade step; a restart alone does not re-import registry XML.
@@ -243,7 +243,7 @@ Sources:
 
 Other related addons are old or partial: `quintagroup.megamenu` (Plone 4 era), `collective.navigation` (WIP 2019), `4teamwork/ftw.dropdownmenu` (2015), `ida/adi.dropdownmenu` (2016), `medialog.dropdownmenu` (GitHub only, 2024), `collective.navigationtoggle` (2020), `collective.megadrop` (2013), `collective.sidebar` (sidebar, not main nav), `kenmanheimer/volto-navigation-dropdown` (Volto only).
 
-Naming: RedTurtle's PyPI project already owns the `collective.editablemenu` distribution name. The destination for this effort is `collective.megamenu`, which was free on PyPI and in the `collective` GitHub org when checked on 2026-10-17.
+Naming: RedTurtle's PyPI project already owns the `collective.editablemenu` distribution name. The destination for this effort is `cs.megamenu`, which was free on PyPI and in the `collective` GitHub org when checked on 2026-10-17.
 
 Sources:
 

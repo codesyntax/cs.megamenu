@@ -1,0 +1,33 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="cs.megamenu"
+    >
+
+  <genericsetup:registerProfile
+      name="default"
+      title="cs.megamenu: Install"
+      description="Package to configure a new cs.megamenu site"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/default"
+      post_handler=".setuphandlers.add_behavior_to_lrf"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="cs.megamenu: Uninstall"
+      description="Uninstall cs.megamenu setup."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/uninstall"
+      />
+
+  <!-- Hide Uninstall Profile-->
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="cs.megamenu"
+      />
+
+
+  <include package=".upgrades" />
+
+</configure>

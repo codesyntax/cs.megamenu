@@ -1,5 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
-# collective.megamenu build configuration file
+# cs.megamenu build configuration file
 
 
 # -- Path setup --------------------------------------------------------------
@@ -19,7 +19,7 @@ from plone_sphinx_theme import __version__
 
 # -- Project information -----------------------------------------------------
 
-project = "collective.megamenu"
+project = "cs.megamenu"
 author = "CodeSyntax"
 trademark_name = "collective"
 now = datetime.now()
@@ -181,7 +181,7 @@ html_theme_options = {
         # },
     ],
     "logo": {
-        "text": "collective.megamenu",
+        "text": "cs.megamenu",
     },
     "navigation_with_keys": True,
     "path_to_docs": "docs/docs",
@@ -290,7 +290,7 @@ mermaid_version = "11.2.0"
 ogp_site_url = "https://MY_READTHEDOCS_PROJECT_SLUG.readthedocs.io/"
 ogp_description_length = 200
 ogp_image = "https://MY_READTHEDOCS_PROJECT_SLUG/_static/MY_LOGO.svg"
-ogp_site_name = "collective.megamenu Documentation"
+ogp_site_name = "cs.megamenu Documentation"
 ogp_type = "website"
 ogp_custom_meta_tags = [
     '<meta property="og:locale" content="en_US" />',
@@ -325,7 +325,7 @@ tippy_props = {
 # -- Options for HTML help output -------------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "collective.megamenuDocumentation"
+htmlhelp_basename = "cs.megamenuDocumentation"
 
 
 # -- Options for LaTeX output -------------------------------------------------
@@ -335,8 +335,8 @@ htmlhelp_basename = "collective.megamenuDocumentation"
 latex_documents = [
     (
         "index",
-        "collective.megamenuDocumentation.tex",
-        "collective.megamenu Documentation",
+        "cs.megamenuDocumentation.tex",
+        "cs.megamenu Documentation",
         "collective community",
         "manual",
     ),

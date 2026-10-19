@@ -7,7 +7,7 @@ Labels: wayfinder:research
 
 ## Question
 
-Investigate how `collective.megamenu` should add menu `internal_uid` references to `plone.app.linkintegrity` on Plone 6.2.
+Investigate how `cs.megamenu` should add menu `internal_uid` references to `plone.app.linkintegrity` on Plone 6.2.
 
 Answer:
 

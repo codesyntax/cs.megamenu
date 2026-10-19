@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<registry>
+
+  <records interface="plone.base.interfaces.IBundleRegistry"
+           prefix="plone.bundles/cs.megamenu"
+  >
+    <value key="enabled">True</value>
+    <value key="jscompilation">++plone++cs.megamenu/bundles/cs.megamenu-remote.min.js</value>
+    <value key="depends">plone</value>
+    <value key="load_async">False</value>
+    <value key="load_defer">False</value>
+  </records>
+
+</registry>

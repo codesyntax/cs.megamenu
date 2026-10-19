@@ -1,10 +1,10 @@
-from collective.megamenu.setuphandlers import add_behavior_to_lrf
+from cs.megamenu.setuphandlers import add_behavior_to_lrf
 from plone.app.testing import applyProfile
 
 
 PAM_PROFILE = "plone.app.multilingual:default"
-OWN_PROFILE = "collective.megamenu:default"
-BEHAVIOR = "collective.megamenu.menu"
+OWN_PROFILE = "cs.megamenu:default"
+BEHAVIOR = "cs.megamenu.menu"
 
 
 def test_no_lrf_without_pam(portal):
@@ -13,8 +13,8 @@ def test_no_lrf_without_pam(portal):
 
 def test_pam_installed_before_addon_adds_behavior(portal, installer):
     applyProfile(portal, PAM_PROFILE)
-    installer.uninstall_product("collective.megamenu")
-    installer.install_product("collective.megamenu")
+    installer.uninstall_product("cs.megamenu")
+    installer.install_product("cs.megamenu")
 
     fti = portal.portal_types.get("LRF")
 
@@ -60,7 +60,7 @@ def test_post_handler_adds_behavior_idempotently(portal):
 
 def test_uninstall_removes_only_our_behavior(portal, installer):
     applyProfile(portal, PAM_PROFILE)
-    installer.uninstall_product("collective.megamenu")
+    installer.uninstall_product("cs.megamenu")
 
     fti = portal.portal_types.get("LRF")
 

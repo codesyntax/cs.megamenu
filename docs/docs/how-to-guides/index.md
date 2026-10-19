@@ -1,10 +1,10 @@
 ---
 myst:
   html_meta:
-    "description": "collective.megamenu how-to guides"
-    "property=og:description": "collective.megamenu how-to guides"
-    "property=og:title": "collective.megamenu how-to guides"
-    "keywords": "Plone, collective.megamenu, how-to, menu, navigation"
+    "description": "cs.megamenu how-to guides"
+    "property=og:description": "cs.megamenu how-to guides"
+    "property=og:title": "cs.megamenu how-to guides"
+    "keywords": "Plone, cs.megamenu, how-to, menu, navigation"
 ---
 
 # How-to guides 🛠️
@@ -77,12 +77,12 @@ Enable **Open in a new tab** if needed; the viewlet adds
 
 ## Enable LRF support 🌍
 
-Install `plone.app.multilingual` before or after `collective.megamenu`.
+Install `plone.app.multilingual` before or after `cs.megamenu`.
 
 - If PAM is installed before the add-on, the add-on profile enables the
   behavior on `LRF`.
 - If PAM is installed after the add-on, reapply the
-  `collective.megamenu:default` profile.
+  `cs.megamenu:default` profile.
 
 ## Build the editor assets 🧱
 
@@ -92,4 +92,4 @@ npm run build
 ```
 
 The remote bundle and chunks are written to
-`src/collective/megamenu/browser/static/bundles/`.
+`src/cs/megamenu/browser/static/bundles/`.

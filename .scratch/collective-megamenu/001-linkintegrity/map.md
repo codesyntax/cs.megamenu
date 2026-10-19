@@ -5,7 +5,7 @@ Status: route clear
 
 ## Destination
 
-A build-ready spec for tracking menu `internal_uid` references with `plone.app.linkintegrity`, so deleting content referenced by a menu shows Plone's standard linkintegrity warning. The destination artifact is [spec.md](spec.md), now implemented in `src/collective/megamenu/linkintegrity/`.
+A build-ready spec for tracking menu `internal_uid` references with `plone.app.linkintegrity`, so deleting content referenced by a menu shows Plone's standard linkintegrity warning. The destination artifact is [spec.md](spec.md), now implemented in `src/cs/megamenu/linkintegrity/`.
 
 ## Notes
 

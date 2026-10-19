@@ -1,10 +1,10 @@
 ---
 myst:
   html_meta:
-    "description": "collective.megamenu concepts"
-    "property=og:description": "collective.megamenu concepts"
-    "property=og:title": "collective.megamenu concepts"
-    "keywords": "Plone, collective.megamenu, concepts, menu, inheritance"
+    "description": "cs.megamenu concepts"
+    "property=og:description": "cs.megamenu concepts"
+    "property=og:title": "cs.megamenu concepts"
+    "keywords": "Plone, cs.megamenu, concepts, menu, inheritance"
 ---
 
 # Concepts 🧠

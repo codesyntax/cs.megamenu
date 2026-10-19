@@ -1,0 +1,19 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="cs.megamenu"
+    >
+
+  <include
+      package="plone.behavior"
+      file="meta.zcml"
+      />
+
+  <plone:behavior
+      name="cs.megamenu.menu"
+      title="Editable menu"
+      description="A configurable JSON-backed menu."
+      provides=".menu.IEditableMenu"
+      />
+
+</configure>
